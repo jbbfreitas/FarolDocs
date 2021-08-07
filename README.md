@@ -1,77 +1,111 @@
 # FarolDocs
 
-This application was generated using JHipster 7.1.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.1.0](https://www.jhipster.tech/documentation-archive/v7.1.0).
+Esta aplicação foi gerada usando o JHipster 7.1.0, você pode encontrar documentação e ajuda em [https://www.jhipster.tech/documentation-archive/v7.1.0](https://www.jhipster.tech/documentation-archive/v7.1.0).
 
-## Development
+## Antes de começar
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+Antes de fazer o build deste projeto, certifique-se que você preparou adequadamente o ambiente:
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+1. Instalar a versão 11 fo JDK Java. [Baixar o Java JDK 11](https://www.oracle.com/br/java/technologies/javase-jdk11-downloads.html).
 
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
-
-```
-npm install
-```
-
-We use npm scripts and [Angular CLI][] with [Webpack][] as our build system.
-
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
+2. Instalar o Maven versão 3.8+. [Baixar o Maven](https://maven.apache.org/download.cgi).
+3. Instalar o gerenciador de pacotes npm 
 
 ```
-./mvnw
-npm start
+$ npm install latest-version
 ```
 
-Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
+4. [Node.js](https://nodejs.org/en/): O Node será utilizado para executar o lado cliente da aplicação, que está escrito em Angular, e também é usado para construir o próprio projeto.    
 
-The `npm run` command will list all of the scripts available to run for this project.
 
-### PWA Support
-
-JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.
-
-The service worker initialization code is disabled by default. To enable it, uncomment the following code in `src/main/webapp/app/app.module.ts`:
-
-```typescript
-ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-```
-
-### Managing dependencies
-
-For example, to add [Leaflet][] library as a runtime dependency of your application, you would run following command:
+5. Instalar o JHipster
 
 ```
-npm install --save --save-exact leaflet
+$ npm install -g generator-jhipster
 ```
 
-To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run following command:
+6. Instalar o Docker Composer. O docker composer será utilizado para criar um servidor elasticSearch. [insstalar o Docker Composer](https://docs.docker.com/)
+
+
+## Como a aplicação inicial foi gerada
+
+O jhipster é um aplicativo de linha de comando para excutá-lo digite 
 
 ```
-npm install --save-dev --save-exact @types/leaflet
+$ jhipster
+```
+e em seguida responsa às perguntas, conforme modelo abaixo.
+
+ Which *type* of application would you like to create? Monolithic application (recommended for simple projects)
+? What is the base name of your application? FarolDocs
+? Do you want to make it reactive with Spring WebFlux? No
+? What is your default Java package name? br.com.dev4u.faroldocs
+? Which *type* of authentication would you like to use? JWT authentication (stateless, with a token)
+? Which *type* of database would you like to use? SQL (H2, PostgreSQL, MySQL, MariaDB, Oracle, MSSQL)
+? Which *production* database would you like to use? PostgreSQL
+? Which *development* database would you like to use? PostgreSQL
+? Which cache do you want to use? (Spring cache abstraction) Ehcache (local cache, for a single node)
+? Do you want to use Hibernate 2nd level cache? Yes
+? Would you like to use Maven or Gradle for building the backend? Maven
+? Do you want to use the JHipster Registry to configure, monitor and scale your application? No
+? Which other technologies would you like to use? Elasticsearch as search engine
+? Which *Framework* would you like to use for the client? Angular
+? Do you want to generate the admin UI? Yes
+? Would you like to use a Bootswatch theme (https://bootswatch.com/)? Default JHipster
+? Would you like to enable internationalization support? Yes
+? Please choose the native language of the application Portuguese (Brazilian)
+? Please choose additional languages to install English
+? Besides JUnit and Jest, which testing frameworks would you like to use? 
+? Would you like to install other generators from the JHipster Marketplace? (y/N) 
+
+
+## Criando um banco de dados no PostGresql
+
+1. Instale o PostGresql conforme seu SO [Baixar o Postgresql](https://www.postgresql.org/download/)
+
+2. Instale o PGadmin conforme seu SO [Baixar o PGAdmin](https://www.pgadmin.org/download/)
+
+3. Crie com o auxílio do PGadmin, um usuario denominado `farol`, concedendo as permissoes de admin
+
+4. Crie com o auxílio do PGadmin, um banco de dados denominado `FarolDocs`, cujo `owner`é o usuário `farol`.
+
+## Executando a aplicação pela primeira vez
+
+Antes de executar a aplicação você deve fazer duas coisas:
+
+1. Criar o servidor para o elastic search usando o docker composer. Execute a seguinte linha no shell de comandos. 
+
+```
+$ docker-compose -f src/main/docker/elasticsearch.yml up -d
 ```
 
-Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
-Edit [src/main/webapp/app/app.module.ts](src/main/webapp/app/app.module.ts) file:
+2. Alterar o arquivo application-dev.yml, conforme abaixo:
 
 ```
-import 'leaflet/dist/leaflet.js';
+datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/FarolDocs
+    username: farol
+    password: <coloque a senha para o usuário criado por vc>
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+
+```
+Executar o maven para compilar, empacotar e executar a aplicação
+
+```
+$ mvn
 ```
 
-Edit [src/main/webapp/content/scss/vendor.scss](src/main/webapp/content/scss/vendor.scss) file:
+Abrir o navegador e digitar a seguinte url
 
 ```
-@import '~leaflet/dist/leaflet.css';
+http://localhost:8080
 ```
 
-Note: There are still a few other things remaining to do for Leaflet that we won't detail here.
 
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
+
 
 ### Using Angular CLI
 
