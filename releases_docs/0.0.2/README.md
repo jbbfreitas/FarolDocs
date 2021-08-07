@@ -1,6 +1,7 @@
 ## Documentação da Realease 0.0.2
 
 Nesta release iremos criar a nossa primeira entidade, denominada `Documento`.
+Observe que não estamos preocupados em normalização, nem com validação, pois a idéia é criar as melhorias passo a passo.
 
 Para isto digite:
 
@@ -27,6 +28,14 @@ Responda às seguintes questões, conforme abaixo:
 ? Do you want pagination and sorting on your entity? Yes, with infinite scroll and sorting headers
 ````
 
+Execute a aplicação com:
 
+```
+$ mvn 
+```
+
+Teste todas as suas funcionalidades.
+
+Atualize o índice do ElasticSearch, editando todos os documentos e salvando. Não se preocupe que, posteriomente, iremos fazer uma rotina de atualização automática.
 
 
