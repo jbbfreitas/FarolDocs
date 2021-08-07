@@ -42,6 +42,8 @@
     "devServerPort": 4200,
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
-    "languages": ["pt-br", "en"]
+    "languages": ["pt-br", "en"],
+    "lastLiquibaseTimestamp": 1628375054000,
+    "entities": ["Documento"]
   }
 }

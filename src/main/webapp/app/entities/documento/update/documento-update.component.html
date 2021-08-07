@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-documento-heading" data-cy="DocumentoCreateUpdateHeading" jhiTranslate="farolDocsApp.documento.home.createOrEditLabel">
+        Create or edit a Documento
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.projeto" for="field_projeto">Projeto</label>
+          <input type="text" class="form-control" name="projeto" id="field_projeto" data-cy="projeto" formControlName="projeto" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.assunto" for="field_assunto">Assunto</label>
+          <input type="text" class="form-control" name="assunto" id="field_assunto" data-cy="assunto" formControlName="assunto" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.descricao" for="field_descricao">Descricao</label>
+          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.etiqueta" for="field_etiqueta">Etiqueta</label>
+          <input type="text" class="form-control" name="etiqueta" id="field_etiqueta" data-cy="etiqueta" formControlName="etiqueta" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.url" for="field_url">Url</label>
+          <input type="text" class="form-control" name="url" id="field_url" data-cy="url" formControlName="url" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
