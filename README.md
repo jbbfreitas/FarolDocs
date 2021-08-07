@@ -37,24 +37,46 @@ $ jhipster
 e em seguida responsa às perguntas, conforme modelo abaixo.
 
  Which *type* of application would you like to create? Monolithic application (recommended for simple projects)
+
 ? What is the base name of your application? FarolDocs
+
 ? Do you want to make it reactive with Spring WebFlux? No
+
 ? What is your default Java package name? br.com.dev4u.faroldocs
-? Which *type* of authentication would you like to use? JWT authentication (stateless, with a token)
-? Which *type* of database would you like to use? SQL (H2, PostgreSQL, MySQL, MariaDB, Oracle, MSSQL)
+
+? Which *type* of authentication would you like to use? JWT authentication (stateless, 
+with a token)
+
+? Which *type* of database would you like to use? SQL (H2, PostgreSQL, MySQL, MariaDB, 
+Oracle, MSSQL)
+
 ? Which *production* database would you like to use? PostgreSQL
+
 ? Which *development* database would you like to use? PostgreSQL
-? Which cache do you want to use? (Spring cache abstraction) Ehcache (local cache, for a single node)
+
+? Which cache do you want to use? (Spring cache abstraction) Ehcache (local cache, for 
+a single node)
+
 ? Do you want to use Hibernate 2nd level cache? Yes
+
 ? Would you like to use Maven or Gradle for building the backend? Maven
+
 ? Do you want to use the JHipster Registry to configure, monitor and scale your application? No
+
 ? Which other technologies would you like to use? Elasticsearch as search engine
+
 ? Which *Framework* would you like to use for the client? Angular
+
 ? Do you want to generate the admin UI? Yes
+
 ? Would you like to use a Bootswatch theme (https://bootswatch.com/)? Default JHipster
+
 ? Would you like to enable internationalization support? Yes
+
 ? Please choose the native language of the application Portuguese (Brazilian)
+
 ? Please choose additional languages to install English
+
 ? Besides JUnit and Jest, which testing frameworks would you like to use? 
 ? Would you like to install other generators from the JHipster Marketplace? (y/N) 
 
