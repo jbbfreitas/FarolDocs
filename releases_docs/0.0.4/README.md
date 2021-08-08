@@ -202,10 +202,10 @@ Para excluir as duas ultimas linhas da tabela `databasechangelog`, no PGAdmin se
 select * from databasechangelog;
 ```
 
-Anote o valor do campo `orderexecuted` e em seguida digite:
+Anote o valor do conteúdo do campo `orderexecuted` na penúltima linha :
 
 ```
-delete from databasechangelog where orderexecuted >= **coloque aqui o penúltimo valor do campo orderexecuted**;
+delete from databasechangelog where orderexecuted >= **coloque aqui o  valor anotado por você**;
 
 select * from databasechangelog;
 
