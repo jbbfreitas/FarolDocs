@@ -19,7 +19,7 @@ situacao: Enum com os seguintes tipos: INICIADO, PAUSADO, CANCELADO, FINALIZADO
 
 ## Implementando as mudanças
 
-Poderíamos fazer todas essas mudanças diretamente no código fonte. Essa opção, entretanto, seria muito trabalhosa pois teríamos que alterar as várias clásses Java e também as várias classes do Angular. 
+Poderíamos fazer todas essas mudanças diretamente no código fonte. Essa opção, entretanto, seria muito trabalhosa pois teríamos que alterar as várias classes Java e também as várias classes do Angular.
 
 Para implementar as mudanças com um mínimo de intervenção vamos deixar o jhipster trabalhar por nós.
 
@@ -56,6 +56,10 @@ Observe que o tipo do campo é BLOB e CLOB pois queremos poder armazenar um text
 
 3. Criando a entidade `Projeto`
 
+::: :pushpin: Importante :::
+
+Neste tópico, preste atenção nas letras MAIÚCULAS e minúsculas, pois o Java é `Case Sensitive`  
+
 ```
 $ jhipster entity Projeto
 ```
@@ -89,6 +93,7 @@ Generating field #3
 ? What is the type of your field? Instant
 ? Do you want to add validation rules to your field? No
 ```
+
 
 ```
 Generating field #4
@@ -177,7 +182,11 @@ Generating relationships to other entities
 
 5. Como fizemos várias alterações na entidade `Documento` teremos que fazer duas intervenções no banco de dados.
 
-- Excluir a tabela documento. Atenção em um projeto grande com dados já inseridos na tabela, lembre-se de preservar os seus dados antes de excluir a tabela. Uma sugestão é criar uma tabela temporária (uma cópia da tabela Documento) para depois fazer um comando `insert from`.
+- Excluir a tabela `Documento` no banco de dados. Isso é necessário para que o `liquibase` recrie a tabela com os campos conforme nossa alteração. 
+
+::: :pushpin:  Importante :::
+
+> Atenção em um projeto grande com dados já inseridos na tabela, lembre-se de preservar  os seus dados antes de excluir a tabela. Uma sugestão é criar uma tabela temporária (uma cópia da tabela Documento) para depois fazer um comando `insert from`.
 
 Para excluir a tabela Documento, no PGAdmin selecione o menu Tools|Query Tools e depois digite:
 
