@@ -1,10 +1,6 @@
 {
   "fields": [
     {
-      "fieldName": "projeto",
-      "fieldType": "String"
-    },
-    {
       "fieldName": "assunto",
       "fieldType": "String"
     },
@@ -19,9 +15,21 @@
     {
       "fieldName": "url",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "ementa",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "projeto",
+      "otherEntityName": "projeto",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "nome"
+    }
+  ],
   "service": "serviceImpl",
   "dto": "no",
   "jpaMetamodelFiltering": false,

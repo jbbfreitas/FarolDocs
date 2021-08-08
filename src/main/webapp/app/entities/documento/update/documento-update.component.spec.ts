@@ -9,6 +9,8 @@ import { of, Subject } from 'rxjs';
 
 import { DocumentoService } from '../service/documento.service';
 import { IDocumento, Documento } from '../documento.model';
+import { IProjeto } from 'app/entities/projeto/projeto.model';
+import { ProjetoService } from 'app/entities/projeto/service/projeto.service';
 
 import { DocumentoUpdateComponent } from './documento-update.component';
 
@@ -18,6 +20,7 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<DocumentoUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let documentoService: DocumentoService;
+    let projetoService: ProjetoService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -31,18 +34,41 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(DocumentoUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       documentoService = TestBed.inject(DocumentoService);
+      projetoService = TestBed.inject(ProjetoService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
+      it('Should call Projeto query and add missing value', () => {
+        const documento: IDocumento = { id: 456 };
+        const projeto: IProjeto = { id: 36456 };
+        documento.projeto = projeto;
+
+        const projetoCollection: IProjeto[] = [{ id: 29048 }];
+        jest.spyOn(projetoService, 'query').mockReturnValue(of(new HttpResponse({ body: projetoCollection })));
+        const additionalProjetos = [projeto];
+        const expectedCollection: IProjeto[] = [...additionalProjetos, ...projetoCollection];
+        jest.spyOn(projetoService, 'addProjetoToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+        activatedRoute.data = of({ documento });
+        comp.ngOnInit();
+
+        expect(projetoService.query).toHaveBeenCalled();
+        expect(projetoService.addProjetoToCollectionIfMissing).toHaveBeenCalledWith(projetoCollection, ...additionalProjetos);
+        expect(comp.projetosSharedCollection).toEqual(expectedCollection);
+      });
+
       it('Should update editForm', () => {
         const documento: IDocumento = { id: 456 };
+        const projeto: IProjeto = { id: 29505 };
+        documento.projeto = projeto;
 
         activatedRoute.data = of({ documento });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(documento));
+        expect(comp.projetosSharedCollection).toContain(projeto);
       });
     });
 
@@ -107,6 +133,16 @@ describe('Component Tests', () => {
         expect(documentoService.update).toHaveBeenCalledWith(documento);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('Tracking relationships identifiers', () => {
+      describe('trackProjetoById', () => {
+        it('Should return tracked Projeto primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackProjetoById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
       });
     });
   });

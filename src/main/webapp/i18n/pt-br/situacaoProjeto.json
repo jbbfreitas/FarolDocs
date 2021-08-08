@@ -1,0 +1,11 @@
+{
+  "farolDocsApp": {
+    "SituacaoProjeto": {
+      "null": "",
+      "INICIADO": "INICIADO",
+      "PAUSADO": "PAUSADO",
+      "CANCELADO": "CANCELADO",
+      "FINALIZADO": "FINALIZADO"
+    }
+  }
+}

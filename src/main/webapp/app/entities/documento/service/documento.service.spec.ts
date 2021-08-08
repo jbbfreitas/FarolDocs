@@ -22,11 +22,11 @@ describe('Service Tests', () => {
 
       elemDefault = {
         id: 0,
-        projeto: 'AAAAAAA',
         assunto: 'AAAAAAA',
         descricao: 'AAAAAAA',
         etiqueta: 'AAAAAAA',
         url: 'AAAAAAA',
+        ementa: 'AAAAAAA',
       };
     });
 
@@ -62,11 +62,11 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
-            projeto: 'BBBBBB',
             assunto: 'BBBBBB',
             descricao: 'BBBBBB',
             etiqueta: 'BBBBBB',
             url: 'BBBBBB',
+            ementa: 'BBBBBB',
           },
           elemDefault
         );
@@ -83,7 +83,7 @@ describe('Service Tests', () => {
       it('should partial update a Documento', () => {
         const patchObject = Object.assign(
           {
-            descricao: 'BBBBBB',
+            etiqueta: 'BBBBBB',
           },
           new Documento()
         );
@@ -103,11 +103,11 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
-            projeto: 'BBBBBB',
             assunto: 'BBBBBB',
             descricao: 'BBBBBB',
             etiqueta: 'BBBBBB',
             url: 'BBBBBB',
+            ementa: 'BBBBBB',
           },
           elemDefault
         );

@@ -8,6 +8,7 @@ import { IDocumento } from '../documento.model';
 import { ASC, DESC, ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { DocumentoService } from '../service/documento.service';
 import { DocumentoDeleteDialogComponent } from '../delete/documento-delete-dialog.component';
+import { DataUtils } from 'app/core/util/data-util.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @Component({
@@ -26,6 +27,7 @@ export class DocumentoComponent implements OnInit {
 
   constructor(
     protected documentoService: DocumentoService,
+    protected dataUtils: DataUtils,
     protected modalService: NgbModal,
     protected parseLinks: ParseLinks,
     protected activatedRoute: ActivatedRoute
@@ -114,6 +116,14 @@ export class DocumentoComponent implements OnInit {
 
   trackId(index: number, item: IDocumento): number {
     return item.id!;
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    return this.dataUtils.openFile(base64String, contentType);
   }
 
   delete(documento: IDocumento): void {

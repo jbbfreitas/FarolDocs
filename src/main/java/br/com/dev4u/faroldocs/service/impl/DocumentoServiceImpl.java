@@ -48,9 +48,6 @@ public class DocumentoServiceImpl implements DocumentoService {
             .findById(documento.getId())
             .map(
                 existingDocumento -> {
-                    if (documento.getProjeto() != null) {
-                        existingDocumento.setProjeto(documento.getProjeto());
-                    }
                     if (documento.getAssunto() != null) {
                         existingDocumento.setAssunto(documento.getAssunto());
                     }
@@ -62,6 +59,9 @@ public class DocumentoServiceImpl implements DocumentoService {
                     }
                     if (documento.getUrl() != null) {
                         existingDocumento.setUrl(documento.getUrl());
+                    }
+                    if (documento.getEmenta() != null) {
+                        existingDocumento.setEmenta(documento.getEmenta());
                     }
 
                     return existingDocumento;

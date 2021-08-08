@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
@@ -22,9 +23,6 @@ public class Documento implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "projeto")
-    private String projeto;
-
     @Column(name = "assunto")
     private String assunto;
 
@@ -36,6 +34,14 @@ public class Documento implements Serializable {
 
     @Column(name = "url")
     private String url;
+
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "ementa")
+    private String ementa;
+
+    @ManyToOne
+    private Projeto projeto;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -49,19 +55,6 @@ public class Documento implements Serializable {
     public Documento id(Long id) {
         this.id = id;
         return this;
-    }
-
-    public String getProjeto() {
-        return this.projeto;
-    }
-
-    public Documento projeto(String projeto) {
-        this.projeto = projeto;
-        return this;
-    }
-
-    public void setProjeto(String projeto) {
-        this.projeto = projeto;
     }
 
     public String getAssunto() {
@@ -116,6 +109,32 @@ public class Documento implements Serializable {
         this.url = url;
     }
 
+    public String getEmenta() {
+        return this.ementa;
+    }
+
+    public Documento ementa(String ementa) {
+        this.ementa = ementa;
+        return this;
+    }
+
+    public void setEmenta(String ementa) {
+        this.ementa = ementa;
+    }
+
+    public Projeto getProjeto() {
+        return this.projeto;
+    }
+
+    public Documento projeto(Projeto projeto) {
+        this.setProjeto(projeto);
+        return this;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -140,11 +159,11 @@ public class Documento implements Serializable {
     public String toString() {
         return "Documento{" +
             "id=" + getId() +
-            ", projeto='" + getProjeto() + "'" +
             ", assunto='" + getAssunto() + "'" +
             ", descricao='" + getDescricao() + "'" +
             ", etiqueta='" + getEtiqueta() + "'" +
             ", url='" + getUrl() + "'" +
+            ", ementa='" + getEmenta() + "'" +
             "}";
     }
 }

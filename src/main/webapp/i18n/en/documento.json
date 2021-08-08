@@ -19,11 +19,12 @@
         "title": "Documento"
       },
       "id": "ID",
-      "projeto": "Projeto",
       "assunto": "Assunto",
       "descricao": "Descricao",
       "etiqueta": "Etiqueta",
-      "url": "Url"
+      "url": "Url",
+      "ementa": "Ementa",
+      "projeto": "Projeto"
     }
   }
 }

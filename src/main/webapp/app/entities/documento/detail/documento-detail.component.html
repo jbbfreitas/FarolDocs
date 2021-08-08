@@ -14,10 +14,6 @@
         <dd>
           <span>{{ documento.id }}</span>
         </dd>
-        <dt><span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span></dt>
-        <dd>
-          <span>{{ documento.projeto }}</span>
-        </dd>
         <dt><span jhiTranslate="farolDocsApp.documento.assunto">Assunto</span></dt>
         <dd>
           <span>{{ documento.assunto }}</span>
@@ -33,6 +29,16 @@
         <dt><span jhiTranslate="farolDocsApp.documento.url">Url</span></dt>
         <dd>
           <span>{{ documento.url }}</span>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.ementa">Ementa</span></dt>
+        <dd>
+          <span>{{ documento.ementa }}</span>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span></dt>
+        <dd>
+          <div *ngIf="documento.projeto">
+            <a [routerLink]="['/projeto', documento.projeto?.id, 'view']">{{ documento.projeto?.nome }}</a>
+          </div>
         </dd>
       </dl>
 
