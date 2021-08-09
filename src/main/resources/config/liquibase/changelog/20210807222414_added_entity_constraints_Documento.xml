@@ -13,5 +13,11 @@
                                  constraintName="fk_documento__projeto_id"
                                  referencedColumnNames="id"
                                  referencedTableName="projeto"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_id"
+                                 baseTableName="documento"
+                                 constraintName="fk_documento__tipo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo"/>
     </changeSet>
 </databaseChangeLog>

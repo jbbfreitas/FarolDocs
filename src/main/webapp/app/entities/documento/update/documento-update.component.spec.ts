@@ -11,6 +11,8 @@ import { DocumentoService } from '../service/documento.service';
 import { IDocumento, Documento } from '../documento.model';
 import { IProjeto } from 'app/entities/projeto/projeto.model';
 import { ProjetoService } from 'app/entities/projeto/service/projeto.service';
+import { ITipo } from 'app/entities/tipo/tipo.model';
+import { TipoService } from 'app/entities/tipo/service/tipo.service';
 
 import { DocumentoUpdateComponent } from './documento-update.component';
 
@@ -21,6 +23,7 @@ describe('Component Tests', () => {
     let activatedRoute: ActivatedRoute;
     let documentoService: DocumentoService;
     let projetoService: ProjetoService;
+    let tipoService: TipoService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -35,6 +38,7 @@ describe('Component Tests', () => {
       activatedRoute = TestBed.inject(ActivatedRoute);
       documentoService = TestBed.inject(DocumentoService);
       projetoService = TestBed.inject(ProjetoService);
+      tipoService = TestBed.inject(TipoService);
 
       comp = fixture.componentInstance;
     });
@@ -59,16 +63,38 @@ describe('Component Tests', () => {
         expect(comp.projetosSharedCollection).toEqual(expectedCollection);
       });
 
+      it('Should call Tipo query and add missing value', () => {
+        const documento: IDocumento = { id: 456 };
+        const tipo: ITipo = { id: 4836 };
+        documento.tipo = tipo;
+
+        const tipoCollection: ITipo[] = [{ id: 49713 }];
+        jest.spyOn(tipoService, 'query').mockReturnValue(of(new HttpResponse({ body: tipoCollection })));
+        const additionalTipos = [tipo];
+        const expectedCollection: ITipo[] = [...additionalTipos, ...tipoCollection];
+        jest.spyOn(tipoService, 'addTipoToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+        activatedRoute.data = of({ documento });
+        comp.ngOnInit();
+
+        expect(tipoService.query).toHaveBeenCalled();
+        expect(tipoService.addTipoToCollectionIfMissing).toHaveBeenCalledWith(tipoCollection, ...additionalTipos);
+        expect(comp.tiposSharedCollection).toEqual(expectedCollection);
+      });
+
       it('Should update editForm', () => {
         const documento: IDocumento = { id: 456 };
         const projeto: IProjeto = { id: 29505 };
         documento.projeto = projeto;
+        const tipo: ITipo = { id: 99704 };
+        documento.tipo = tipo;
 
         activatedRoute.data = of({ documento });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(documento));
         expect(comp.projetosSharedCollection).toContain(projeto);
+        expect(comp.tiposSharedCollection).toContain(tipo);
       });
     });
 
@@ -141,6 +167,14 @@ describe('Component Tests', () => {
         it('Should return tracked Projeto primary key', () => {
           const entity = { id: 123 };
           const trackResult = comp.trackProjetoById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
+      });
+
+      describe('trackTipoById', () => {
+        it('Should return tracked Tipo primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackTipoById(0, entity);
           expect(trackResult).toEqual(entity.id);
         });
       });

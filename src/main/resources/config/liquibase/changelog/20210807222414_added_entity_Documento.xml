@@ -23,13 +23,16 @@
             <column name="etiqueta" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="url" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <column name="ementa" type="${clobType}">
                 <constraints nullable="true" />
             </column>
+            <column name="url" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="projeto_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="tipo_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -55,8 +58,8 @@
             <column name="assunto" type="string"/>
             <column name="descricao" type="string"/>
             <column name="etiqueta" type="string"/>
-            <column name="url" type="string"/>
             <column name="ementa" type="clob"/>
+            <column name="url" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -67,12 +67,15 @@
           <th scope="col" jhiSortBy="etiqueta">
             <span jhiTranslate="farolDocsApp.documento.etiqueta">Etiqueta</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="url"><span jhiTranslate="farolDocsApp.documento.url">Url</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="ementa">
             <span jhiTranslate="farolDocsApp.documento.ementa">Ementa</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="url"><span jhiTranslate="farolDocsApp.documento.url">Url</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="projeto.nome">
             <span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="tipo.nome">
+            <span jhiTranslate="farolDocsApp.documento.tipo">Tipo</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -85,11 +88,16 @@
           <td>{{ documento.assunto }}</td>
           <td>{{ documento.descricao }}</td>
           <td>{{ documento.etiqueta }}</td>
-          <td>{{ documento.url }}</td>
           <td>{{ documento.ementa }}</td>
+          <td>{{ documento.url }}</td>
           <td>
             <div *ngIf="documento.projeto">
               <a [routerLink]="['/projeto', documento.projeto?.id, 'view']">{{ documento.projeto?.nome }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="documento.tipo">
+              <a [routerLink]="['/tipo', documento.tipo?.id, 'view']">{{ documento.tipo?.nome }}</a>
             </div>
           </td>
           <td class="text-right">

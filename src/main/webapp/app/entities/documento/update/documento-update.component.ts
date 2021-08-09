@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -12,6 +12,8 @@ import { EventManager, EventWithContent } from 'app/core/util/event-manager.serv
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { IProjeto } from 'app/entities/projeto/projeto.model';
 import { ProjetoService } from 'app/entities/projeto/service/projeto.service';
+import { ITipo } from 'app/entities/tipo/tipo.model';
+import { TipoService } from 'app/entities/tipo/service/tipo.service';
 
 @Component({
   selector: 'jhi-documento-update',
@@ -21,15 +23,17 @@ export class DocumentoUpdateComponent implements OnInit {
   isSaving = false;
 
   projetosSharedCollection: IProjeto[] = [];
+  tiposSharedCollection: ITipo[] = [];
 
   editForm = this.fb.group({
     id: [],
     assunto: [],
     descricao: [],
     etiqueta: [],
-    url: [],
     ementa: [],
+    url: [null, [Validators.pattern('^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]')]],
     projeto: [],
+    tipo: [],
   });
 
   constructor(
@@ -37,6 +41,7 @@ export class DocumentoUpdateComponent implements OnInit {
     protected eventManager: EventManager,
     protected documentoService: DocumentoService,
     protected projetoService: ProjetoService,
+    protected tipoService: TipoService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -82,6 +87,10 @@ export class DocumentoUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackTipoById(index: number, item: ITipo): number {
+    return item.id!;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IDocumento>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
@@ -107,12 +116,14 @@ export class DocumentoUpdateComponent implements OnInit {
       assunto: documento.assunto,
       descricao: documento.descricao,
       etiqueta: documento.etiqueta,
-      url: documento.url,
       ementa: documento.ementa,
+      url: documento.url,
       projeto: documento.projeto,
+      tipo: documento.tipo,
     });
 
     this.projetosSharedCollection = this.projetoService.addProjetoToCollectionIfMissing(this.projetosSharedCollection, documento.projeto);
+    this.tiposSharedCollection = this.tipoService.addTipoToCollectionIfMissing(this.tiposSharedCollection, documento.tipo);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -123,6 +134,12 @@ export class DocumentoUpdateComponent implements OnInit {
         map((projetos: IProjeto[]) => this.projetoService.addProjetoToCollectionIfMissing(projetos, this.editForm.get('projeto')!.value))
       )
       .subscribe((projetos: IProjeto[]) => (this.projetosSharedCollection = projetos));
+
+    this.tipoService
+      .query()
+      .pipe(map((res: HttpResponse<ITipo[]>) => res.body ?? []))
+      .pipe(map((tipos: ITipo[]) => this.tipoService.addTipoToCollectionIfMissing(tipos, this.editForm.get('tipo')!.value)))
+      .subscribe((tipos: ITipo[]) => (this.tiposSharedCollection = tipos));
   }
 
   protected createFromForm(): IDocumento {
@@ -132,9 +149,10 @@ export class DocumentoUpdateComponent implements OnInit {
       assunto: this.editForm.get(['assunto'])!.value,
       descricao: this.editForm.get(['descricao'])!.value,
       etiqueta: this.editForm.get(['etiqueta'])!.value,
-      url: this.editForm.get(['url'])!.value,
       ementa: this.editForm.get(['ementa'])!.value,
+      url: this.editForm.get(['url'])!.value,
       projeto: this.editForm.get(['projeto'])!.value,
+      tipo: this.editForm.get(['tipo'])!.value,
     };
   }
 }

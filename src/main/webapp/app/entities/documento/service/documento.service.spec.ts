@@ -25,8 +25,8 @@ describe('Service Tests', () => {
         assunto: 'AAAAAAA',
         descricao: 'AAAAAAA',
         etiqueta: 'AAAAAAA',
-        url: 'AAAAAAA',
         ementa: 'AAAAAAA',
+        url: 'AAAAAAA',
       };
     });
 
@@ -65,8 +65,8 @@ describe('Service Tests', () => {
             assunto: 'BBBBBB',
             descricao: 'BBBBBB',
             etiqueta: 'BBBBBB',
-            url: 'BBBBBB',
             ementa: 'BBBBBB',
+            url: 'BBBBBB',
           },
           elemDefault
         );
@@ -106,8 +106,8 @@ describe('Service Tests', () => {
             assunto: 'BBBBBB',
             descricao: 'BBBBBB',
             etiqueta: 'BBBBBB',
-            url: 'BBBBBB',
             ementa: 'BBBBBB',
+            url: 'BBBBBB',
           },
           elemDefault
         );

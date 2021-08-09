@@ -1,0 +1,26 @@
+{
+  "farolDocsApp": {
+    "tipo": {
+      "home": {
+        "title": "Tipos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Tipo",
+        "createOrEditLabel": "Criar ou editar Tipo",
+        "search": "Pesquisar por Tipo",
+        "notFound": "Nenhum Tipo encontrado"
+      },
+      "created": "Um novo Tipo foi criado com o identificador {{ param }}",
+      "updated": "Um Tipo foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Tipo foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Tipo {{ id }}?"
+      },
+      "detail": {
+        "title": "Tipo"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "descricao": "Descricao"
+    }
+  }
+}

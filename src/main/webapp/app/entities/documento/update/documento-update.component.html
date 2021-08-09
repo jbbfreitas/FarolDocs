@@ -29,13 +29,23 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.url" for="field_url">Url</label>
-          <input type="text" class="form-control" name="url" id="field_url" data-cy="url" formControlName="url" />
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.ementa" for="field_ementa">Ementa</label>
+          <textarea class="form-control" name="ementa" id="field_ementa" data-cy="ementa" formControlName="ementa"></textarea>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.ementa" for="field_ementa">Ementa</label>
-          <textarea class="form-control" name="ementa" id="field_ementa" data-cy="ementa" formControlName="ementa"></textarea>
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.url" for="field_url">Url</label>
+          <input type="text" class="form-control" name="url" id="field_url" data-cy="url" formControlName="url" />
+          <div *ngIf="editForm.get('url')!.invalid && (editForm.get('url')!.dirty || editForm.get('url')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('url')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Url' }"
+            >
+              This field should follow pattern for "Url".
+            </small>
+          </div>
         </div>
 
         <div class="form-group">
@@ -47,6 +57,19 @@
               *ngFor="let projetoOption of projetosSharedCollection; trackBy: trackProjetoById"
             >
               {{ projetoOption.nome }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.tipo" for="field_tipo">Tipo</label>
+          <select class="form-control" id="field_tipo" data-cy="tipo" name="tipo" formControlName="tipo">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="tipoOption.id === editForm.get('tipo')!.value?.id ? editForm.get('tipo')!.value : tipoOption"
+              *ngFor="let tipoOption of tiposSharedCollection; trackBy: trackTipoById"
+            >
+              {{ tipoOption.nome }}
             </option>
           </select>
         </div>

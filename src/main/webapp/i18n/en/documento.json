@@ -22,9 +22,10 @@
       "assunto": "Assunto",
       "descricao": "Descricao",
       "etiqueta": "Etiqueta",
-      "url": "Url",
       "ementa": "Ementa",
-      "projeto": "Projeto"
+      "url": "Url",
+      "projeto": "Projeto",
+      "tipo": "Tipo"
     }
   }
 }

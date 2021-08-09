@@ -14,6 +14,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'farolDocsApp.projeto.home.title' },
         loadChildren: () => import('./projeto/projeto.module').then(m => m.ProjetoModule),
       },
+      {
+        path: 'tipo',
+        data: { pageTitle: 'farolDocsApp.tipo.home.title' },
+        loadChildren: () => import('./tipo/tipo.module').then(m => m.TipoModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

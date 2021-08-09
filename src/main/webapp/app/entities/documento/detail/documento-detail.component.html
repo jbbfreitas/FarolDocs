@@ -26,18 +26,24 @@
         <dd>
           <span>{{ documento.etiqueta }}</span>
         </dd>
-        <dt><span jhiTranslate="farolDocsApp.documento.url">Url</span></dt>
-        <dd>
-          <span>{{ documento.url }}</span>
-        </dd>
         <dt><span jhiTranslate="farolDocsApp.documento.ementa">Ementa</span></dt>
         <dd>
           <span>{{ documento.ementa }}</span>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.url">Url</span></dt>
+        <dd>
+          <span>{{ documento.url }}</span>
         </dd>
         <dt><span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span></dt>
         <dd>
           <div *ngIf="documento.projeto">
             <a [routerLink]="['/projeto', documento.projeto?.id, 'view']">{{ documento.projeto?.nome }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.tipo">Tipo</span></dt>
+        <dd>
+          <div *ngIf="documento.tipo">
+            <a [routerLink]="['/tipo', documento.tipo?.id, 'view']">{{ documento.tipo?.nome }}</a>
           </div>
         </dd>
       </dl>

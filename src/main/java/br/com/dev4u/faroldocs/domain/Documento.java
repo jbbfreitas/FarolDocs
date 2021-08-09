@@ -2,6 +2,7 @@ package br.com.dev4u.faroldocs.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -32,16 +33,20 @@ public class Documento implements Serializable {
     @Column(name = "etiqueta")
     private String etiqueta;
 
-    @Column(name = "url")
-    private String url;
-
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "ementa")
     private String ementa;
 
+    @Pattern(regexp = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]")
+    @Column(name = "url")
+    private String url;
+
     @ManyToOne
     private Projeto projeto;
+
+    @ManyToOne
+    private Tipo tipo;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -96,19 +101,6 @@ public class Documento implements Serializable {
         this.etiqueta = etiqueta;
     }
 
-    public String getUrl() {
-        return this.url;
-    }
-
-    public Documento url(String url) {
-        this.url = url;
-        return this;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getEmenta() {
         return this.ementa;
     }
@@ -122,6 +114,19 @@ public class Documento implements Serializable {
         this.ementa = ementa;
     }
 
+    public String getUrl() {
+        return this.url;
+    }
+
+    public Documento url(String url) {
+        this.url = url;
+        return this;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Projeto getProjeto() {
         return this.projeto;
     }
@@ -133,6 +138,19 @@ public class Documento implements Serializable {
 
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
+    }
+
+    public Tipo getTipo() {
+        return this.tipo;
+    }
+
+    public Documento tipo(Tipo tipo) {
+        this.setTipo(tipo);
+        return this;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -162,8 +180,8 @@ public class Documento implements Serializable {
             ", assunto='" + getAssunto() + "'" +
             ", descricao='" + getDescricao() + "'" +
             ", etiqueta='" + getEtiqueta() + "'" +
-            ", url='" + getUrl() + "'" +
             ", ementa='" + getEmenta() + "'" +
+            ", url='" + getUrl() + "'" +
             "}";
     }
 }

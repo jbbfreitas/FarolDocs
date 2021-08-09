@@ -13,19 +13,27 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "url",
-      "fieldType": "String"
-    },
-    {
       "fieldName": "ementa",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String",
+      "fieldValidateRules": ["pattern"],
+      "fieldValidateRulesPattern": "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"
     }
   ],
   "relationships": [
     {
       "relationshipName": "projeto",
       "otherEntityName": "projeto",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "nome"
+    },
+    {
+      "relationshipName": "tipo",
+      "otherEntityName": "tipo",
       "relationshipType": "many-to-one",
       "otherEntityField": "nome"
     }

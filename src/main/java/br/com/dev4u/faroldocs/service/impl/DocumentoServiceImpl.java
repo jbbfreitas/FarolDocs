@@ -57,11 +57,11 @@ public class DocumentoServiceImpl implements DocumentoService {
                     if (documento.getEtiqueta() != null) {
                         existingDocumento.setEtiqueta(documento.getEtiqueta());
                     }
-                    if (documento.getUrl() != null) {
-                        existingDocumento.setUrl(documento.getUrl());
-                    }
                     if (documento.getEmenta() != null) {
                         existingDocumento.setEmenta(documento.getEmenta());
+                    }
+                    if (documento.getUrl() != null) {
+                        existingDocumento.setUrl(documento.getUrl());
                     }
 
                     return existingDocumento;
