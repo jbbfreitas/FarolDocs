@@ -1,18 +1,18 @@
 ## Documentação da Realease 0.0.5
 
-Antes de começar, certifique-se de que o seu repositório esteja atualizado até a release `0.0.4` e que sua aplicação esteja funcionando normalmente pois em caso de `crash` na aplicação você poderá retornar a este estado.
+Antes de começar, certifique-se de que o seu repositório esteja atualizado até a release `0.0.4` e que sua aplicação esteja funcionando normalmente pois em caso de `crash` na aplicação você poderá retornar a esse estado.
 
 Continuando com o projeto FarolDocs, vamos introduzir novas melhorias no sistema. Esta técnica chama-se técnica da cebola, em uma alusão às cebolas que tem diversas cascas até chegar ao núcleo. Segundo essa técnica vamos tirando as cascas, que são as imperfeições, até chegarmos ao núcleo  - uma aplicação otimizada.
 
-Estamos na release 0.0.5, ou seja a 5ª casca da nossa cebola. Teremos que chegar à versão 1.0.0, mas não se preocupe, não serão 100 releases! Algumas releases irão alterar tão profundamente a aplicação que irão ser nomeadas no segundo dígito e não no terceiro como estamos fazendo até então.
+Estamos na release 0.0.5, ou seja a 5ª casca da nossa cebola. Teremos que chegar à versão 1.0.0, mas não se preocupe, não serão 100 releases! Algumas releases irão alterar tão profundamente a aplicação que irão ser nomeadas no segundo dígito e não no terceiro como vimos fazendo até então.
 
 ### O que iremos fazer nesta release? 
 
-Vamos fazer 4 melhorias na nossa aplicaçã0.
+Vamos fazer 4 melhorias na nossa aplicação.
 
 #### 1-Criar a Entidade Tipo
 
-Vamos criar uma nova entidade, denominada `Tipo`. Nessa entidade iremos tabelar os vários tipos de documentos que podem ser gerenciados pela nossa aplicação. Classificar desta forma irá facilitar a nossa pesquisa.
+Vamos criar uma nova entidade, denominada `Tipo`. Nessa entidade iremos tabelar os vários tipos de documentos que podem ser gerenciados pela nossa aplicação. Classificar desta forma irá facilitar as nossas pesquisas por documentos.
 
 Lembre-se, estamos criando uma aplicação para gerenciar documentos na nuvem, cujo objetivo principal é ter acesso rápido e seguro aos documentos sem ter que ficar guardando os documentos em infindáveis pastas no sistema de arquivos.
 
@@ -28,7 +28,7 @@ No jargão de banco de dados relacionais, podemos dizer que a tabela `Documento`
 
 #### 3- Incluir a validação por regex no atributo url 
 
-Na versão inicial de nossa aplicação, fizemos questão de não exigir qualquer tipo de validação, exatamente para que a primeira versão fosse a mais simples possível. Agora nesta release nós iremos exigir que o usuário informe uma url que obedeça a determinadas regras de validação. No nosso caso iremos incluir uma regra de validação baseada em expressões regulares, ou `regex` (forma abreviada do ingles: regular expressions). Para saber mais sobre expressões regulares consulte esta url [que contém exemplos de expressões regulares em java.](https://www.devmedia.com.br/conceitos-basicos-sobre-expressoes-regulares-em-java/27539)
+Na versão inicial de nossa aplicação, fizemos questão de não exigir qualquer tipo de validação, exatamente para que a primeira versão fosse a mais simples possível. Agora nesta release nós iremos exigir que o usuário informe uma url que obedeça a determinadas regras de validação. No nosso caso, iremos incluir uma regra de validação baseada em expressões regulares, ou `regex` (forma abreviada do ingles: *regular expressions*). Para saber mais sobre expressões regulares consulte esta url [que contém exemplos de expressões regulares em java.](https://www.devmedia.com.br/conceitos-basicos-sobre-expressoes-regulares-em-java/27539)
 
 
 #### 4-Alterar a versão Snapshot para 0.0.5
@@ -155,13 +155,28 @@ drop table tipo cascade;
     <name>Farol Docs</name>
 ```
 
-Grave o arquivo `.pom` e execute a aplicação com:
+2. Grave o arquivo `.pom`. 
+
+3. Interrompa o Docker Compose e exclua o elastic search
+
+4. Recrie o docker do elastic search com:
 
 ```
-$ mvn
+docker-compose -f src/main/docker/elasticsearch.yml up -d
 ```
 
-2. Selecione uma instância da entidade Documento e  altere o tipo, o projeto e a url.
+4. Para que o número da release seja alterado será necessário executar a aplicação com:
+
+```
+$ mvn clean install
+```
+e depois
+
+```
+$ mvn 
+```
+
+5. Selecione uma a uma as instâncias da entidade Documento e grave-as novamentoe (para reconstruir o indice).
 
 
 
