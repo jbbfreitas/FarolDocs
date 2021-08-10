@@ -265,19 +265,29 @@ drop table documento cascade;
 drop table projeto cascade;
 drop table tipo cascade;
 ```
+Recrie o docker do elastic search com:
+
+```
+docker-compose -f src/main/docker/elasticsearch.yml up -d
+```
 
 Altere a versão Snapshot para 0.0.6
 
 Execute a aplicação e teste para verificar se as mudanças realizadas estão corretas
 
 ```
-$ mvn 
+$ mvn clean install
+```
+
+```
+mvn
 ```
 
 
 
 
 
-*** Final da release 0.0.5 ***
+
+*** Final da release 0.0.6 ***
 
 
