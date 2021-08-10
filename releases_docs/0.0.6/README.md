@@ -12,15 +12,15 @@ Vamos fazer 5 melhorias na nossa aplicação.
 
 Quando lidamos com documento, principalmente quando estamos lidando com normas (Leis, Decretos, Regulamentos etc), poderá ser necessário armazenar o seu **número**, **ano** e a sua **situação**.
 
-É comum no caso de normas que um documento passe por 3 estados: **VIGENTE**, **SUBSTITUIDO** e **CANCELADO**.
+É comum no caso de normas que um documento passe por 3 estados: **VIGENTE**, **SUBSTITUIDO** e **CANCELADO**. Esses serão os 3 estágios dos documentos.
 
-2. Excluir em Documento o atributo etiqueta
+2. Excluir na entidade Documento o atributo etiqueta
 
-No passo 3 você entenderá melhor por que iremos excluir a atributo etiqueta. Na verdade vamos alterar o atributo etiqueta de **simples** para **atributo de relacioamento**. Acontece que no JHipster não tem como alterar um atributo, você deve excluí-lo e depois incluí-lo com as novas configurações.
+No passo 3 você entenderá melhor por que iremos excluir a atributo `etiqueta`. Na verdade vamos alterar esse atributo passando de **simples** para **atributo de relacioamento**. Acontece que no JHipster não tem como alterar um atributo, você deve excluí-lo e depois incluí-lo com as novas configurações.
 
-3. Criar a entidade Etiqueta e fazer relacionamento com Documento na razão m:n
+3. Criar a entidade Etiqueta e fazer relacionamento com Documento na razão `m:n`
 
-Seria conveniente que a nossa aplicação pudesse gerenciar separadamente os tipo de etiquetas, ou seja, uma vez criada uma etiqueta, ela poderia ser utilizada em inúmeras entidades, favorecendo a filtragem pelo atributo etiqueta. Por exemplo: suponha que desejamos saber quantos e quais os documentos estão com a etiqueta (tag) '#Indenização'. Se não tivermos um gerenciamento centralizado das etiquetas pode ocorrer que em determinado documento o usuário escreva '#Indenizacao' ou, ainda, '#Indenizaçao' e, em outro, escreva '#Indenização'. Observe como seria trabalhosa essa filtragem: teríamos que procurar todas as etiquetas que são sinônimas e fazer a filtragem usando o conector 'OU'.
+Seria conveniente que a nossa aplicação pudesse gerenciar separadamente os tipo de etiquetas, ou seja, uma vez criada uma etiqueta, ela poderia ser utilizada em inúmeras entidades `Documento`, favorecendo a filtragem pelo atributo etiqueta. Por exemplo: suponha que desejamos saber quantos e quais os documentos estão com a etiqueta (tag) '#Indenização'. Se não tivermos um gerenciamento centralizado das etiquetas pode ocorrer que em determinado documento o usuário escreva '#Indenizacao' ou, ainda, '#Indenizaçao' e, em outro, escreva '#Indenização'. Observe como seria trabalhosa essa filtragem: teríamos que procurar todas as etiquetas que são sinônimas e fazer a filtragem usando o conector 'OU'.
 
 Para evitar esse problema o ideal é criar uma entidade com um único atributo e com a validação **unique**, ou seja, só haverá uma única etiqueta para indenização que poderá ser utilizada em diversos documentos. 
 
