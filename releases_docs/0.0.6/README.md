@@ -14,34 +14,34 @@ Quando lidamos com documento, principalmente quando estamos lidando com normas (
 
 É comum no caso de normas que um documento passe por 3 estados: **VIGENTE**, **SUBSTITUIDO** e **CANCELADO**. Esses serão os 3 estágios dos documentos.
 
-2. Excluir na entidade Documento o atributo etiqueta
+2. Excluir na entidade `Documento` o atributo etiqueta
 
 No passo 3 você entenderá melhor por que iremos excluir a atributo `etiqueta`. Na verdade vamos alterar esse atributo passando de **simples** para **atributo de relacioamento**. Acontece que no JHipster não tem como alterar um atributo, você deve excluí-lo e depois incluí-lo com as novas configurações.
 
-3. Criar a entidade Etiqueta e fazer relacionamento com Documento na razão `m:n`
+3. Criar a entidade Etiqueta e fazer relacionamento com `Documento` na razão `m:n`
 
-Seria conveniente que a nossa aplicação pudesse gerenciar separadamente os tipo de etiquetas, ou seja, uma vez criada uma etiqueta, ela poderia ser utilizada em inúmeras entidades `Documento`, favorecendo a filtragem pelo atributo etiqueta. Por exemplo: suponha que desejamos saber quantos e quais os documentos estão com a etiqueta (tag) '#Indenização'. Se não tivermos um gerenciamento centralizado das etiquetas pode ocorrer que em determinado documento o usuário escreva '#Indenizacao' ou, ainda, '#Indenizaçao' e, em outro, escreva '#Indenização'. Observe como seria trabalhosa essa filtragem: teríamos que procurar todas as etiquetas que são sinônimas e fazer a filtragem usando o conector 'OU'.
+Seria conveniente que a nossa aplicação pudesse gerenciar separadamente os tipo de etiquetas, ou seja, uma vez criada uma etiqueta, ela poderia ser utilizada em inúmeras entidades ``Documento``, favorecendo a filtragem pelo atributo etiqueta. Por exemplo: suponha que desejamos saber quantos e quais os documentos estão com a etiqueta (tag) '#Indenização'. Se não tivermos um gerenciamento centralizado das etiquetas pode ocorrer que em determinado documento o usuário escreva '#Indenizacao' ou, ainda, '#Indenizaçao' e, em outro, escreva '#Indenização'. Observe como seria trabalhosa essa filtragem: teríamos que procurar todas as etiquetas que são sinônimas e fazer a filtragem usando o conector 'OU'.
 
 Para evitar esse problema o ideal é criar uma entidade com um único atributo e com a validação **unique**, ou seja, só haverá uma única etiqueta para indenização que poderá ser utilizada em diversos documentos. 
 
-E por que a cardinalidade deve ser m:n? É muito simples, uma instância da entidade Etiqueta poderá estar em diversas instâncias da entidade Documento  e uma instância da entidade Documento poderá ter diversas instâncias da entidade Etiqueta, ou seja, um relacionamento de muitos para muitos. 
+E por que a cardinalidade deve ser m:n? É muito simples, uma instância da entidade Etiqueta poderá estar em diversas instâncias da entidade `Documento`  e uma instância da entidade `Documento` poderá ter diversas instâncias da entidade Etiqueta, ou seja, um relacionamento de muitos para muitos. 
 
 ::: :pushpin: Importante :::
 
 No paradigma Orientado a Objetos, é perfeitamente possível fazer esse tipo de relacionamento de muitos para muitos. Mas lembre-se, os dados estão sendo persistidos em um banco de dados relacional: o Postgres. Então é necessário que haja um mapeamento do mundo dos objetos para o mundo das relações e esse é o papel dos frameworks denominados [ORM's](https://blog.geekhunter.com.br/mapeamento-objeto-relacional/). No nosso caso estamos usando o Hibernate. Observe que será criada uma tabela `rel_documento__etiqueta`para transformar o relacionamento m:n em dois relacionamentos m:1. Essa tabela contém uma chave primária composta de duas chaves estrangeiras: `etiqueta_id` e `documento_id`.   
 
-4. Criar a entidade OrgaoEmissor e fazer relacionamento com Documento na razão m:1
+4. Criar a entidade OrgaoEmissor e fazer relacionamento com `Documento` na razão m:1
 
 Essa entidade será responsável por gerenciar todos os órgãos emissores, isto é, os documentos serão emitidos por algum órgão emissor: se for um carnê das Casas Bahia o órgão emissor será a própria Casas Bahia, se for uma norma do TCU o órgão emissor será o TCU etc.
 
-A entidade Documento deverá estar relacionada com esta entidade na razão de `m:1`.
+A entidade `Documento` deverá estar relacionada com esta entidade na razão de `m:1`.
 
-5. Criar a entidade TipoNorma e fazer relacionamento com Documento na razão m:1
+5. Criar a entidade TipoNorma e fazer relacionamento com `Documento` na razão m:1
 
 
 Essa entidade será responsável por gerenciar os diversos tipos de normas existentes, por exemplo: Lei Federal, Lei Municipal, Constituição Federal, ISO 9001, COSO, etc. Pode ocorrer, entretanto, que um determinado documento não seja relacionado a nenhuma norma, por exemplo: carnê das Casas Bahia. Neste caso essa informação deveria ficar em branco, por essa razão o relacionamento não deverá ser obrigatório.
 
-A entidade Documento deverá estar relacionada com esta entidade na razão de `m:1`.
+A entidade `Documento` deverá estar relacionada com esta entidade na razão de `m:1`.
 
 ## Implementando as mudanças
 
@@ -50,7 +50,7 @@ A entidade Documento deverá estar relacionada com esta entidade na razão de `m
 Na linha de comando do shell digite:
 
 ```
-jhipster entity Documento
+jhipster entity `Documento`
 
 ? Do you want to update the entity? This will replace the existing files for this entity, all your custom code will be overwritten Yes, add more fields and relationships
 
@@ -88,10 +88,10 @@ Generating relationships to other entities
 ```
 
 
-2. Excluir em Documento o atributo etiqueta
+2. Excluir em `Documento` o atributo etiqueta
 
 ```
-jhipster entity Documento
+jhipster entity `Documento`
 
 ? Do you want to update the entity? This will replace the existing files for this entity, all your custom code will be overwritten Yes, remove fields and relationships
 ? Please choose the fields you want to remove etiqueta
@@ -99,7 +99,7 @@ jhipster entity Documento
 
 ```
 
-3. Criar a entidade Etiqueta e fazer relacionamento com Documento na razão m:n
+3. Criar a entidade Etiqueta e fazer relacionamento com `Documento` na razão m:n
 
 ```
 jhipster entity Etiqueta
@@ -119,10 +119,10 @@ Generating field #2
 ? Do you want to add a field to your entity? No
 
 ```
-Agora vamos criar o relacionamento da entidade Documento com a entidade Etiqueta
+Agora vamos criar o relacionamento da entidade `Documento` com a entidade Etiqueta
 
 ```
-$ jhipster entity Documento
+$ jhipster entity `Documento`
 
 ? Do you want to update the entity? This will replace the existing files for this entity, all your custom code will be overwritten Yes, add more fields and relationships
 
@@ -143,7 +143,7 @@ Generating relationships to other entities
 
 
 
-4. Criar a entidade OrgaoEmissor e fazer relacionamento com Documento na razão m:1
+4. Criar a entidade OrgaoEmissor e fazer relacionamento com `Documento` na razão m:1
 
 ```
 jhipster entity OrgaoEmissor
@@ -175,10 +175,10 @@ Generating field #3
 ? Do you want pagination and sorting on your entity? Yes, with infinite scroll and sorting headers
 ```
 
-Agora vamos criar o relacionamento da entidade Documento com a entidade OrgaoEmissor
+Agora vamos criar o relacionamento da entidade `Documento` com a entidade OrgaoEmissor
 
 ```
-$ jhipster entity Documento
+$ jhipster entity `Documento`
 
 ? Do you want to update the entity? This will replace the existing files for this entity, all your custom code will be overwritten Yes, add more fields and relationships
 
@@ -201,7 +201,7 @@ Generating relationships to other entities
 
 ```
 
-5. Criar a entidade TipoNorma e fazer relacionamento com Documento na razão m:1
+5. Criar a entidade TipoNorma e fazer relacionamento com `Documento` na razão m:1
 
 ```
 jhipster entity TipoNorma
@@ -235,10 +235,10 @@ Generating field #3
 
 ```
 
-Agora vamos criar o relacionamento da entidade Documento com a entidade TipoNorma
+Agora vamos criar o relacionamento da entidade `Documento` com a entidade TipoNorma
 
 ```
-$ jhipster entity Documento
+$ jhipster entity `Documento`
 
 ? Do you want to update the entity? This will replace the existing files for this entity, all your custom code will be overwritten Yes, add more fields and relationships
 
@@ -246,7 +246,7 @@ Generating field #8
 
 ? Do you want to add a field to your entity? No
 
-? Do you want to add a relationship to another entity? Yes
+? Do you want to add a relationship to another entity? **Yes**
 ? What is the name of the other entity? TipoNorma
 ? What is the name of the relationship? tipoNorma
 ? What is the type of the relationship? many-to-one
