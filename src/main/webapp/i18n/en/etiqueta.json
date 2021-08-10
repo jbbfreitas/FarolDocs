@@ -1,0 +1,25 @@
+{
+  "farolDocsApp": {
+    "etiqueta": {
+      "home": {
+        "title": "Etiquetas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Etiqueta",
+        "createOrEditLabel": "Create or edit a Etiqueta",
+        "search": "Search for Etiqueta",
+        "notFound": "No Etiquetas found"
+      },
+      "created": "A new Etiqueta is created with identifier {{ param }}",
+      "updated": "A Etiqueta is updated with identifier {{ param }}",
+      "deleted": "A Etiqueta is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Etiqueta {{ id }}?"
+      },
+      "detail": {
+        "title": "Etiqueta"
+      },
+      "id": "ID",
+      "nome": "Nome"
+    }
+  }
+}

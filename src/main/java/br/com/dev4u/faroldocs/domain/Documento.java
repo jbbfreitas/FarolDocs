@@ -1,5 +1,6 @@
 package br.com.dev4u.faroldocs.domain;
 
+import br.com.dev4u.faroldocs.domain.enumeration.SituacaoDocumento;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -30,9 +31,6 @@ public class Documento implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "etiqueta")
-    private String etiqueta;
-
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "ementa")
@@ -42,11 +40,30 @@ public class Documento implements Serializable {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "numero")
+    private String numero;
+
+    @Column(name = "ano")
+    private Integer ano;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "situacao")
+    private SituacaoDocumento situacao;
+
     @ManyToOne
     private Projeto projeto;
 
     @ManyToOne
     private Tipo tipo;
+
+    @ManyToOne
+    private Etiqueta etiqueta;
+
+    @ManyToOne
+    private OrgaoEmissor orgaoEmissor;
+
+    @ManyToOne
+    private TipoNorma tipoNorma;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -88,19 +105,6 @@ public class Documento implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getEtiqueta() {
-        return this.etiqueta;
-    }
-
-    public Documento etiqueta(String etiqueta) {
-        this.etiqueta = etiqueta;
-        return this;
-    }
-
-    public void setEtiqueta(String etiqueta) {
-        this.etiqueta = etiqueta;
-    }
-
     public String getEmenta() {
         return this.ementa;
     }
@@ -125,6 +129,45 @@ public class Documento implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getNumero() {
+        return this.numero;
+    }
+
+    public Documento numero(String numero) {
+        this.numero = numero;
+        return this;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public Integer getAno() {
+        return this.ano;
+    }
+
+    public Documento ano(Integer ano) {
+        this.ano = ano;
+        return this;
+    }
+
+    public void setAno(Integer ano) {
+        this.ano = ano;
+    }
+
+    public SituacaoDocumento getSituacao() {
+        return this.situacao;
+    }
+
+    public Documento situacao(SituacaoDocumento situacao) {
+        this.situacao = situacao;
+        return this;
+    }
+
+    public void setSituacao(SituacaoDocumento situacao) {
+        this.situacao = situacao;
     }
 
     public Projeto getProjeto() {
@@ -153,6 +196,45 @@ public class Documento implements Serializable {
         this.tipo = tipo;
     }
 
+    public Etiqueta getEtiqueta() {
+        return this.etiqueta;
+    }
+
+    public Documento etiqueta(Etiqueta etiqueta) {
+        this.setEtiqueta(etiqueta);
+        return this;
+    }
+
+    public void setEtiqueta(Etiqueta etiqueta) {
+        this.etiqueta = etiqueta;
+    }
+
+    public OrgaoEmissor getOrgaoEmissor() {
+        return this.orgaoEmissor;
+    }
+
+    public Documento orgaoEmissor(OrgaoEmissor orgaoEmissor) {
+        this.setOrgaoEmissor(orgaoEmissor);
+        return this;
+    }
+
+    public void setOrgaoEmissor(OrgaoEmissor orgaoEmissor) {
+        this.orgaoEmissor = orgaoEmissor;
+    }
+
+    public TipoNorma getTipoNorma() {
+        return this.tipoNorma;
+    }
+
+    public Documento tipoNorma(TipoNorma tipoNorma) {
+        this.setTipoNorma(tipoNorma);
+        return this;
+    }
+
+    public void setTipoNorma(TipoNorma tipoNorma) {
+        this.tipoNorma = tipoNorma;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -179,9 +261,11 @@ public class Documento implements Serializable {
             "id=" + getId() +
             ", assunto='" + getAssunto() + "'" +
             ", descricao='" + getDescricao() + "'" +
-            ", etiqueta='" + getEtiqueta() + "'" +
             ", ementa='" + getEmenta() + "'" +
             ", url='" + getUrl() + "'" +
+            ", numero='" + getNumero() + "'" +
+            ", ano=" + getAno() +
+            ", situacao='" + getSituacao() + "'" +
             "}";
     }
 }

@@ -19,5 +19,23 @@
                                  constraintName="fk_documento__tipo_id"
                                  referencedColumnNames="id"
                                  referencedTableName="tipo"/>
+
+        <addForeignKeyConstraint baseColumnNames="etiqueta_id"
+                                 baseTableName="documento"
+                                 constraintName="fk_documento__etiqueta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etiqueta"/>
+
+        <addForeignKeyConstraint baseColumnNames="orgao_emissor_id"
+                                 baseTableName="documento"
+                                 constraintName="fk_documento__orgao_emissor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="orgao_emissor"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_norma_id"
+                                 baseTableName="documento"
+                                 constraintName="fk_documento__tipo_norma_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_norma"/>
     </changeSet>
 </databaseChangeLog>

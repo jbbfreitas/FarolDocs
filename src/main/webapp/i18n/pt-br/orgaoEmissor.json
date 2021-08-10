@@ -1,0 +1,26 @@
+{
+  "farolDocsApp": {
+    "orgaoEmissor": {
+      "home": {
+        "title": "Orgao Emissors",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Orgao Emissor",
+        "createOrEditLabel": "Criar ou editar Orgao Emissor",
+        "search": "Pesquisar por Orgao Emissor",
+        "notFound": "Nenhum Orgao Emissor encontrado"
+      },
+      "created": "Um novo Orgao Emissor foi criado com o identificador {{ param }}",
+      "updated": "Um Orgao Emissor foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Orgao Emissor foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Orgao Emissor {{ id }}?"
+      },
+      "detail": {
+        "title": "Orgao Emissor"
+      },
+      "id": "ID",
+      "sigla": "Sigla",
+      "nome": "Nome"
+    }
+  }
+}

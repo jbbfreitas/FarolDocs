@@ -22,10 +22,6 @@
         <dd>
           <span>{{ documento.descricao }}</span>
         </dd>
-        <dt><span jhiTranslate="farolDocsApp.documento.etiqueta">Etiqueta</span></dt>
-        <dd>
-          <span>{{ documento.etiqueta }}</span>
-        </dd>
         <dt><span jhiTranslate="farolDocsApp.documento.ementa">Ementa</span></dt>
         <dd>
           <span>{{ documento.ementa }}</span>
@@ -33,6 +29,18 @@
         <dt><span jhiTranslate="farolDocsApp.documento.url">Url</span></dt>
         <dd>
           <span>{{ documento.url }}</span>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.numero">Numero</span></dt>
+        <dd>
+          <span>{{ documento.numero }}</span>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.ano">Ano</span></dt>
+        <dd>
+          <span>{{ documento.ano }}</span>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.situacao">Situacao</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'farolDocsApp.SituacaoDocumento.' + documento.situacao }}">{{ documento.situacao }}</span>
         </dd>
         <dt><span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span></dt>
         <dd>
@@ -44,6 +52,24 @@
         <dd>
           <div *ngIf="documento.tipo">
             <a [routerLink]="['/tipo', documento.tipo?.id, 'view']">{{ documento.tipo?.nome }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.etiqueta">Etiqueta</span></dt>
+        <dd>
+          <div *ngIf="documento.etiqueta">
+            <a [routerLink]="['/etiqueta', documento.etiqueta?.id, 'view']">{{ documento.etiqueta?.nome }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.orgaoEmissor">Orgao Emissor</span></dt>
+        <dd>
+          <div *ngIf="documento.orgaoEmissor">
+            <a [routerLink]="['/orgao-emissor', documento.orgaoEmissor?.id, 'view']">{{ documento.orgaoEmissor?.sigla }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documento.tipoNorma">Tipo Norma</span></dt>
+        <dd>
+          <div *ngIf="documento.tipoNorma">
+            <a [routerLink]="['/tipo-norma', documento.tipoNorma?.id, 'view']">{{ documento.tipoNorma?.tipo }}</a>
           </div>
         </dd>
       </dl>

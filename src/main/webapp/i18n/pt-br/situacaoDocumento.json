@@ -1,0 +1,10 @@
+{
+  "farolDocsApp": {
+    "SituacaoDocumento": {
+      "null": "",
+      "VIGENTE": "VIGENTE",
+      "SUBSTITUIDO": "SUBSTITUIDO",
+      "CANCELADO": "CANCELADO"
+    }
+  }
+}

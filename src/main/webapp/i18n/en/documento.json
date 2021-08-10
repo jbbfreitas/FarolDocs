@@ -21,11 +21,16 @@
       "id": "ID",
       "assunto": "Assunto",
       "descricao": "Descricao",
-      "etiqueta": "Etiqueta",
       "ementa": "Ementa",
       "url": "Url",
+      "numero": "Numero",
+      "ano": "Ano",
+      "situacao": "Situacao",
       "projeto": "Projeto",
-      "tipo": "Tipo"
+      "tipo": "Tipo",
+      "etiqueta": "Etiqueta",
+      "orgaoEmissor": "Orgao Emissor",
+      "tipoNorma": "Tipo Norma"
     }
   }
 }

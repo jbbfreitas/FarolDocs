@@ -1,0 +1,26 @@
+{
+  "farolDocsApp": {
+    "tipoNorma": {
+      "home": {
+        "title": "Tipo Normas",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Tipo Norma",
+        "createOrEditLabel": "Criar ou editar Tipo Norma",
+        "search": "Pesquisar por Tipo Norma",
+        "notFound": "Nenhum Tipo Norma encontrado"
+      },
+      "created": "Um novo Tipo Norma foi criado com o identificador {{ param }}",
+      "updated": "Um Tipo Norma foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Tipo Norma foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Tipo Norma {{ id }}?"
+      },
+      "detail": {
+        "title": "Tipo Norma"
+      },
+      "id": "ID",
+      "tipo": "Tipo",
+      "descricao": "Descricao"
+    }
+  }
+}

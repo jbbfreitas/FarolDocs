@@ -1,0 +1,26 @@
+{
+  "farolDocsApp": {
+    "orgaoEmissor": {
+      "home": {
+        "title": "Orgao Emissors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Orgao Emissor",
+        "createOrEditLabel": "Create or edit a Orgao Emissor",
+        "search": "Search for Orgao Emissor",
+        "notFound": "No Orgao Emissors found"
+      },
+      "created": "A new Orgao Emissor is created with identifier {{ param }}",
+      "updated": "A Orgao Emissor is updated with identifier {{ param }}",
+      "deleted": "A Orgao Emissor is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Orgao Emissor {{ id }}?"
+      },
+      "detail": {
+        "title": "Orgao Emissor"
+      },
+      "id": "ID",
+      "sigla": "Sigla",
+      "nome": "Nome"
+    }
+  }
+}

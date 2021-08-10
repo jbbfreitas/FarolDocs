@@ -14,6 +14,12 @@ import { IProjeto } from 'app/entities/projeto/projeto.model';
 import { ProjetoService } from 'app/entities/projeto/service/projeto.service';
 import { ITipo } from 'app/entities/tipo/tipo.model';
 import { TipoService } from 'app/entities/tipo/service/tipo.service';
+import { IEtiqueta } from 'app/entities/etiqueta/etiqueta.model';
+import { EtiquetaService } from 'app/entities/etiqueta/service/etiqueta.service';
+import { IOrgaoEmissor } from 'app/entities/orgao-emissor/orgao-emissor.model';
+import { OrgaoEmissorService } from 'app/entities/orgao-emissor/service/orgao-emissor.service';
+import { ITipoNorma } from 'app/entities/tipo-norma/tipo-norma.model';
+import { TipoNormaService } from 'app/entities/tipo-norma/service/tipo-norma.service';
 
 @Component({
   selector: 'jhi-documento-update',
@@ -24,16 +30,24 @@ export class DocumentoUpdateComponent implements OnInit {
 
   projetosSharedCollection: IProjeto[] = [];
   tiposSharedCollection: ITipo[] = [];
+  etiquetasSharedCollection: IEtiqueta[] = [];
+  orgaoEmissorsSharedCollection: IOrgaoEmissor[] = [];
+  tipoNormasSharedCollection: ITipoNorma[] = [];
 
   editForm = this.fb.group({
     id: [],
     assunto: [],
     descricao: [],
-    etiqueta: [],
     ementa: [],
     url: [null, [Validators.pattern('^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]')]],
+    numero: [],
+    ano: [],
+    situacao: [],
     projeto: [],
     tipo: [],
+    etiqueta: [],
+    orgaoEmissor: [],
+    tipoNorma: [],
   });
 
   constructor(
@@ -42,6 +56,9 @@ export class DocumentoUpdateComponent implements OnInit {
     protected documentoService: DocumentoService,
     protected projetoService: ProjetoService,
     protected tipoService: TipoService,
+    protected etiquetaService: EtiquetaService,
+    protected orgaoEmissorService: OrgaoEmissorService,
+    protected tipoNormaService: TipoNormaService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -91,6 +108,18 @@ export class DocumentoUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackEtiquetaById(index: number, item: IEtiqueta): number {
+    return item.id!;
+  }
+
+  trackOrgaoEmissorById(index: number, item: IOrgaoEmissor): number {
+    return item.id!;
+  }
+
+  trackTipoNormaById(index: number, item: ITipoNorma): number {
+    return item.id!;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IDocumento>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
@@ -115,15 +144,32 @@ export class DocumentoUpdateComponent implements OnInit {
       id: documento.id,
       assunto: documento.assunto,
       descricao: documento.descricao,
-      etiqueta: documento.etiqueta,
       ementa: documento.ementa,
       url: documento.url,
+      numero: documento.numero,
+      ano: documento.ano,
+      situacao: documento.situacao,
       projeto: documento.projeto,
       tipo: documento.tipo,
+      etiqueta: documento.etiqueta,
+      orgaoEmissor: documento.orgaoEmissor,
+      tipoNorma: documento.tipoNorma,
     });
 
     this.projetosSharedCollection = this.projetoService.addProjetoToCollectionIfMissing(this.projetosSharedCollection, documento.projeto);
     this.tiposSharedCollection = this.tipoService.addTipoToCollectionIfMissing(this.tiposSharedCollection, documento.tipo);
+    this.etiquetasSharedCollection = this.etiquetaService.addEtiquetaToCollectionIfMissing(
+      this.etiquetasSharedCollection,
+      documento.etiqueta
+    );
+    this.orgaoEmissorsSharedCollection = this.orgaoEmissorService.addOrgaoEmissorToCollectionIfMissing(
+      this.orgaoEmissorsSharedCollection,
+      documento.orgaoEmissor
+    );
+    this.tipoNormasSharedCollection = this.tipoNormaService.addTipoNormaToCollectionIfMissing(
+      this.tipoNormasSharedCollection,
+      documento.tipoNorma
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -140,6 +186,36 @@ export class DocumentoUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ITipo[]>) => res.body ?? []))
       .pipe(map((tipos: ITipo[]) => this.tipoService.addTipoToCollectionIfMissing(tipos, this.editForm.get('tipo')!.value)))
       .subscribe((tipos: ITipo[]) => (this.tiposSharedCollection = tipos));
+
+    this.etiquetaService
+      .query()
+      .pipe(map((res: HttpResponse<IEtiqueta[]>) => res.body ?? []))
+      .pipe(
+        map((etiquetas: IEtiqueta[]) =>
+          this.etiquetaService.addEtiquetaToCollectionIfMissing(etiquetas, this.editForm.get('etiqueta')!.value)
+        )
+      )
+      .subscribe((etiquetas: IEtiqueta[]) => (this.etiquetasSharedCollection = etiquetas));
+
+    this.orgaoEmissorService
+      .query()
+      .pipe(map((res: HttpResponse<IOrgaoEmissor[]>) => res.body ?? []))
+      .pipe(
+        map((orgaoEmissors: IOrgaoEmissor[]) =>
+          this.orgaoEmissorService.addOrgaoEmissorToCollectionIfMissing(orgaoEmissors, this.editForm.get('orgaoEmissor')!.value)
+        )
+      )
+      .subscribe((orgaoEmissors: IOrgaoEmissor[]) => (this.orgaoEmissorsSharedCollection = orgaoEmissors));
+
+    this.tipoNormaService
+      .query()
+      .pipe(map((res: HttpResponse<ITipoNorma[]>) => res.body ?? []))
+      .pipe(
+        map((tipoNormas: ITipoNorma[]) =>
+          this.tipoNormaService.addTipoNormaToCollectionIfMissing(tipoNormas, this.editForm.get('tipoNorma')!.value)
+        )
+      )
+      .subscribe((tipoNormas: ITipoNorma[]) => (this.tipoNormasSharedCollection = tipoNormas));
   }
 
   protected createFromForm(): IDocumento {
@@ -148,11 +224,16 @@ export class DocumentoUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       assunto: this.editForm.get(['assunto'])!.value,
       descricao: this.editForm.get(['descricao'])!.value,
-      etiqueta: this.editForm.get(['etiqueta'])!.value,
       ementa: this.editForm.get(['ementa'])!.value,
       url: this.editForm.get(['url'])!.value,
+      numero: this.editForm.get(['numero'])!.value,
+      ano: this.editForm.get(['ano'])!.value,
+      situacao: this.editForm.get(['situacao'])!.value,
       projeto: this.editForm.get(['projeto'])!.value,
       tipo: this.editForm.get(['tipo'])!.value,
+      etiqueta: this.editForm.get(['etiqueta'])!.value,
+      orgaoEmissor: this.editForm.get(['orgaoEmissor'])!.value,
+      tipoNorma: this.editForm.get(['tipoNorma'])!.value,
     };
   }
 }

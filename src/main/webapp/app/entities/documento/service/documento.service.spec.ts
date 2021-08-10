@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { SituacaoDocumento } from 'app/entities/enumerations/situacao-documento.model';
 import { IDocumento, Documento } from '../documento.model';
 
 import { DocumentoService } from './documento.service';
@@ -24,9 +25,11 @@ describe('Service Tests', () => {
         id: 0,
         assunto: 'AAAAAAA',
         descricao: 'AAAAAAA',
-        etiqueta: 'AAAAAAA',
         ementa: 'AAAAAAA',
         url: 'AAAAAAA',
+        numero: 'AAAAAAA',
+        ano: 0,
+        situacao: SituacaoDocumento.VIGENTE,
       };
     });
 
@@ -64,9 +67,11 @@ describe('Service Tests', () => {
             id: 1,
             assunto: 'BBBBBB',
             descricao: 'BBBBBB',
-            etiqueta: 'BBBBBB',
             ementa: 'BBBBBB',
             url: 'BBBBBB',
+            numero: 'BBBBBB',
+            ano: 1,
+            situacao: 'BBBBBB',
           },
           elemDefault
         );
@@ -83,7 +88,8 @@ describe('Service Tests', () => {
       it('should partial update a Documento', () => {
         const patchObject = Object.assign(
           {
-            etiqueta: 'BBBBBB',
+            ementa: 'BBBBBB',
+            situacao: 'BBBBBB',
           },
           new Documento()
         );
@@ -105,9 +111,11 @@ describe('Service Tests', () => {
             id: 1,
             assunto: 'BBBBBB',
             descricao: 'BBBBBB',
-            etiqueta: 'BBBBBB',
             ementa: 'BBBBBB',
             url: 'BBBBBB',
+            numero: 'BBBBBB',
+            ano: 1,
+            situacao: 'BBBBBB',
           },
           elemDefault
         );
@@ -159,7 +167,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Documento to an array', () => {
-          const documentoArray: IDocumento[] = [{ id: 123 }, { id: 456 }, { id: 5974 }];
+          const documentoArray: IDocumento[] = [{ id: 123 }, { id: 456 }, { id: 1888 }];
           const documentoCollection: IDocumento[] = [{ id: 123 }];
           expectedResult = service.addDocumentoToCollectionIfMissing(documentoCollection, ...documentoArray);
           expect(expectedResult).toHaveLength(3);

@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import br.com.dev4u.faroldocs.IntegrationTest;
 import br.com.dev4u.faroldocs.domain.Documento;
+import br.com.dev4u.faroldocs.domain.enumeration.SituacaoDocumento;
 import br.com.dev4u.faroldocs.repository.DocumentoRepository;
 import br.com.dev4u.faroldocs.repository.search.DocumentoSearchRepository;
 import java.util.Collections;
@@ -46,14 +47,20 @@ class DocumentoResourceIT {
     private static final String DEFAULT_DESCRICAO = "AAAAAAAAAA";
     private static final String UPDATED_DESCRICAO = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ETIQUETA = "AAAAAAAAAA";
-    private static final String UPDATED_ETIQUETA = "BBBBBBBBBB";
-
     private static final String DEFAULT_EMENTA = "AAAAAAAAAA";
     private static final String UPDATED_EMENTA = "BBBBBBBBBB";
 
     private static final String DEFAULT_URL = "https://-.l";
     private static final String UPDATED_URL = "ftp://8CK4";
+
+    private static final String DEFAULT_NUMERO = "AAAAAAAAAA";
+    private static final String UPDATED_NUMERO = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_ANO = 1;
+    private static final Integer UPDATED_ANO = 2;
+
+    private static final SituacaoDocumento DEFAULT_SITUACAO = SituacaoDocumento.VIGENTE;
+    private static final SituacaoDocumento UPDATED_SITUACAO = SituacaoDocumento.SUBSTITUIDO;
 
     private static final String ENTITY_API_URL = "/api/documentos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -91,9 +98,11 @@ class DocumentoResourceIT {
         Documento documento = new Documento()
             .assunto(DEFAULT_ASSUNTO)
             .descricao(DEFAULT_DESCRICAO)
-            .etiqueta(DEFAULT_ETIQUETA)
             .ementa(DEFAULT_EMENTA)
-            .url(DEFAULT_URL);
+            .url(DEFAULT_URL)
+            .numero(DEFAULT_NUMERO)
+            .ano(DEFAULT_ANO)
+            .situacao(DEFAULT_SITUACAO);
         return documento;
     }
 
@@ -107,9 +116,11 @@ class DocumentoResourceIT {
         Documento documento = new Documento()
             .assunto(UPDATED_ASSUNTO)
             .descricao(UPDATED_DESCRICAO)
-            .etiqueta(UPDATED_ETIQUETA)
             .ementa(UPDATED_EMENTA)
-            .url(UPDATED_URL);
+            .url(UPDATED_URL)
+            .numero(UPDATED_NUMERO)
+            .ano(UPDATED_ANO)
+            .situacao(UPDATED_SITUACAO);
         return documento;
     }
 
@@ -133,9 +144,11 @@ class DocumentoResourceIT {
         Documento testDocumento = documentoList.get(documentoList.size() - 1);
         assertThat(testDocumento.getAssunto()).isEqualTo(DEFAULT_ASSUNTO);
         assertThat(testDocumento.getDescricao()).isEqualTo(DEFAULT_DESCRICAO);
-        assertThat(testDocumento.getEtiqueta()).isEqualTo(DEFAULT_ETIQUETA);
         assertThat(testDocumento.getEmenta()).isEqualTo(DEFAULT_EMENTA);
         assertThat(testDocumento.getUrl()).isEqualTo(DEFAULT_URL);
+        assertThat(testDocumento.getNumero()).isEqualTo(DEFAULT_NUMERO);
+        assertThat(testDocumento.getAno()).isEqualTo(DEFAULT_ANO);
+        assertThat(testDocumento.getSituacao()).isEqualTo(DEFAULT_SITUACAO);
 
         // Validate the Documento in Elasticsearch
         verify(mockDocumentoSearchRepository, times(1)).save(testDocumento);
@@ -176,9 +189,11 @@ class DocumentoResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(documento.getId().intValue())))
             .andExpect(jsonPath("$.[*].assunto").value(hasItem(DEFAULT_ASSUNTO)))
             .andExpect(jsonPath("$.[*].descricao").value(hasItem(DEFAULT_DESCRICAO)))
-            .andExpect(jsonPath("$.[*].etiqueta").value(hasItem(DEFAULT_ETIQUETA)))
             .andExpect(jsonPath("$.[*].ementa").value(hasItem(DEFAULT_EMENTA.toString())))
-            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)));
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
+            .andExpect(jsonPath("$.[*].numero").value(hasItem(DEFAULT_NUMERO)))
+            .andExpect(jsonPath("$.[*].ano").value(hasItem(DEFAULT_ANO)))
+            .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.toString())));
     }
 
     @Test
@@ -195,9 +210,11 @@ class DocumentoResourceIT {
             .andExpect(jsonPath("$.id").value(documento.getId().intValue()))
             .andExpect(jsonPath("$.assunto").value(DEFAULT_ASSUNTO))
             .andExpect(jsonPath("$.descricao").value(DEFAULT_DESCRICAO))
-            .andExpect(jsonPath("$.etiqueta").value(DEFAULT_ETIQUETA))
             .andExpect(jsonPath("$.ementa").value(DEFAULT_EMENTA.toString()))
-            .andExpect(jsonPath("$.url").value(DEFAULT_URL));
+            .andExpect(jsonPath("$.url").value(DEFAULT_URL))
+            .andExpect(jsonPath("$.numero").value(DEFAULT_NUMERO))
+            .andExpect(jsonPath("$.ano").value(DEFAULT_ANO))
+            .andExpect(jsonPath("$.situacao").value(DEFAULT_SITUACAO.toString()));
     }
 
     @Test
@@ -222,9 +239,11 @@ class DocumentoResourceIT {
         updatedDocumento
             .assunto(UPDATED_ASSUNTO)
             .descricao(UPDATED_DESCRICAO)
-            .etiqueta(UPDATED_ETIQUETA)
             .ementa(UPDATED_EMENTA)
-            .url(UPDATED_URL);
+            .url(UPDATED_URL)
+            .numero(UPDATED_NUMERO)
+            .ano(UPDATED_ANO)
+            .situacao(UPDATED_SITUACAO);
 
         restDocumentoMockMvc
             .perform(
@@ -240,9 +259,11 @@ class DocumentoResourceIT {
         Documento testDocumento = documentoList.get(documentoList.size() - 1);
         assertThat(testDocumento.getAssunto()).isEqualTo(UPDATED_ASSUNTO);
         assertThat(testDocumento.getDescricao()).isEqualTo(UPDATED_DESCRICAO);
-        assertThat(testDocumento.getEtiqueta()).isEqualTo(UPDATED_ETIQUETA);
         assertThat(testDocumento.getEmenta()).isEqualTo(UPDATED_EMENTA);
         assertThat(testDocumento.getUrl()).isEqualTo(UPDATED_URL);
+        assertThat(testDocumento.getNumero()).isEqualTo(UPDATED_NUMERO);
+        assertThat(testDocumento.getAno()).isEqualTo(UPDATED_ANO);
+        assertThat(testDocumento.getSituacao()).isEqualTo(UPDATED_SITUACAO);
 
         // Validate the Documento in Elasticsearch
         verify(mockDocumentoSearchRepository).save(testDocumento);
@@ -325,7 +346,7 @@ class DocumentoResourceIT {
         Documento partialUpdatedDocumento = new Documento();
         partialUpdatedDocumento.setId(documento.getId());
 
-        partialUpdatedDocumento.etiqueta(UPDATED_ETIQUETA).ementa(UPDATED_EMENTA).url(UPDATED_URL);
+        partialUpdatedDocumento.ementa(UPDATED_EMENTA).url(UPDATED_URL).numero(UPDATED_NUMERO).ano(UPDATED_ANO);
 
         restDocumentoMockMvc
             .perform(
@@ -341,9 +362,11 @@ class DocumentoResourceIT {
         Documento testDocumento = documentoList.get(documentoList.size() - 1);
         assertThat(testDocumento.getAssunto()).isEqualTo(DEFAULT_ASSUNTO);
         assertThat(testDocumento.getDescricao()).isEqualTo(DEFAULT_DESCRICAO);
-        assertThat(testDocumento.getEtiqueta()).isEqualTo(UPDATED_ETIQUETA);
         assertThat(testDocumento.getEmenta()).isEqualTo(UPDATED_EMENTA);
         assertThat(testDocumento.getUrl()).isEqualTo(UPDATED_URL);
+        assertThat(testDocumento.getNumero()).isEqualTo(UPDATED_NUMERO);
+        assertThat(testDocumento.getAno()).isEqualTo(UPDATED_ANO);
+        assertThat(testDocumento.getSituacao()).isEqualTo(DEFAULT_SITUACAO);
     }
 
     @Test
@@ -361,9 +384,11 @@ class DocumentoResourceIT {
         partialUpdatedDocumento
             .assunto(UPDATED_ASSUNTO)
             .descricao(UPDATED_DESCRICAO)
-            .etiqueta(UPDATED_ETIQUETA)
             .ementa(UPDATED_EMENTA)
-            .url(UPDATED_URL);
+            .url(UPDATED_URL)
+            .numero(UPDATED_NUMERO)
+            .ano(UPDATED_ANO)
+            .situacao(UPDATED_SITUACAO);
 
         restDocumentoMockMvc
             .perform(
@@ -379,9 +404,11 @@ class DocumentoResourceIT {
         Documento testDocumento = documentoList.get(documentoList.size() - 1);
         assertThat(testDocumento.getAssunto()).isEqualTo(UPDATED_ASSUNTO);
         assertThat(testDocumento.getDescricao()).isEqualTo(UPDATED_DESCRICAO);
-        assertThat(testDocumento.getEtiqueta()).isEqualTo(UPDATED_ETIQUETA);
         assertThat(testDocumento.getEmenta()).isEqualTo(UPDATED_EMENTA);
         assertThat(testDocumento.getUrl()).isEqualTo(UPDATED_URL);
+        assertThat(testDocumento.getNumero()).isEqualTo(UPDATED_NUMERO);
+        assertThat(testDocumento.getAno()).isEqualTo(UPDATED_ANO);
+        assertThat(testDocumento.getSituacao()).isEqualTo(UPDATED_SITUACAO);
     }
 
     @Test
@@ -489,8 +516,10 @@ class DocumentoResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(documento.getId().intValue())))
             .andExpect(jsonPath("$.[*].assunto").value(hasItem(DEFAULT_ASSUNTO)))
             .andExpect(jsonPath("$.[*].descricao").value(hasItem(DEFAULT_DESCRICAO)))
-            .andExpect(jsonPath("$.[*].etiqueta").value(hasItem(DEFAULT_ETIQUETA)))
             .andExpect(jsonPath("$.[*].ementa").value(hasItem(DEFAULT_EMENTA.toString())))
-            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)));
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
+            .andExpect(jsonPath("$.[*].numero").value(hasItem(DEFAULT_NUMERO)))
+            .andExpect(jsonPath("$.[*].ano").value(hasItem(DEFAULT_ANO)))
+            .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.toString())));
     }
 }

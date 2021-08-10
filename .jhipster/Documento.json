@@ -9,10 +9,6 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "etiqueta",
-      "fieldType": "String"
-    },
-    {
       "fieldName": "ementa",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "text"
@@ -22,6 +18,19 @@
       "fieldType": "String",
       "fieldValidateRules": ["pattern"],
       "fieldValidateRulesPattern": "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"
+    },
+    {
+      "fieldName": "numero",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ano",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "situacao",
+      "fieldType": "SituacaoDocumento",
+      "fieldValues": "VIGENTE,SUBSTITUIDO,CANCELADO"
     }
   ],
   "relationships": [
@@ -36,6 +45,24 @@
       "otherEntityName": "tipo",
       "relationshipType": "many-to-one",
       "otherEntityField": "nome"
+    },
+    {
+      "relationshipName": "etiqueta",
+      "otherEntityName": "etiqueta",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "nome"
+    },
+    {
+      "relationshipName": "orgaoEmissor",
+      "otherEntityName": "orgaoEmissor",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "sigla"
+    },
+    {
+      "relationshipName": "tipoNorma",
+      "otherEntityName": "tipoNorma",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "tipo"
     }
   ],
   "service": "serviceImpl",
