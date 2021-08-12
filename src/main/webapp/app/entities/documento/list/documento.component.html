@@ -54,7 +54,8 @@
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="documentos && documentos.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
+          <span jhiTranslate="farolDocsApp.documento.descricao">Descricao</span> <fa-icon icon="sort"></fa-icon>
+       <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
@@ -62,12 +63,7 @@
             <span jhiTranslate="farolDocsApp.documento.assunto">Assunto</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="descricao">
-            <span jhiTranslate="farolDocsApp.documento.descricao">Descricao</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="ementa">
-            <span jhiTranslate="farolDocsApp.documento.ementa">Ementa</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="url"><span jhiTranslate="farolDocsApp.documento.url">Url</span> <fa-icon icon="sort"></fa-icon></th>
+         </th>
           <th scope="col" jhiSortBy="numero">
             <span jhiTranslate="farolDocsApp.documento.numero">Numero</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -75,23 +71,8 @@
           <th scope="col" jhiSortBy="situacao">
             <span jhiTranslate="farolDocsApp.documento.situacao">Situacao</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="criacao">
-            <span jhiTranslate="farolDocsApp.documento.criacao">Criacao</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col" jhiSortBy="projeto.nome">
             <span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="tipo.nome">
-            <span jhiTranslate="farolDocsApp.documento.tipo">Tipo</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="etiqueta.nome">
-            <span jhiTranslate="farolDocsApp.documento.etiqueta">Etiqueta</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="orgaoEmissor.sigla">
-            <span jhiTranslate="farolDocsApp.documento.orgaoEmissor">Orgao Emissor</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="tipoNorma.tipo">
-            <span jhiTranslate="farolDocsApp.documento.tipoNorma">Tipo Norma</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -103,36 +84,14 @@
           </td>
           <td>{{ documento.assunto }}</td>
           <td>{{ documento.descricao }}</td>
-          <td>{{ documento.ementa }}</td>
-          <td>{{ documento.url }}</td>
           <td>{{ documento.numero }}</td>
           <td>{{ documento.ano }}</td>
-          <td jhiTranslate="{{ 'farolDocsApp.SituacaoDocumento.' + documento.situacao }}">{{ documento.situacao }}</td>
-          <td>{{ documento.criacao | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="documento.projeto">
               <a [routerLink]="['/projeto', documento.projeto?.id, 'view']">{{ documento.projeto?.nome }}</a>
             </div>
           </td>
           <td>
-            <div *ngIf="documento.tipo">
-              <a [routerLink]="['/tipo', documento.tipo?.id, 'view']">{{ documento.tipo?.nome }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="documento.etiqueta">
-              <a [routerLink]="['/etiqueta', documento.etiqueta?.id, 'view']">{{ documento.etiqueta?.nome }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="documento.orgaoEmissor">
-              <a [routerLink]="['/orgao-emissor', documento.orgaoEmissor?.id, 'view']">{{ documento.orgaoEmissor?.sigla }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="documento.tipoNorma">
-              <a [routerLink]="['/tipo-norma', documento.tipoNorma?.id, 'view']">{{ documento.tipoNorma?.tipo }}</a>
-            </div>
           </td>
           <td class="text-right">
             <div class="btn-group">

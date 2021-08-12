@@ -152,7 +152,7 @@ mvn
 
 Nesta release vamos alterar parcialmente a janela inicial (colocar um pouco de botox). Em outras releases vamos fazer uma plástica completa.
 
-Abra o arquivo `home.json` e faça as seguintes alterações:
+Abra o arquivo `src/main/webapp/i18n/pt-br/home.json` e faça as seguintes alterações:
 
 ```json
 {
@@ -174,8 +174,213 @@ Abra o arquivo `home.json` e faça as seguintes alterações:
     "github": "GitHub"
   }
 ```
+Salve, compile, execute e teste.
 
+```
+mvn
+```
 
 5. **Colocar caracteres especiais nos labels**
 
+Se você é um bom observador deve ter notado que a entidade `Orgão Emissor` está grafada como `Orgao Emissors`. Isto ocorre por que na língua inglesa não tem til e o plural, geralmente, é feito colocando apenas a letra `s`no final. Em portugês não é assim. Então vamos corrigir.
+
+Abra o arquivo `src/main/webapp/i18n/pt-br/orgaoEmissor.json`
+
+Altere-o para:
+
+```json
+    "orgaoEmissor": {
+      "home": {
+        "title": "Órgãos Emissores",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Órgão Emissor",
+        "createOrEditLabel": "Criar ou editar Órgãos Emissores",
+        "search": "Pesquisar por Órgãos Emissores",
+        "notFound": "Nenhum Órgão Emissor encontrado"
+      },
+      "created": "Um novo Órgãos Emissor foi criado com o identificador {{ param }}",
+      "updated": "Um Órgão Emissor foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Órgão Emissor foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Órgão Emissor {{ id }}?"
+      },
+      "detail": {
+        "title": "Órgãos Emissores"
+      },
+      "id": "ID",
+      "sigla": "Sigla",
+      "nome": "Nome"
+    }
+```
+
+Salve, compile, execute e teste.
+
+```
+mvn
+```
+
 6. **Na janela que exibe a lista de documentos, mostrar somente os campos necessários**
+
+Abra o arquivo `src/main/webapp/app/entities/documento/list/documento.component.html`
+
+Vamos retirar as seguintes colunas:
+
+- Criacao
+- Ementa
+- Url
+- Tipo
+- Etiqueta
+- OrgaoEmissor
+- TipoNorma
+
+O arquivo final deverá ficar assim:
+
+```html
+<div>
+  <h2 id="page-heading" data-cy="DocumentoHeading">
+    <span jhiTranslate="farolDocsApp.documento.home.title">Documentos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="farolDocsApp.documento.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-documento"
+        [routerLink]="['/documento/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down" jhiTranslate="farolDocsApp.documento.home.createLabel"> Create a new Documento </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <form name="searchForm" class="form-inline">
+        <div class="input-group w-100 mt-3">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="currentSearch"
+            id="currentSearch"
+            name="currentSearch"
+            placeholder="{{ 'farolDocsApp.documento.home.search' | translate }}"
+          />
+
+          <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+            <fa-icon icon="search"></fa-icon>
+          </button>
+
+          <button class="input-group-append btn btn-danger" (click)="search('')" *ngIf="currentSearch">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="documentos?.length === 0">
+    <span jhiTranslate="farolDocsApp.documento.home.notFound">No documentos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="documentos && documentos.length > 0">
+          <span jhiTranslate="farolDocsApp.documento.descricao">Descricao</span> <fa-icon icon="sort"></fa-icon>
+       <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="assunto">
+            <span jhiTranslate="farolDocsApp.documento.assunto">Assunto</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="descricao">
+         </th>
+          <th scope="col" jhiSortBy="numero">
+            <span jhiTranslate="farolDocsApp.documento.numero">Numero</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="ano"><span jhiTranslate="farolDocsApp.documento.ano">Ano</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="situacao">
+            <span jhiTranslate="farolDocsApp.documento.situacao">Situacao</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="projeto.nome">
+            <span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let documento of documentos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/documento', documento.id, 'view']">{{ documento.id }}</a>
+          </td>
+          <td>{{ documento.assunto }}</td>
+          <td>{{ documento.descricao }}</td>
+          <td>{{ documento.numero }}</td>
+          <td>{{ documento.ano }}</td>
+          <td>
+            <div *ngIf="documento.projeto">
+              <a [routerLink]="['/projeto', documento.projeto?.id, 'view']">{{ documento.projeto?.nome }}</a>
+            </div>
+          </td>
+          <td>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/documento', documento.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/documento', documento.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(documento)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="documentos && documentos.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
+
+```
