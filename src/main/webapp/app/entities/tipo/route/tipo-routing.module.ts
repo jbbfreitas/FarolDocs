@@ -11,6 +11,9 @@ const tipoRoute: Routes = [
   {
     path: '',
     component: TipoComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

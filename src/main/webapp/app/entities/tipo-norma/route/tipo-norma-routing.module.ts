@@ -11,6 +11,9 @@ const tipoNormaRoute: Routes = [
   {
     path: '',
     component: TipoNormaComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

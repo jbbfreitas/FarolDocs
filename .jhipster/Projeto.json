@@ -25,7 +25,7 @@
   "dto": "no",
   "jpaMetamodelFiltering": false,
   "readOnly": false,
-  "pagination": "infinite-scroll",
+  "pagination": "pagination",
   "name": "Projeto",
   "changelogDate": "20210808175139"
 }

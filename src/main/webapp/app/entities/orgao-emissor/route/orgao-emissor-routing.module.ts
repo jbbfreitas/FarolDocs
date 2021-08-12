@@ -11,6 +11,9 @@ const orgaoEmissorRoute: Routes = [
   {
     path: '',
     component: OrgaoEmissorComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

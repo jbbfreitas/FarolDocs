@@ -11,7 +11,7 @@
   "dto": "no",
   "jpaMetamodelFiltering": false,
   "readOnly": false,
-  "pagination": "infinite-scroll",
+  "pagination": "pagination",
   "name": "Etiqueta",
   "changelogDate": "20210810184850"
 }

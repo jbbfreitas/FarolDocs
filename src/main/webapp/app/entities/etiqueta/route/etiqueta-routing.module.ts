@@ -11,6 +11,9 @@ const etiquetaRoute: Routes = [
   {
     path: '',
     component: EtiquetaComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

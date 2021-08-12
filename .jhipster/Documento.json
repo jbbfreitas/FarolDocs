@@ -69,7 +69,7 @@
   "dto": "no",
   "jpaMetamodelFiltering": false,
   "readOnly": false,
-  "pagination": "infinite-scroll",
+  "pagination": "pagination",
   "name": "Documento",
   "changelogDate": "20210807222414"
 }

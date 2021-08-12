@@ -11,6 +11,9 @@ const projetoRoute: Routes = [
   {
     path: '',
     component: ProjetoComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {
