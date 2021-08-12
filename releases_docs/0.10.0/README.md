@@ -182,7 +182,7 @@ Abra o arquivo `src/main/webapp/i18n/pt-br/home.json` e faça as seguintes alter
 ::: :pushpin: Importante :::
 Você observou que no caminho do arquivo  `src/main/webapp/i18n/pt-br/orgaoEmissor.json` tem uma pasta `pt-br`? Isso é por que existe um arquivo de mesmo nome em ingles. Lembra-se que usamos dois idiomas na nossa aplicação?
 
-Uma outra observação importante: no caminho do arquivo existe uma pasta denominada `i18n`. Esta sigla vem ve `internationalization`. Entre o `i`e o `n` tem 18 caracteres. 
+Uma outra observação importante: no caminho do arquivo existe uma pasta denominada `i18n`. Esta sigla vem de `internationalization`. Entre o `i`e o `n` tem 18 caracteres. 
 
 
 
