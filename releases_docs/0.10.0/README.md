@@ -29,11 +29,11 @@ Tenha sempre em mente o seguinte: realize primeiramente todas as mudanças sem a
 
 Fizemos questão de criar inicialmente a aplicação com a paginação `infinit scroll`, como fizemos até a release 0.0.6 para demonstrar esse recurso fantástico do JHipster que é a sua capacidade de regerar por completo uma determinada entidade.
 
-A paginação com `infinit scroll` só deve ser utilizada para tabelas muito pequenas (com no máximo 20 registros), visto que neste tipo de paginação a janela faz uma rolagem infinita. O ideal quando temos muitos registros é mostrar as ocorrências de uma entidade (linhas), agrupadas em página, ou seja usar `pagination`. Isso organiza melhor a informação além de possibilitar navegar pelas páginas e não pelas linhas, conferindo assim um aspecto mais profissional para a sua aplicação.
+A paginação com `infinit scroll` só deve ser utilizada para tabelas muito pequenas (com no máximo 20 registros), visto que neste tipo de paginação a janela faz uma rolagem infinita. O ideal, quando temos muitos registros, é mostrar as ocorrências de uma entidade (linhas), agrupadas em página, ou seja usar `pagination`. Isso organiza melhor a informação além de possibilitar navegar pelas páginas e não pelas linhas, conferindo assim um aspecto mais profissional para a sua aplicação.
 
 Vamos então alterar todas as entidades para permitir `pagination`. 
 
-1. Edite o arquivo `Documento.json`. Na ante-penultima linha altere a paginação para `pagination`.
+1. Edite o arquivo `.jhipster/Documento.json`. Na ante-penultima linha altere a paginação para `pagination`.
 
 ```json
 "service": "serviceImpl",
@@ -50,14 +50,16 @@ Vamos então alterar todas as entidades para permitir `pagination`.
 jhipster entity Documento
 ````
 
-3. Faça os passos 1 e 2 para as demais entidade.
+3. Faça os passos 1 e 2 para as demais entidades.
 
-4. No final, compile e execute a sua aplicação:
+4. No final, compile, execute e teste a sua aplicação usando:
 
 ````
 mvn
 ````
 2. **Criar o atributo `criacao` em `Documento`, tendo o default a data atual**
+
+Um importante atributo do documento é, sem dúvida, a data que este documento foi registrado no sistema FarolDocs. Veja aqui não é a data de criação real do documento, mas sim, a data em que um determinado documento foi registrado no sistema.  
 
 ```
 jhipster entity Documento
@@ -99,7 +101,7 @@ drop table tipo_norma cascade;
 ```
 mvn
 ```
-Teste a sua aplicação e verifique se quando você cria um novo documento a data de criação vem preenchida. 
+Teste a sua aplicação e verifique se quando você cria um novo documento a data de criação já vem preenchida com a data atual. 
 
 
 3. ** Colocar como valor padrão para a situação do documento a opção VIGENTE **
@@ -108,11 +110,11 @@ Agora vamos colocar como valor `default` para o atributo situação o valor `VIG
 
 Vamos lembrar que esse atributo,  gerado na release 0.0.6, é do tipo `ENUM` (enumeration em Java). E a classe que contém os 3 tipos enumerados chama-se `SituacaoDocumento`. 
 
-Para fazer com que o valor `VIGENTE` seja o padrão para os documentos recém criados, abra o arquivo `documento-update.component.ts`. Ele está escrito na linguagem [TypeScript] (https://blog.betrybe.com/desenvolvimento-web/typescript/). 
+Para fazer com que o valor `VIGENTE` seja o padrão para os documentos recém criados, abra o arquivo `src/main/webapp/app/entities/documento/update/documento-update.component.ts`. Ele está escrito na linguagem [TypeScript] (https://blog.betrybe.com/desenvolvimento-web/typescript/). 
 
 Procute o método `protected updateForm(documento: IDocumento): void {` (linha 151)
 
-Altere a linha 160 de:
+Altere a linha 160 passando de:
 
 ```
 situacao: documento.situacao,
@@ -124,23 +126,24 @@ para
 situacao: documento.situacao !=null?  documento.situacao : SituacaoDocumento.VIGENTE, // Default VIGENTE
 
 ```
-Quando você fizer essa substituição o VSC (Visual Source Code), vai sublinhar em vermelho a palavra `SituacaoDocumento`. Isso é por que ele não sabe o que vem a ser essa palavra. Porém, como toda ferramenta IDE que se preze, ele oferece a oportunidade de você corrigir o problema. Para corrigr passe o mouse em cima da palavra sublinhada em vermelho e selecione `Quick Fix`. Em seguida aceite a única sugestão dada. Vá até a linha 26 e observe que o VSC importou essa classe, veja :
+Quando você fizer essa substituição o VSC (Visual Source Code), vai sublinhar em vermelho a palavra `SituacaoDocumento`. Isso é por que ele não sabe o que vem a ser essa palavra. Porém, como toda ferramenta IDE que se preze, o VSC oferece a oportunidade de você corrigir o problema. Para corrigr passe o mouse em cima da palavra sublinhada em vermelho e selecione `Quick Fix`. Em seguida aceite a única sugestão dada. Vá até a linha 26 e observe que o VSC importou essa classe, veja como fica a linha 26 do arquivo:
 
 ```typescript
 import { SituacaoDocumento } from 'app/entities/enumerations/situacao-documento.model';
 
 ```
-Sem entrar muito no mérito da sintaxe do TypeScript, que por sinal é muito elegante, entenda por hora que agora a classe `SituacaoDocumento` é conhecida e pode ser usada na classe atual. 
+Sem entrar muito no mérito da sintaxe do TypeScript, que por sinal é muito elegante, entenda por hora que agora a classe `SituacaoDocumento` é conhecida e pode ser usada na classe atual. Isto por que o comando ```import``` torna essa classe visível por na classe ```documento-update.component.ts```.
+
 
 Mas, afinal, o que fizemos? Vamos dar uma olhada novamente na linha que modificamos:
 
-```
+```typescript
 situacao: documento.situacao !=null?  documento.situacao : SituacaoDocumento.VIGENTE, // Default VIGENTE
 
 ```
 Podemos ler essa frase da seguinte forma:
 
-Se o valor do atributo situação do documento não for nulo, atribua à variavel `situacao` o valor do atributo `documento.situacao`. Se o valor do atributo situação do documentofor form nulo (vc está criando um novo documento) então atribua à variável situação o valor `SituacaoDocumento.VIGENTE`(default).
+Se o valor do atributo situação do documento não for nulo, atribua à variavel `situacao` o valor do atributo `documento.situacao`. Se o valor do atributo situação do documento for nulo (vc está criando um novo documento) então atribua à variável situação o valor `SituacaoDocumento.VIGENTE`(default).
 
 Salve, compile, execute e teste.
 
@@ -150,7 +153,7 @@ mvn
 
 4. **Alterar a janela inicial**
 
-Nesta release vamos alterar parcialmente a janela inicial (colocar um pouco de botox). Em outras releases vamos fazer uma plástica completa.
+Nesta release vamos alterar parcialmente a janela inicial. Em outras releases vamos fazer uma plástica completa.
 
 Abra o arquivo `src/main/webapp/i18n/pt-br/home.json` e faça as seguintes alterações:
 
@@ -173,7 +176,16 @@ Abra o arquivo `src/main/webapp/i18n/pt-br/home.json` e faça as seguintes alter
     "like": "Se você gosta do FaroDocs, não se esqueça de avaliar no",
     "github": "GitHub"
   }
+
 ```
+
+::: :pushpin: Importante :::
+Você observou que no caminho do arquivo  `src/main/webapp/i18n/pt-br/orgaoEmissor.json` tem uma pasta `pt-br`? Isso é por que existe um arquivo de mesmo nome em ingles. Lembra-se que usamos dois idiomas na nossa aplicação?
+
+Uma outra observação importante: no caminho do arquivo existe uma pasta denominada `i18n`. Esta sigla vem ve `internationalization`. Entre o `i`e o `n` tem 18 caracteres. 
+
+
+
 Salve, compile, execute e teste.
 
 ```
@@ -212,6 +224,8 @@ Altere-o para:
       "nome": "Nome"
     }
 ```
+
+
 
 Salve, compile, execute e teste.
 
