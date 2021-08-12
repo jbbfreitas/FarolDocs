@@ -21,7 +21,7 @@ Na maioria delas será necessário alterar o código de nossa aplicação. Isso 
 Uma boa ferramenta de `scaffold` como o JHipster deve gerar códigos fonte limpos e elegantes. Isso é importante por que em algum momento você necessitará de alterar manualmente os códigos fonte se quiser uma aplicaçãop realmente profissional.  
 
 ::: :pushpin: Importante :::
-Então tenha sempre em mente o seguinte: realize primeiramente todas as mudanças sem alterar os códigos-fonte para, só depois, começar a alterar o código. 
+Tenha sempre em mente o seguinte: realize primeiramente todas as mudanças sem alterar os códigos-fonte para, só depois, começar a alterar o código. 
 
 ## Implementando as mudanças
 
