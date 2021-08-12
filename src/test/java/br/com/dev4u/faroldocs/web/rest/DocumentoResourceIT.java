@@ -12,6 +12,8 @@ import br.com.dev4u.faroldocs.domain.Documento;
 import br.com.dev4u.faroldocs.domain.enumeration.SituacaoDocumento;
 import br.com.dev4u.faroldocs.repository.DocumentoRepository;
 import br.com.dev4u.faroldocs.repository.search.DocumentoSearchRepository;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -62,6 +64,9 @@ class DocumentoResourceIT {
     private static final SituacaoDocumento DEFAULT_SITUACAO = SituacaoDocumento.VIGENTE;
     private static final SituacaoDocumento UPDATED_SITUACAO = SituacaoDocumento.SUBSTITUIDO;
 
+    private static final Instant DEFAULT_CRIACAO = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CRIACAO = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
     private static final String ENTITY_API_URL = "/api/documentos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
     private static final String ENTITY_SEARCH_API_URL = "/api/_search/documentos";
@@ -102,7 +107,8 @@ class DocumentoResourceIT {
             .url(DEFAULT_URL)
             .numero(DEFAULT_NUMERO)
             .ano(DEFAULT_ANO)
-            .situacao(DEFAULT_SITUACAO);
+            .situacao(DEFAULT_SITUACAO)
+            .criacao(DEFAULT_CRIACAO);
         return documento;
     }
 
@@ -120,7 +126,8 @@ class DocumentoResourceIT {
             .url(UPDATED_URL)
             .numero(UPDATED_NUMERO)
             .ano(UPDATED_ANO)
-            .situacao(UPDATED_SITUACAO);
+            .situacao(UPDATED_SITUACAO)
+            .criacao(UPDATED_CRIACAO);
         return documento;
     }
 
@@ -149,6 +156,7 @@ class DocumentoResourceIT {
         assertThat(testDocumento.getNumero()).isEqualTo(DEFAULT_NUMERO);
         assertThat(testDocumento.getAno()).isEqualTo(DEFAULT_ANO);
         assertThat(testDocumento.getSituacao()).isEqualTo(DEFAULT_SITUACAO);
+        assertThat(testDocumento.getCriacao()).isEqualTo(DEFAULT_CRIACAO);
 
         // Validate the Documento in Elasticsearch
         verify(mockDocumentoSearchRepository, times(1)).save(testDocumento);
@@ -193,7 +201,8 @@ class DocumentoResourceIT {
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
             .andExpect(jsonPath("$.[*].numero").value(hasItem(DEFAULT_NUMERO)))
             .andExpect(jsonPath("$.[*].ano").value(hasItem(DEFAULT_ANO)))
-            .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.toString())));
+            .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.toString())))
+            .andExpect(jsonPath("$.[*].criacao").value(hasItem(DEFAULT_CRIACAO.toString())));
     }
 
     @Test
@@ -214,7 +223,8 @@ class DocumentoResourceIT {
             .andExpect(jsonPath("$.url").value(DEFAULT_URL))
             .andExpect(jsonPath("$.numero").value(DEFAULT_NUMERO))
             .andExpect(jsonPath("$.ano").value(DEFAULT_ANO))
-            .andExpect(jsonPath("$.situacao").value(DEFAULT_SITUACAO.toString()));
+            .andExpect(jsonPath("$.situacao").value(DEFAULT_SITUACAO.toString()))
+            .andExpect(jsonPath("$.criacao").value(DEFAULT_CRIACAO.toString()));
     }
 
     @Test
@@ -243,7 +253,8 @@ class DocumentoResourceIT {
             .url(UPDATED_URL)
             .numero(UPDATED_NUMERO)
             .ano(UPDATED_ANO)
-            .situacao(UPDATED_SITUACAO);
+            .situacao(UPDATED_SITUACAO)
+            .criacao(UPDATED_CRIACAO);
 
         restDocumentoMockMvc
             .perform(
@@ -264,6 +275,7 @@ class DocumentoResourceIT {
         assertThat(testDocumento.getNumero()).isEqualTo(UPDATED_NUMERO);
         assertThat(testDocumento.getAno()).isEqualTo(UPDATED_ANO);
         assertThat(testDocumento.getSituacao()).isEqualTo(UPDATED_SITUACAO);
+        assertThat(testDocumento.getCriacao()).isEqualTo(UPDATED_CRIACAO);
 
         // Validate the Documento in Elasticsearch
         verify(mockDocumentoSearchRepository).save(testDocumento);
@@ -346,7 +358,7 @@ class DocumentoResourceIT {
         Documento partialUpdatedDocumento = new Documento();
         partialUpdatedDocumento.setId(documento.getId());
 
-        partialUpdatedDocumento.ementa(UPDATED_EMENTA).url(UPDATED_URL).numero(UPDATED_NUMERO).ano(UPDATED_ANO);
+        partialUpdatedDocumento.ementa(UPDATED_EMENTA).url(UPDATED_URL).numero(UPDATED_NUMERO).ano(UPDATED_ANO).criacao(UPDATED_CRIACAO);
 
         restDocumentoMockMvc
             .perform(
@@ -367,6 +379,7 @@ class DocumentoResourceIT {
         assertThat(testDocumento.getNumero()).isEqualTo(UPDATED_NUMERO);
         assertThat(testDocumento.getAno()).isEqualTo(UPDATED_ANO);
         assertThat(testDocumento.getSituacao()).isEqualTo(DEFAULT_SITUACAO);
+        assertThat(testDocumento.getCriacao()).isEqualTo(UPDATED_CRIACAO);
     }
 
     @Test
@@ -388,7 +401,8 @@ class DocumentoResourceIT {
             .url(UPDATED_URL)
             .numero(UPDATED_NUMERO)
             .ano(UPDATED_ANO)
-            .situacao(UPDATED_SITUACAO);
+            .situacao(UPDATED_SITUACAO)
+            .criacao(UPDATED_CRIACAO);
 
         restDocumentoMockMvc
             .perform(
@@ -409,6 +423,7 @@ class DocumentoResourceIT {
         assertThat(testDocumento.getNumero()).isEqualTo(UPDATED_NUMERO);
         assertThat(testDocumento.getAno()).isEqualTo(UPDATED_ANO);
         assertThat(testDocumento.getSituacao()).isEqualTo(UPDATED_SITUACAO);
+        assertThat(testDocumento.getCriacao()).isEqualTo(UPDATED_CRIACAO);
     }
 
     @Test
@@ -520,6 +535,7 @@ class DocumentoResourceIT {
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
             .andExpect(jsonPath("$.[*].numero").value(hasItem(DEFAULT_NUMERO)))
             .andExpect(jsonPath("$.[*].ano").value(hasItem(DEFAULT_ANO)))
-            .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.toString())));
+            .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.toString())))
+            .andExpect(jsonPath("$.[*].criacao").value(hasItem(DEFAULT_CRIACAO.toString())));
     }
 }

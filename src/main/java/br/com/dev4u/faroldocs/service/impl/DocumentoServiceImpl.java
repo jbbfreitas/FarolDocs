@@ -69,6 +69,9 @@ public class DocumentoServiceImpl implements DocumentoService {
                     if (documento.getSituacao() != null) {
                         existingDocumento.setSituacao(documento.getSituacao());
                     }
+                    if (documento.getCriacao() != null) {
+                        existingDocumento.setCriacao(documento.getCriacao());
+                    }
 
                     return existingDocumento;
                 }

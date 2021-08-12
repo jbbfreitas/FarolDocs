@@ -5,6 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
+import * as dayjs from 'dayjs';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+
 import { IDocumento, Documento } from '../documento.model';
 import { DocumentoService } from '../service/documento.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
@@ -20,6 +23,7 @@ import { IOrgaoEmissor } from 'app/entities/orgao-emissor/orgao-emissor.model';
 import { OrgaoEmissorService } from 'app/entities/orgao-emissor/service/orgao-emissor.service';
 import { ITipoNorma } from 'app/entities/tipo-norma/tipo-norma.model';
 import { TipoNormaService } from 'app/entities/tipo-norma/service/tipo-norma.service';
+import { SituacaoDocumento } from 'app/entities/enumerations/situacao-documento.model';
 
 @Component({
   selector: 'jhi-documento-update',
@@ -43,6 +47,7 @@ export class DocumentoUpdateComponent implements OnInit {
     numero: [],
     ano: [],
     situacao: [],
+    criacao: [],
     projeto: [],
     tipo: [],
     etiqueta: [],
@@ -65,6 +70,11 @@ export class DocumentoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ documento }) => {
+      if (documento.id === undefined) {
+        const today = dayjs().startOf('day');
+        documento.criacao = today;
+      }
+
       this.updateForm(documento);
 
       this.loadRelationshipsOptions();
@@ -148,7 +158,8 @@ export class DocumentoUpdateComponent implements OnInit {
       url: documento.url,
       numero: documento.numero,
       ano: documento.ano,
-      situacao: documento.situacao,
+      situacao: documento.situacao !=null?  documento.situacao : SituacaoDocumento.VIGENTE, // Default VIGENTE
+      criacao: documento.criacao ? documento.criacao.format(DATE_TIME_FORMAT) : null,
       projeto: documento.projeto,
       tipo: documento.tipo,
       etiqueta: documento.etiqueta,
@@ -229,6 +240,7 @@ export class DocumentoUpdateComponent implements OnInit {
       numero: this.editForm.get(['numero'])!.value,
       ano: this.editForm.get(['ano'])!.value,
       situacao: this.editForm.get(['situacao'])!.value,
+      criacao: this.editForm.get(['criacao'])!.value ? dayjs(this.editForm.get(['criacao'])!.value, DATE_TIME_FORMAT) : undefined,
       projeto: this.editForm.get(['projeto'])!.value,
       tipo: this.editForm.get(['tipo'])!.value,
       etiqueta: this.editForm.get(['etiqueta'])!.value,

@@ -1,3 +1,4 @@
+import * as dayjs from 'dayjs';
 import { IProjeto } from 'app/entities/projeto/projeto.model';
 import { ITipo } from 'app/entities/tipo/tipo.model';
 import { IEtiqueta } from 'app/entities/etiqueta/etiqueta.model';
@@ -14,6 +15,7 @@ export interface IDocumento {
   numero?: string | null;
   ano?: number | null;
   situacao?: SituacaoDocumento | null;
+  criacao?: dayjs.Dayjs | null;
   projeto?: IProjeto | null;
   tipo?: ITipo | null;
   etiqueta?: IEtiqueta | null;
@@ -31,6 +33,7 @@ export class Documento implements IDocumento {
     public numero?: string | null,
     public ano?: number | null,
     public situacao?: SituacaoDocumento | null,
+    public criacao?: dayjs.Dayjs | null,
     public projeto?: IProjeto | null,
     public tipo?: ITipo | null,
     public etiqueta?: IEtiqueta | null,

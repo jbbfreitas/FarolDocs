@@ -31,6 +31,10 @@
       "fieldName": "situacao",
       "fieldType": "SituacaoDocumento",
       "fieldValues": "VIGENTE,SUBSTITUIDO,CANCELADO"
+    },
+    {
+      "fieldName": "criacao",
+      "fieldType": "Instant"
     }
   ],
   "relationships": [

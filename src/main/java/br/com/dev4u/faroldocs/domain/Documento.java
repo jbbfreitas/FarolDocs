@@ -2,6 +2,7 @@ package br.com.dev4u.faroldocs.domain;
 
 import br.com.dev4u.faroldocs.domain.enumeration.SituacaoDocumento;
 import java.io.Serializable;
+import java.time.Instant;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -49,6 +50,9 @@ public class Documento implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "situacao")
     private SituacaoDocumento situacao;
+
+    @Column(name = "criacao")
+    private Instant criacao;
 
     @ManyToOne
     private Projeto projeto;
@@ -170,6 +174,19 @@ public class Documento implements Serializable {
         this.situacao = situacao;
     }
 
+    public Instant getCriacao() {
+        return this.criacao;
+    }
+
+    public Documento criacao(Instant criacao) {
+        this.criacao = criacao;
+        return this;
+    }
+
+    public void setCriacao(Instant criacao) {
+        this.criacao = criacao;
+    }
+
     public Projeto getProjeto() {
         return this.projeto;
     }
@@ -266,6 +283,7 @@ public class Documento implements Serializable {
             ", numero='" + getNumero() + "'" +
             ", ano=" + getAno() +
             ", situacao='" + getSituacao() + "'" +
+            ", criacao='" + getCriacao() + "'" +
             "}";
     }
 }

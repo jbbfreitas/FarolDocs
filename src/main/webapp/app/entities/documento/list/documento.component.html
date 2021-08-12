@@ -75,6 +75,9 @@
           <th scope="col" jhiSortBy="situacao">
             <span jhiTranslate="farolDocsApp.documento.situacao">Situacao</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="criacao">
+            <span jhiTranslate="farolDocsApp.documento.criacao">Criacao</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="projeto.nome">
             <span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -105,6 +108,7 @@
           <td>{{ documento.numero }}</td>
           <td>{{ documento.ano }}</td>
           <td jhiTranslate="{{ 'farolDocsApp.SituacaoDocumento.' + documento.situacao }}">{{ documento.situacao }}</td>
+          <td>{{ documento.criacao | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="documento.projeto">
               <a [routerLink]="['/projeto', documento.projeto?.id, 'view']">{{ documento.projeto?.nome }}</a>
