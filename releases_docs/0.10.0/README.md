@@ -384,3 +384,11 @@ O arquivo final deverá ficar assim:
 </div>
 
 ```
+
+Salve, compile, execute e teste.
+
+```
+mvn
+```
+
+*** Final da release 0.1.0 ***
