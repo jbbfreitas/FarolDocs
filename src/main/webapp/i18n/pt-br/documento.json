@@ -20,18 +20,18 @@
       },
       "id": "ID",
       "assunto": "Assunto",
-      "descricao": "Descricao",
+      "descricao": "Descrição",
       "ementa": "Ementa",
       "url": "Url",
-      "numero": "Numero",
+      "numero": "Número",
       "ano": "Ano",
-      "situacao": "Situacao",
-      "criacao": "Criacao",
+      "situacao": "Situação",
+      "criacao": "Criação",
       "projeto": "Projeto",
       "tipo": "Tipo",
       "etiqueta": "Etiqueta",
-      "orgaoEmissor": "Orgao Emissor",
-      "tipoNorma": "Tipo Norma"
+      "orgaoEmissor": "Órgão Emissor",
+      "tipoNorma": "Tipo de Norma"
     }
   }
 }

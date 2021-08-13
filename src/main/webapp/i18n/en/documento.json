@@ -2,36 +2,36 @@
   "farolDocsApp": {
     "documento": {
       "home": {
-        "title": "Documentos",
+        "title": "Documents",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Documento",
-        "createOrEditLabel": "Create or edit a Documento",
-        "search": "Search for Documento",
-        "notFound": "No Documentos found"
+        "createLabel": "Create a new Document",
+        "createOrEditLabel": "Create or edit a Document",
+        "search": "Search for Documents",
+        "notFound": "No Documents found"
       },
       "created": "A new Documento is created with identifier {{ param }}",
       "updated": "A Documento is updated with identifier {{ param }}",
       "deleted": "A Documento is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Documento {{ id }}?"
+        "question": "Are you sure you want to delete Document {{ id }}?"
       },
       "detail": {
-        "title": "Documento"
+        "title": "Document"
       },
       "id": "ID",
-      "assunto": "Assunto",
-      "descricao": "Descricao",
-      "ementa": "Ementa",
+      "assunto": "Subject",
+      "descricao": "Description",
+      "ementa": "Resume",
       "url": "Url",
-      "numero": "Numero",
-      "ano": "Ano",
-      "situacao": "Situacao",
-      "criacao": "Criacao",
-      "projeto": "Projeto",
-      "tipo": "Tipo",
-      "etiqueta": "Etiqueta",
-      "orgaoEmissor": "Orgao Emissor",
-      "tipoNorma": "Tipo Norma"
+      "numero": "Number",
+      "ano": "Year",
+      "situacao": "Status",
+      "criacao": "Created at",
+      "projeto": "Project",
+      "tipo": "Kind",
+      "etiqueta": "Tag",
+      "orgaoEmissor": "Agency",
+      "tipoNorma": "Type of Norm"
     }
   }
 }

@@ -135,7 +135,12 @@ Generating relationships to other entities
 ? Do you want to add a relationship to another entity? Yes
 ? What is the name of the other entity? Etiqueta
 ? What is the name of the relationship? etiqueta
-? What is the type of the relationship? many-to-one
+? What is the type of the relationship? many-to-many
+
+*****Alterar aqui *******
+
+
+
 ? When you display this relationship on client-side, which field from 'Etiqueta' do you want to use? This field will be displayed as a String, so it cannot be a Blob nome
 ? Do you want to add any validation rules to this relationship? No
 

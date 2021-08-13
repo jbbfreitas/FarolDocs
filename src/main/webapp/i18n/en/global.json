@@ -99,11 +99,11 @@
       "addimage": "Add image",
       "back": "Back",
       "cancel": "Cancel",
-      "delete": "Delete",
-      "edit": "Edit",
+      "delete": "",
+      "edit": "",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": ""
     },
     "detail": {
       "field": "Field",
@@ -143,5 +143,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "This is your footer"
+  "footer": "Copyright FarolDocs Ltda - Brazil"
 }

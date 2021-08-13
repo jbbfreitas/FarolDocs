@@ -176,7 +176,7 @@ Abra o arquivo `src/main/webapp/i18n/pt-br/home.json` e faça as seguintes alter
     "like": "Se você gosta do FaroDocs, não se esqueça de avaliar no",
     "github": "GitHub"
   }
-
+}
 ```
 
 ::: :pushpin: Importante :::
@@ -405,4 +405,4 @@ Salve, compile, execute e teste.
 mvn
 ```
 
-*** Final da release 0.1.0 ***
+*** Final da release 0.10.0 ***

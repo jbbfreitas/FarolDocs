@@ -12,11 +12,67 @@
           <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.tipo" for="field_tipo">Tipo</label>
+          <select class="form-control" id="field_tipo" data-cy="tipo" name="tipo" formControlName="tipo">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="tipoOption.id === editForm.get('tipo')!.value?.id ? editForm.get('tipo')!.value : tipoOption"
+              *ngFor="let tipoOption of tiposSharedCollection; trackBy: trackTipoById"
+            >
+              {{ tipoOption.nome }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.projeto" for="field_projeto">Projeto</label>
+          <select class="form-control" id="field_projeto" data-cy="projeto" name="projeto" formControlName="projeto">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="projetoOption.id === editForm.get('projeto')!.value?.id ? editForm.get('projeto')!.value : projetoOption"
+              *ngFor="let projetoOption of projetosSharedCollection; trackBy: trackProjetoById"
+            >
+              {{ projetoOption.nome }}
+            </option>
+          </select>
+        </div>
+
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.assunto" for="field_assunto">Assunto</label>
           <input type="text" class="form-control" name="assunto" id="field_assunto" data-cy="assunto" formControlName="assunto" />
         </div>
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.orgaoEmissor" for="field_orgaoEmissor"
+            >Orgao Emissor</label
+          >
+          <select class="form-control" id="field_orgaoEmissor" data-cy="orgaoEmissor" name="orgaoEmissor" formControlName="orgaoEmissor">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                orgaoEmissorOption.id === editForm.get('orgaoEmissor')!.value?.id ? editForm.get('orgaoEmissor')!.value : orgaoEmissorOption
+              "
+              *ngFor="let orgaoEmissorOption of orgaoEmissorsSharedCollection; trackBy: trackOrgaoEmissorById"
+            >
+              {{ orgaoEmissorOption.sigla }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.tipoNorma" for="field_tipoNorma">Tipo Norma</label>
+          <select class="form-control" id="field_tipoNorma" data-cy="tipoNorma" name="tipoNorma" formControlName="tipoNorma">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="tipoNormaOption.id === editForm.get('tipoNorma')!.value?.id ? editForm.get('tipoNorma')!.value : tipoNormaOption"
+              *ngFor="let tipoNormaOption of tipoNormasSharedCollection; trackBy: trackTipoNormaById"
+            >
+              {{ tipoNormaOption.tipo }}
+            </option>
+          </select>
+        </div>
+      </div>
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.descricao" for="field_descricao">Descricao</label>
@@ -63,6 +119,21 @@
           </select>
         </div>
 
+
+
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.etiqueta" for="field_etiqueta">Etiqueta</label>
+          <select class="form-control" id="field_etiqueta" data-cy="etiqueta" name="etiqueta" formControlName="etiqueta">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="etiquetaOption.id === editForm.get('etiqueta')!.value?.id ? editForm.get('etiqueta')!.value : etiquetaOption"
+              *ngFor="let etiquetaOption of etiquetasSharedCollection; trackBy: trackEtiquetaById"
+            >
+              {{ etiquetaOption.nome }}
+            </option>
+          </select>
+        </div>
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.criacao" for="field_criacao">Criacao</label>
           <div class="d-flex">
@@ -78,75 +149,6 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.projeto" for="field_projeto">Projeto</label>
-          <select class="form-control" id="field_projeto" data-cy="projeto" name="projeto" formControlName="projeto">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="projetoOption.id === editForm.get('projeto')!.value?.id ? editForm.get('projeto')!.value : projetoOption"
-              *ngFor="let projetoOption of projetosSharedCollection; trackBy: trackProjetoById"
-            >
-              {{ projetoOption.nome }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.tipo" for="field_tipo">Tipo</label>
-          <select class="form-control" id="field_tipo" data-cy="tipo" name="tipo" formControlName="tipo">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="tipoOption.id === editForm.get('tipo')!.value?.id ? editForm.get('tipo')!.value : tipoOption"
-              *ngFor="let tipoOption of tiposSharedCollection; trackBy: trackTipoById"
-            >
-              {{ tipoOption.nome }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.etiqueta" for="field_etiqueta">Etiqueta</label>
-          <select class="form-control" id="field_etiqueta" data-cy="etiqueta" name="etiqueta" formControlName="etiqueta">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="etiquetaOption.id === editForm.get('etiqueta')!.value?.id ? editForm.get('etiqueta')!.value : etiquetaOption"
-              *ngFor="let etiquetaOption of etiquetasSharedCollection; trackBy: trackEtiquetaById"
-            >
-              {{ etiquetaOption.nome }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.orgaoEmissor" for="field_orgaoEmissor"
-            >Orgao Emissor</label
-          >
-          <select class="form-control" id="field_orgaoEmissor" data-cy="orgaoEmissor" name="orgaoEmissor" formControlName="orgaoEmissor">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                orgaoEmissorOption.id === editForm.get('orgaoEmissor')!.value?.id ? editForm.get('orgaoEmissor')!.value : orgaoEmissorOption
-              "
-              *ngFor="let orgaoEmissorOption of orgaoEmissorsSharedCollection; trackBy: trackOrgaoEmissorById"
-            >
-              {{ orgaoEmissorOption.sigla }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.tipoNorma" for="field_tipoNorma">Tipo Norma</label>
-          <select class="form-control" id="field_tipoNorma" data-cy="tipoNorma" name="tipoNorma" formControlName="tipoNorma">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="tipoNormaOption.id === editForm.get('tipoNorma')!.value?.id ? editForm.get('tipoNorma')!.value : tipoNormaOption"
-              *ngFor="let tipoNormaOption of tipoNormasSharedCollection; trackBy: trackTipoNormaById"
-            >
-              {{ tipoNormaOption.tipo }}
-            </option>
-          </select>
-        </div>
-      </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">

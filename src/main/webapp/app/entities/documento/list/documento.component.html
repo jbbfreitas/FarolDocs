@@ -54,15 +54,18 @@
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="documentos && documentos.length > 0">
-          <span jhiTranslate="farolDocsApp.documento.descricao">Descricao</span> <fa-icon icon="sort"></fa-icon>
        <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="projeto.nome">
+            <span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="assunto">
             <span jhiTranslate="farolDocsApp.documento.assunto">Assunto</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="descricao">
+            <span jhiTranslate="farolDocsApp.documento.descricao">Descricao</span> <fa-icon icon="sort"></fa-icon>
          </th>
           <th scope="col" jhiSortBy="numero">
             <span jhiTranslate="farolDocsApp.documento.numero">Numero</span> <fa-icon icon="sort"></fa-icon>
@@ -70,9 +73,6 @@
           <th scope="col" jhiSortBy="ano"><span jhiTranslate="farolDocsApp.documento.ano">Ano</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="situacao">
             <span jhiTranslate="farolDocsApp.documento.situacao">Situacao</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="projeto.nome">
-            <span jhiTranslate="farolDocsApp.documento.projeto">Projeto</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -82,15 +82,16 @@
           <td>
             <a [routerLink]="['/documento', documento.id, 'view']">{{ documento.id }}</a>
           </td>
-          <td>{{ documento.assunto }}</td>
-          <td>{{ documento.descricao }}</td>
-          <td>{{ documento.numero }}</td>
-          <td>{{ documento.ano }}</td>
           <td>
             <div *ngIf="documento.projeto">
               <a [routerLink]="['/projeto', documento.projeto?.id, 'view']">{{ documento.projeto?.nome }}</a>
             </div>
           </td>
+          <td>{{ documento.assunto }}</td>
+          <td>{{ documento.descricao }}</td>
+          <td>{{ documento.numero }}</td>
+          <td>{{ documento.ano }}</td>
+          <td>{{ documento.situacao }}</td>
           <td>
           </td>
           <td class="text-right">

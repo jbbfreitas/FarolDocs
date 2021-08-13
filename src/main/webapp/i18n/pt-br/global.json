@@ -99,11 +99,11 @@
       "addimage": "Adicionar imagem",
       "back": "Voltar",
       "cancel": "Cancelar",
-      "delete": "Excluir",
-      "edit": "Editar",
+      "delete": "",
+      "edit": "",
       "open": "Abrir",
-      "save": "Salvar",
-      "view": "Visualizar"
+      "save": "Gravar",
+      "view": ""
     },
     "detail": {
       "field": "Campo",
@@ -143,5 +143,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "Este é o rodapé da página"
+  "footer": "Copyright FarolDocs Ltda - Brazil"
 }
