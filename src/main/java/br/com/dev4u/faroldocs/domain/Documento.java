@@ -3,6 +3,8 @@ package br.com.dev4u.faroldocs.domain;
 import br.com.dev4u.faroldocs.domain.enumeration.SituacaoDocumento;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -60,8 +62,14 @@ public class Documento implements Serializable {
     @ManyToOne
     private Tipo tipo;
 
-    @ManyToOne
-    private Etiqueta etiqueta;
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(
+        name = "rel_documento__etiqueta",
+        joinColumns = @JoinColumn(name = "documento_id"),
+        inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
+    )
+    private Set<Etiqueta> etiquetas = new HashSet<>();
 
     @ManyToOne
     private OrgaoEmissor orgaoEmissor;
@@ -213,17 +221,27 @@ public class Documento implements Serializable {
         this.tipo = tipo;
     }
 
-    public Etiqueta getEtiqueta() {
-        return this.etiqueta;
+    public Set<Etiqueta> getEtiquetas() {
+        return this.etiquetas;
     }
 
-    public Documento etiqueta(Etiqueta etiqueta) {
-        this.setEtiqueta(etiqueta);
+    public Documento etiquetas(Set<Etiqueta> etiquetas) {
+        this.setEtiquetas(etiquetas);
         return this;
     }
 
-    public void setEtiqueta(Etiqueta etiqueta) {
-        this.etiqueta = etiqueta;
+    public Documento addEtiqueta(Etiqueta etiqueta) {
+        this.etiquetas.add(etiqueta);
+        return this;
+    }
+
+    public Documento removeEtiqueta(Etiqueta etiqueta) {
+        this.etiquetas.remove(etiqueta);
+        return this;
+    }
+
+    public void setEtiquetas(Set<Etiqueta> etiquetas) {
+        this.etiquetas = etiquetas;
     }
 
     public OrgaoEmissor getOrgaoEmissor() {

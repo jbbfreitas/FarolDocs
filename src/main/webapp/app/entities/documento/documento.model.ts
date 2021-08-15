@@ -18,7 +18,7 @@ export interface IDocumento {
   criacao?: dayjs.Dayjs | null;
   projeto?: IProjeto | null;
   tipo?: ITipo | null;
-  etiqueta?: IEtiqueta | null;
+  etiquetas?: IEtiqueta[] | null;
   orgaoEmissor?: IOrgaoEmissor | null;
   tipoNorma?: ITipoNorma | null;
 }
@@ -36,7 +36,7 @@ export class Documento implements IDocumento {
     public criacao?: dayjs.Dayjs | null,
     public projeto?: IProjeto | null,
     public tipo?: ITipo | null,
-    public etiqueta?: IEtiqueta | null,
+    public etiquetas?: IEtiqueta[] | null,
     public orgaoEmissor?: IOrgaoEmissor | null,
     public tipoNorma?: ITipoNorma | null
   ) {}

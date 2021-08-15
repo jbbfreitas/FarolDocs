@@ -93,11 +93,15 @@ public class DocumentoServiceImpl implements DocumentoService {
         return documentoRepository.findAll(pageable);
     }
 
+    public Page<Documento> findAllWithEagerRelationships(Pageable pageable) {
+        return documentoRepository.findAllWithEagerRelationships(pageable);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<Documento> findOne(Long id) {
         log.debug("Request to get Documento : {}", id);
-        return documentoRepository.findById(id);
+        return documentoRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

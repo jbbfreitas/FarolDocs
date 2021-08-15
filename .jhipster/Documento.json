@@ -53,8 +53,10 @@
     {
       "relationshipName": "etiqueta",
       "otherEntityName": "etiqueta",
-      "relationshipType": "many-to-one",
-      "otherEntityField": "nome"
+      "relationshipType": "many-to-many",
+      "otherEntityField": "nome",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "documento"
     },
     {
       "relationshipName": "orgaoEmissor",

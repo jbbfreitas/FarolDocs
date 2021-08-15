@@ -93,6 +93,7 @@ drop table documento cascade;
 drop table projeto cascade;
 drop table tipo cascade;
 drop table etiqueta cascade;
+drop table rel_documento__etiqueta cascade;
 drop table orgao_emissor cascade;
 drop table tipo_norma cascade;
 ```
@@ -104,7 +105,7 @@ mvn
 Teste a sua aplicação e verifique se quando você cria um novo documento a data de criação já vem preenchida com a data atual. 
 
 
-3. ** Colocar como valor padrão para a situação do documento a opção VIGENTE **
+** 3. Colocar como valor padrão para a situação do documento a opção VIGENTE **
 
 Agora vamos colocar como valor `default` para o atributo situação o valor `VIGENTE`.
 
@@ -112,9 +113,9 @@ Vamos lembrar que esse atributo,  gerado na release 0.0.6, é do tipo `ENUM` (en
 
 Para fazer com que o valor `VIGENTE` seja o padrão para os documentos recém criados, abra o arquivo `src/main/webapp/app/entities/documento/update/documento-update.component.ts`. Ele está escrito na linguagem [TypeScript] (https://blog.betrybe.com/desenvolvimento-web/typescript/). 
 
-Procute o método `protected updateForm(documento: IDocumento): void {` (linha 151)
+Procute o método `protected updateForm(documento: IDocumento): void {` (linha 162)
 
-Altere a linha 160 passando de:
+Altere a linha 171 passando de:
 
 ```
 situacao: documento.situacao,
@@ -201,28 +202,33 @@ Abra o arquivo `src/main/webapp/i18n/pt-br/orgaoEmissor.json`
 Altere-o para:
 
 ```json
+{
+  "farolDocsApp": {
     "orgaoEmissor": {
       "home": {
         "title": "Órgãos Emissores",
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo Órgão Emissor",
-        "createOrEditLabel": "Criar ou editar Órgãos Emissores",
-        "search": "Pesquisar por Órgãos Emissores",
+        "createOrEditLabel": "Criar ou editar Órgão Emissor",
+        "search": "Pesquisar por Órgão Emissor",
         "notFound": "Nenhum Órgão Emissor encontrado"
       },
-      "created": "Um novo Órgãos Emissor foi criado com o identificador {{ param }}",
+      "created": "Um novo Órgão Emissor foi criado com o identificador {{ param }}",
       "updated": "Um Órgão Emissor foi atualizado com o identificador {{ param }}",
       "deleted": "Um Órgão Emissor foi excluído com o identificador {{ param }}",
       "delete": {
         "question": "Tem certeza de que deseja excluir Órgão Emissor {{ id }}?"
       },
       "detail": {
-        "title": "Órgãos Emissores"
+        "title": "Órgão Emissor"
       },
       "id": "ID",
       "sigla": "Sigla",
       "nome": "Nome"
     }
+  }
+}
+
 ```
 
 

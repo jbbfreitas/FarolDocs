@@ -44,9 +44,6 @@
             <column name="tipo_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="etiqueta_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="orgao_emissor_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -56,6 +53,20 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="documento" columnName="criacao" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20210807222414-1-relations" author="jhipster">
+
+        <createTable tableName="rel_documento__etiqueta">
+            <column name="etiqueta_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="documento_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="documento_id, etiqueta_id" tableName="rel_documento__etiqueta"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

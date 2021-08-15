@@ -20,9 +20,15 @@
                                  referencedColumnNames="id"
                                  referencedTableName="tipo"/>
 
+        <addForeignKeyConstraint baseColumnNames="documento_id"
+                                 baseTableName="rel_documento__etiqueta"
+                                 constraintName="fk_rel_documento__etiqueta__documento_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="documento"/>
+
         <addForeignKeyConstraint baseColumnNames="etiqueta_id"
-                                 baseTableName="documento"
-                                 constraintName="fk_documento__etiqueta_id"
+                                 baseTableName="rel_documento__etiqueta"
+                                 constraintName="fk_rel_documento__etiqueta__etiqueta_id"
                                  referencedColumnNames="id"
                                  referencedTableName="etiqueta"/>
 

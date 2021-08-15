@@ -529,6 +529,63 @@ Vamos ter que alterar 2 arquivos
   </div>
 </div>
 ```
+Altere o arquivo `src/main/webapp/app/home/home.component.html` para ficar como abaixo:
+
+```html
+<div class="row">
+  <div class="col-md-3">
+    <span class="hipster img-fluid rounded"></span>
+  </div>
+
+  <div class="col-md-9">
+    <h1 class="display-4"><span jhiTranslate="home.title">Welcome, Java Hipster!</span></h1>
+
+    <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
+
+    <div [ngSwitch]="account !== null">
+      <div class="alert alert-success" *ngSwitchCase="true">
+        <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }"
+          >You are logged in as user "{{ account.login }}".</span
+        >
+      </div>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
+        <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a
+        ><span jhiTranslate="global.messages.info.authenticated.suffix"
+          >, you can try the default accounts:<br />- Administrator (login="admin" and password="admin") <br />- User (login="user" and
+          password="user").</span
+        >
+      </div>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
+        <a class="alert-link" routerLink="account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+      </div>
+    </div>
+
+    <p jhiTranslate="home.question">If you have any question on JHipster:</p>
+
+    <ul>
+      <li>
+        <a jhiTranslate="home.link.description"> Do a free test</a>
+      </li>
+      <li>
+        <a jhiTranslate="home.link.more"> Do a free test</a>
+      </li>
+    </ul>
+
+    <p>
+      <span jhiTranslate="home.like">If you like FarolDocs, don't forget to give us a star on</span>
+      <a href="https://github.com/jbffreitas/FarolDocs" target="_blank" rel="noopener noreferrer" jhiTranslate="home.github"
+        >GitHub</a
+      >!
+    </p>
+  </div>
+</div>
+
+```
+
 
 Salve, compile, execute e teste.
 

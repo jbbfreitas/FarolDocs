@@ -96,12 +96,12 @@ describe('Component Tests', () => {
 
       it('Should call Etiqueta query and add missing value', () => {
         const documento: IDocumento = { id: 456 };
-        const etiqueta: IEtiqueta = { id: 11604 };
-        documento.etiqueta = etiqueta;
+        const etiquetas: IEtiqueta[] = [{ id: 11604 }];
+        documento.etiquetas = etiquetas;
 
         const etiquetaCollection: IEtiqueta[] = [{ id: 87088 }];
         jest.spyOn(etiquetaService, 'query').mockReturnValue(of(new HttpResponse({ body: etiquetaCollection })));
-        const additionalEtiquetas = [etiqueta];
+        const additionalEtiquetas = [...etiquetas];
         const expectedCollection: IEtiqueta[] = [...additionalEtiquetas, ...etiquetaCollection];
         jest.spyOn(etiquetaService, 'addEtiquetaToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -160,8 +160,8 @@ describe('Component Tests', () => {
         documento.projeto = projeto;
         const tipo: ITipo = { id: 99704 };
         documento.tipo = tipo;
-        const etiqueta: IEtiqueta = { id: 13102 };
-        documento.etiqueta = etiqueta;
+        const etiquetas: IEtiqueta = { id: 13102 };
+        documento.etiquetas = [etiquetas];
         const orgaoEmissor: IOrgaoEmissor = { id: 55985 };
         documento.orgaoEmissor = orgaoEmissor;
         const tipoNorma: ITipoNorma = { id: 92102 };
@@ -173,7 +173,7 @@ describe('Component Tests', () => {
         expect(comp.editForm.value).toEqual(expect.objectContaining(documento));
         expect(comp.projetosSharedCollection).toContain(projeto);
         expect(comp.tiposSharedCollection).toContain(tipo);
-        expect(comp.etiquetasSharedCollection).toContain(etiqueta);
+        expect(comp.etiquetasSharedCollection).toContain(etiquetas);
         expect(comp.orgaoEmissorsSharedCollection).toContain(orgaoEmissor);
         expect(comp.tipoNormasSharedCollection).toContain(tipoNorma);
       });
@@ -281,6 +281,34 @@ describe('Component Tests', () => {
           const entity = { id: 123 };
           const trackResult = comp.trackTipoNormaById(0, entity);
           expect(trackResult).toEqual(entity.id);
+        });
+      });
+    });
+
+    describe('Getting selected relationships', () => {
+      describe('getSelectedEtiqueta', () => {
+        it('Should return option if no Etiqueta is selected', () => {
+          const option = { id: 123 };
+          const result = comp.getSelectedEtiqueta(option);
+          expect(result === option).toEqual(true);
+        });
+
+        it('Should return selected Etiqueta for according option', () => {
+          const option = { id: 123 };
+          const selected = { id: 123 };
+          const selected2 = { id: 456 };
+          const result = comp.getSelectedEtiqueta(option, [selected2, selected]);
+          expect(result === selected).toEqual(true);
+          expect(result === selected2).toEqual(false);
+          expect(result === option).toEqual(false);
+        });
+
+        it('Should return option if this Etiqueta is not selected', () => {
+          const option = { id: 123 };
+          const selected = { id: 456 };
+          const result = comp.getSelectedEtiqueta(option, [selected]);
+          expect(result === option).toEqual(true);
+          expect(result === selected).toEqual(false);
         });
       });
     });

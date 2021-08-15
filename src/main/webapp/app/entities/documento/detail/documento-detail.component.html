@@ -60,9 +60,10 @@
         </dd>
         <dt><span jhiTranslate="farolDocsApp.documento.etiqueta">Etiqueta</span></dt>
         <dd>
-          <div *ngIf="documento.etiqueta">
-            <a [routerLink]="['/etiqueta', documento.etiqueta?.id, 'view']">{{ documento.etiqueta?.nome }}</a>
-          </div>
+          <span *ngFor="let etiqueta of documento.etiquetas; let last = last">
+            <a [routerLink]="['/etiqueta', etiqueta?.id, 'view']">{{ etiqueta.nome }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
         </dd>
         <dt><span jhiTranslate="farolDocsApp.documento.orgaoEmissor">Orgao Emissor</span></dt>
         <dd>

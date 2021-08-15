@@ -43,7 +43,7 @@
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
     "languages": ["pt-br", "en"],
-    "lastLiquibaseTimestamp": 1628622510000,
+    "lastLiquibaseTimestamp": 1628896645000,
     "entities": ["Documento", "Projeto", "Tipo", "Etiqueta", "OrgaoEmissor", "TipoNorma"]
   }
 }

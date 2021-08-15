@@ -50,7 +50,7 @@ export class DocumentoUpdateComponent implements OnInit {
     criacao: [],
     projeto: [],
     tipo: [],
-    etiqueta: [],
+    etiquetas: [],
     orgaoEmissor: [],
     tipoNorma: [],
   });
@@ -130,6 +130,17 @@ export class DocumentoUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  getSelectedEtiqueta(option: IEtiqueta, selectedVals?: IEtiqueta[]): IEtiqueta {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IDocumento>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
@@ -162,7 +173,7 @@ export class DocumentoUpdateComponent implements OnInit {
       criacao: documento.criacao ? documento.criacao.format(DATE_TIME_FORMAT) : null,
       projeto: documento.projeto,
       tipo: documento.tipo,
-      etiqueta: documento.etiqueta,
+      etiquetas: documento.etiquetas,
       orgaoEmissor: documento.orgaoEmissor,
       tipoNorma: documento.tipoNorma,
     });
@@ -171,7 +182,7 @@ export class DocumentoUpdateComponent implements OnInit {
     this.tiposSharedCollection = this.tipoService.addTipoToCollectionIfMissing(this.tiposSharedCollection, documento.tipo);
     this.etiquetasSharedCollection = this.etiquetaService.addEtiquetaToCollectionIfMissing(
       this.etiquetasSharedCollection,
-      documento.etiqueta
+      ...(documento.etiquetas ?? [])
     );
     this.orgaoEmissorsSharedCollection = this.orgaoEmissorService.addOrgaoEmissorToCollectionIfMissing(
       this.orgaoEmissorsSharedCollection,
@@ -203,7 +214,7 @@ export class DocumentoUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IEtiqueta[]>) => res.body ?? []))
       .pipe(
         map((etiquetas: IEtiqueta[]) =>
-          this.etiquetaService.addEtiquetaToCollectionIfMissing(etiquetas, this.editForm.get('etiqueta')!.value)
+          this.etiquetaService.addEtiquetaToCollectionIfMissing(etiquetas, ...(this.editForm.get('etiquetas')!.value ?? []))
         )
       )
       .subscribe((etiquetas: IEtiqueta[]) => (this.etiquetasSharedCollection = etiquetas));
@@ -243,7 +254,7 @@ export class DocumentoUpdateComponent implements OnInit {
       criacao: this.editForm.get(['criacao'])!.value ? dayjs(this.editForm.get(['criacao'])!.value, DATE_TIME_FORMAT) : undefined,
       projeto: this.editForm.get(['projeto'])!.value,
       tipo: this.editForm.get(['tipo'])!.value,
-      etiqueta: this.editForm.get(['etiqueta'])!.value,
+      etiquetas: this.editForm.get(['etiquetas'])!.value,
       orgaoEmissor: this.editForm.get(['orgaoEmissor'])!.value,
       tipoNorma: this.editForm.get(['tipoNorma'])!.value,
     };
