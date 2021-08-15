@@ -1,4 +1,4 @@
-## Documentação da Realease 0.11.0
+## Documentação da Realease 0.11.1
 
 Antes de começar, certifique-se de que o seu repositório esteja atualizado até a release `0.10.0` e que sua aplicação esteja funcionando normalmente pois em caso de `crash` na aplicação você poderá retornar a esse estado.
 
