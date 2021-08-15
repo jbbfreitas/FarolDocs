@@ -120,18 +120,17 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.etiqueta" for="field_etiqueta">Etiqueta</label>
-          <select class="form-control" id="field_etiqueta" data-cy="etiqueta" name="etiqueta" formControlName="etiqueta">
-            <option [ngValue]="null"></option>
+          <label jhiTranslate="farolDocsApp.documento.etiqueta" for="field_etiquetas">Etiqueta</label>
+          <select class="form-control" id="field_etiquetas" data-cy="etiqueta" multiple name="etiquetas" formControlName="etiquetas">
             <option
-              [ngValue]="etiquetaOption.id === editForm.get('etiqueta')!.value?.id ? editForm.get('etiqueta')!.value : etiquetaOption"
+              [ngValue]="getSelectedEtiqueta(etiquetaOption, editForm.get('etiquetas')!.value)"
               *ngFor="let etiquetaOption of etiquetasSharedCollection; trackBy: trackEtiquetaById"
             >
               {{ etiquetaOption.nome }}
             </option>
           </select>
         </div>
-        <div class="form-group">
+              <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.criacao" for="field_criacao">Criacao</label>
           <div class="d-flex">
             <input
