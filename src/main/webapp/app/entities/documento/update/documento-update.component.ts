@@ -24,6 +24,8 @@ import { OrgaoEmissorService } from 'app/entities/orgao-emissor/service/orgao-em
 import { ITipoNorma } from 'app/entities/tipo-norma/tipo-norma.model';
 import { TipoNormaService } from 'app/entities/tipo-norma/service/tipo-norma.service';
 import { SituacaoDocumento } from 'app/entities/enumerations/situacao-documento.model';
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 
 @Component({
   selector: 'jhi-documento-update',
@@ -37,6 +39,7 @@ export class DocumentoUpdateComponent implements OnInit {
   etiquetasSharedCollection: IEtiqueta[] = [];
   orgaoEmissorsSharedCollection: IOrgaoEmissor[] = [];
   tipoNormasSharedCollection: ITipoNorma[] = [];
+  usersSharedCollection: IUser[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -53,6 +56,7 @@ export class DocumentoUpdateComponent implements OnInit {
     etiquetas: [],
     orgaoEmissor: [],
     tipoNorma: [],
+    users: [],
   });
 
   constructor(
@@ -64,6 +68,7 @@ export class DocumentoUpdateComponent implements OnInit {
     protected etiquetaService: EtiquetaService,
     protected orgaoEmissorService: OrgaoEmissorService,
     protected tipoNormaService: TipoNormaService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -130,7 +135,22 @@ export class DocumentoUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackUserById(index: number, item: IUser): number {
+    return item.id!;
+  }
+
   getSelectedEtiqueta(option: IEtiqueta, selectedVals?: IEtiqueta[]): IEtiqueta {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
+  getSelectedUser(option: IUser, selectedVals?: IUser[]): IUser {
     if (selectedVals) {
       for (const selectedVal of selectedVals) {
         if (option.id === selectedVal.id) {
@@ -176,6 +196,7 @@ export class DocumentoUpdateComponent implements OnInit {
       etiquetas: documento.etiquetas,
       orgaoEmissor: documento.orgaoEmissor,
       tipoNorma: documento.tipoNorma,
+      users: documento.users,
     });
 
     this.projetosSharedCollection = this.projetoService.addProjetoToCollectionIfMissing(this.projetosSharedCollection, documento.projeto);
@@ -192,6 +213,7 @@ export class DocumentoUpdateComponent implements OnInit {
       this.tipoNormasSharedCollection,
       documento.tipoNorma
     );
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, ...(documento.users ?? []));
   }
 
   protected loadRelationshipsOptions(): void {
@@ -238,6 +260,12 @@ export class DocumentoUpdateComponent implements OnInit {
         )
       )
       .subscribe((tipoNormas: ITipoNorma[]) => (this.tipoNormasSharedCollection = tipoNormas));
+
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, ...(this.editForm.get('users')!.value ?? []))))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
   }
 
   protected createFromForm(): IDocumento {
@@ -257,6 +285,7 @@ export class DocumentoUpdateComponent implements OnInit {
       etiquetas: this.editForm.get(['etiquetas'])!.value,
       orgaoEmissor: this.editForm.get(['orgaoEmissor'])!.value,
       tipoNorma: this.editForm.get(['tipoNorma'])!.value,
+      users: this.editForm.get(['users'])!.value,
     };
   }
 }

@@ -20,6 +20,9 @@ import { OrgaoEmissorService } from 'app/entities/orgao-emissor/service/orgao-em
 import { ITipoNorma } from 'app/entities/tipo-norma/tipo-norma.model';
 import { TipoNormaService } from 'app/entities/tipo-norma/service/tipo-norma.service';
 
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
+
 import { DocumentoUpdateComponent } from './documento-update.component';
 
 describe('Component Tests', () => {
@@ -33,6 +36,7 @@ describe('Component Tests', () => {
     let etiquetaService: EtiquetaService;
     let orgaoEmissorService: OrgaoEmissorService;
     let tipoNormaService: TipoNormaService;
+    let userService: UserService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -51,6 +55,7 @@ describe('Component Tests', () => {
       etiquetaService = TestBed.inject(EtiquetaService);
       orgaoEmissorService = TestBed.inject(OrgaoEmissorService);
       tipoNormaService = TestBed.inject(TipoNormaService);
+      userService = TestBed.inject(UserService);
 
       comp = fixture.componentInstance;
     });
@@ -154,6 +159,25 @@ describe('Component Tests', () => {
         expect(comp.tipoNormasSharedCollection).toEqual(expectedCollection);
       });
 
+      it('Should call User query and add missing value', () => {
+        const documento: IDocumento = { id: 456 };
+        const users: IUser[] = [{ id: 50695 }];
+        documento.users = users;
+
+        const userCollection: IUser[] = [{ id: 37634 }];
+        jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
+        const additionalUsers = [...users];
+        const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+        jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+        activatedRoute.data = of({ documento });
+        comp.ngOnInit();
+
+        expect(userService.query).toHaveBeenCalled();
+        expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(userCollection, ...additionalUsers);
+        expect(comp.usersSharedCollection).toEqual(expectedCollection);
+      });
+
       it('Should update editForm', () => {
         const documento: IDocumento = { id: 456 };
         const projeto: IProjeto = { id: 29505 };
@@ -166,6 +190,8 @@ describe('Component Tests', () => {
         documento.orgaoEmissor = orgaoEmissor;
         const tipoNorma: ITipoNorma = { id: 92102 };
         documento.tipoNorma = tipoNorma;
+        const users: IUser = { id: 48071 };
+        documento.users = [users];
 
         activatedRoute.data = of({ documento });
         comp.ngOnInit();
@@ -176,6 +202,7 @@ describe('Component Tests', () => {
         expect(comp.etiquetasSharedCollection).toContain(etiquetas);
         expect(comp.orgaoEmissorsSharedCollection).toContain(orgaoEmissor);
         expect(comp.tipoNormasSharedCollection).toContain(tipoNorma);
+        expect(comp.usersSharedCollection).toContain(users);
       });
     });
 
@@ -283,6 +310,14 @@ describe('Component Tests', () => {
           expect(trackResult).toEqual(entity.id);
         });
       });
+
+      describe('trackUserById', () => {
+        it('Should return tracked User primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackUserById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
+      });
     });
 
     describe('Getting selected relationships', () => {
@@ -307,6 +342,32 @@ describe('Component Tests', () => {
           const option = { id: 123 };
           const selected = { id: 456 };
           const result = comp.getSelectedEtiqueta(option, [selected]);
+          expect(result === option).toEqual(true);
+          expect(result === selected).toEqual(false);
+        });
+      });
+
+      describe('getSelectedUser', () => {
+        it('Should return option if no User is selected', () => {
+          const option = { id: 123 };
+          const result = comp.getSelectedUser(option);
+          expect(result === option).toEqual(true);
+        });
+
+        it('Should return selected User for according option', () => {
+          const option = { id: 123 };
+          const selected = { id: 123 };
+          const selected2 = { id: 456 };
+          const result = comp.getSelectedUser(option, [selected2, selected]);
+          expect(result === selected).toEqual(true);
+          expect(result === selected2).toEqual(false);
+          expect(result === option).toEqual(false);
+        });
+
+        it('Should return option if this User is not selected', () => {
+          const option = { id: 123 };
+          const selected = { id: 456 };
+          const result = comp.getSelectedUser(option, [selected]);
           expect(result === option).toEqual(true);
           expect(result === selected).toEqual(false);
         });

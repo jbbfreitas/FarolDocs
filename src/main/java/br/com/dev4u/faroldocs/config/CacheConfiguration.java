@@ -55,6 +55,7 @@ public class CacheConfiguration {
             createCache(cm, br.com.dev4u.faroldocs.domain.Documento.class.getName() + ".etiquetas");
             createCache(cm, br.com.dev4u.faroldocs.domain.OrgaoEmissor.class.getName());
             createCache(cm, br.com.dev4u.faroldocs.domain.TipoNorma.class.getName());
+            createCache(cm, br.com.dev4u.faroldocs.domain.Documento.class.getName() + ".users");
             // jhipster-needle-ehcache-add-entry
         };
     }

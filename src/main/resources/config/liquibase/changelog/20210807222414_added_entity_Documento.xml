@@ -67,6 +67,17 @@
         </createTable>
 
         <addPrimaryKey columnNames="documento_id, etiqueta_id" tableName="rel_documento__etiqueta"/>
+
+        <createTable tableName="rel_documento__user">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="documento_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="documento_id, user_id" tableName="rel_documento__user"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

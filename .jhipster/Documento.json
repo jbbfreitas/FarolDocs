@@ -69,6 +69,14 @@
       "otherEntityName": "tipoNorma",
       "relationshipType": "many-to-one",
       "otherEntityField": "tipo"
+    },
+    {
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "documento"
     }
   ],
   "service": "serviceImpl",

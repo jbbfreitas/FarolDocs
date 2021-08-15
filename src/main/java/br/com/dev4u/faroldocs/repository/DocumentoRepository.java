@@ -15,14 +15,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DocumentoRepository extends JpaRepository<Documento, Long> {
     @Query(
-        value = "select distinct documento from Documento documento left join fetch documento.etiquetas",
+        value = "select distinct documento from Documento documento left join fetch documento.etiquetas left join fetch documento.users",
         countQuery = "select count(distinct documento) from Documento documento"
     )
     Page<Documento> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct documento from Documento documento left join fetch documento.etiquetas")
+    @Query("select distinct documento from Documento documento left join fetch documento.etiquetas left join fetch documento.users")
     List<Documento> findAllWithEagerRelationships();
 
-    @Query("select documento from Documento documento left join fetch documento.etiquetas where documento.id =:id")
+    @Query(
+        "select documento from Documento documento left join fetch documento.etiquetas left join fetch documento.users where documento.id =:id"
+    )
     Optional<Documento> findOneWithEagerRelationships(@Param("id") Long id);
 }

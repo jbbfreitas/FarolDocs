@@ -31,7 +31,8 @@
       "tipo": "Kind",
       "etiqueta": "Tag",
       "orgaoEmissor": "Agency",
-      "tipoNorma": "Type of Norm"
+      "tipoNorma": "Type of Norm",
+      "user": "User"
     }
   }
 }

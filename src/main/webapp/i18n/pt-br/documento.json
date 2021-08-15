@@ -31,7 +31,8 @@
       "tipo": "Tipo",
       "etiqueta": "Etiqueta",
       "orgaoEmissor": "Órgão Emissor",
-      "tipoNorma": "Tipo de Norma"
+      "tipoNorma": "Tipo de Norma",
+      "user": "User"
     }
   }
 }
