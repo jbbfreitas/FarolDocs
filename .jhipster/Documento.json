@@ -51,14 +51,6 @@
       "otherEntityField": "nome"
     },
     {
-      "relationshipName": "etiqueta",
-      "otherEntityName": "etiqueta",
-      "relationshipType": "many-to-many",
-      "otherEntityField": "nome",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "documento"
-    },
-    {
       "relationshipName": "orgaoEmissor",
       "otherEntityName": "orgaoEmissor",
       "relationshipType": "many-to-one",
@@ -69,14 +61,6 @@
       "otherEntityName": "tipoNorma",
       "relationshipType": "many-to-one",
       "otherEntityField": "tipo"
-    },
-    {
-      "relationshipName": "user",
-      "otherEntityName": "user",
-      "relationshipType": "many-to-many",
-      "otherEntityField": "login",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "documento"
     }
   ],
   "service": "serviceImpl",

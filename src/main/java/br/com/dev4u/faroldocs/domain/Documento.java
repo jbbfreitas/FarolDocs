@@ -3,8 +3,6 @@ package br.com.dev4u.faroldocs.domain;
 import br.com.dev4u.faroldocs.domain.enumeration.SituacaoDocumento;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -62,29 +60,11 @@ public class Documento implements Serializable {
     @ManyToOne
     private Tipo tipo;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(
-        name = "rel_documento__etiqueta",
-        joinColumns = @JoinColumn(name = "documento_id"),
-        inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
-    )
-    private Set<Etiqueta> etiquetas = new HashSet<>();
-
     @ManyToOne
     private OrgaoEmissor orgaoEmissor;
 
     @ManyToOne
     private TipoNorma tipoNorma;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(
-        name = "rel_documento__user",
-        joinColumns = @JoinColumn(name = "documento_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -230,29 +210,6 @@ public class Documento implements Serializable {
         this.tipo = tipo;
     }
 
-    public Set<Etiqueta> getEtiquetas() {
-        return this.etiquetas;
-    }
-
-    public Documento etiquetas(Set<Etiqueta> etiquetas) {
-        this.setEtiquetas(etiquetas);
-        return this;
-    }
-
-    public Documento addEtiqueta(Etiqueta etiqueta) {
-        this.etiquetas.add(etiqueta);
-        return this;
-    }
-
-    public Documento removeEtiqueta(Etiqueta etiqueta) {
-        this.etiquetas.remove(etiqueta);
-        return this;
-    }
-
-    public void setEtiquetas(Set<Etiqueta> etiquetas) {
-        this.etiquetas = etiquetas;
-    }
-
     public OrgaoEmissor getOrgaoEmissor() {
         return this.orgaoEmissor;
     }
@@ -277,29 +234,6 @@ public class Documento implements Serializable {
 
     public void setTipoNorma(TipoNorma tipoNorma) {
         this.tipoNorma = tipoNorma;
-    }
-
-    public Set<User> getUsers() {
-        return this.users;
-    }
-
-    public Documento users(Set<User> users) {
-        this.setUsers(users);
-        return this;
-    }
-
-    public Documento addUser(User user) {
-        this.users.add(user);
-        return this;
-    }
-
-    public Documento removeUser(User user) {
-        this.users.remove(user);
-        return this;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

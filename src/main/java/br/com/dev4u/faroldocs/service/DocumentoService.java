@@ -34,14 +34,6 @@ public interface DocumentoService {
     Page<Documento> findAll(Pageable pageable);
 
     /**
-     * Get all the documentos with eager load of many-to-many relationships.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
-    Page<Documento> findAllWithEagerRelationships(Pageable pageable);
-
-    /**
      * Get the "id" documento.
      *
      * @param id the id of the entity.

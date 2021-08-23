@@ -34,6 +34,16 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'farolDocsApp.tipoNorma.home.title' },
         loadChildren: () => import('./tipo-norma/tipo-norma.module').then(m => m.TipoNormaModule),
       },
+      {
+        path: 'documento-etiqueta',
+        data: { pageTitle: 'farolDocsApp.documentoEtiqueta.home.title' },
+        loadChildren: () => import('./documento-etiqueta/documento-etiqueta.module').then(m => m.DocumentoEtiquetaModule),
+      },
+      {
+        path: 'documento-user',
+        data: { pageTitle: 'farolDocsApp.documentoUser.home.title' },
+        loadChildren: () => import('./documento-user/documento-user.module').then(m => m.DocumentoUserModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

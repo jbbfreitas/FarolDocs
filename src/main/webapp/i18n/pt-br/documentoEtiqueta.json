@@ -1,0 +1,26 @@
+{
+  "farolDocsApp": {
+    "documentoEtiqueta": {
+      "home": {
+        "title": "Documento Etiquetas",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Documento Etiqueta",
+        "createOrEditLabel": "Criar ou editar Documento Etiqueta",
+        "search": "Pesquisar por Documento Etiqueta",
+        "notFound": "Nenhum Documento Etiqueta encontrado"
+      },
+      "created": "Um novo Documento Etiqueta foi criado com o identificador {{ param }}",
+      "updated": "Um Documento Etiqueta foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Documento Etiqueta foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Documento Etiqueta {{ id }}?"
+      },
+      "detail": {
+        "title": "Documento Etiqueta"
+      },
+      "id": "ID",
+      "etiqueta": "Etiqueta",
+      "documento": "Documento"
+    }
+  }
+}

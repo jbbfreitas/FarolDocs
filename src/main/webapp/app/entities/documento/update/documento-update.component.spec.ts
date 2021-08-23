@@ -13,15 +13,10 @@ import { IProjeto } from 'app/entities/projeto/projeto.model';
 import { ProjetoService } from 'app/entities/projeto/service/projeto.service';
 import { ITipo } from 'app/entities/tipo/tipo.model';
 import { TipoService } from 'app/entities/tipo/service/tipo.service';
-import { IEtiqueta } from 'app/entities/etiqueta/etiqueta.model';
-import { EtiquetaService } from 'app/entities/etiqueta/service/etiqueta.service';
 import { IOrgaoEmissor } from 'app/entities/orgao-emissor/orgao-emissor.model';
 import { OrgaoEmissorService } from 'app/entities/orgao-emissor/service/orgao-emissor.service';
 import { ITipoNorma } from 'app/entities/tipo-norma/tipo-norma.model';
 import { TipoNormaService } from 'app/entities/tipo-norma/service/tipo-norma.service';
-
-import { IUser } from 'app/entities/user/user.model';
-import { UserService } from 'app/entities/user/user.service';
 
 import { DocumentoUpdateComponent } from './documento-update.component';
 
@@ -33,10 +28,8 @@ describe('Component Tests', () => {
     let documentoService: DocumentoService;
     let projetoService: ProjetoService;
     let tipoService: TipoService;
-    let etiquetaService: EtiquetaService;
     let orgaoEmissorService: OrgaoEmissorService;
     let tipoNormaService: TipoNormaService;
-    let userService: UserService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -52,10 +45,8 @@ describe('Component Tests', () => {
       documentoService = TestBed.inject(DocumentoService);
       projetoService = TestBed.inject(ProjetoService);
       tipoService = TestBed.inject(TipoService);
-      etiquetaService = TestBed.inject(EtiquetaService);
       orgaoEmissorService = TestBed.inject(OrgaoEmissorService);
       tipoNormaService = TestBed.inject(TipoNormaService);
-      userService = TestBed.inject(UserService);
 
       comp = fixture.componentInstance;
     });
@@ -99,25 +90,6 @@ describe('Component Tests', () => {
         expect(comp.tiposSharedCollection).toEqual(expectedCollection);
       });
 
-      it('Should call Etiqueta query and add missing value', () => {
-        const documento: IDocumento = { id: 456 };
-        const etiquetas: IEtiqueta[] = [{ id: 11604 }];
-        documento.etiquetas = etiquetas;
-
-        const etiquetaCollection: IEtiqueta[] = [{ id: 87088 }];
-        jest.spyOn(etiquetaService, 'query').mockReturnValue(of(new HttpResponse({ body: etiquetaCollection })));
-        const additionalEtiquetas = [...etiquetas];
-        const expectedCollection: IEtiqueta[] = [...additionalEtiquetas, ...etiquetaCollection];
-        jest.spyOn(etiquetaService, 'addEtiquetaToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-        activatedRoute.data = of({ documento });
-        comp.ngOnInit();
-
-        expect(etiquetaService.query).toHaveBeenCalled();
-        expect(etiquetaService.addEtiquetaToCollectionIfMissing).toHaveBeenCalledWith(etiquetaCollection, ...additionalEtiquetas);
-        expect(comp.etiquetasSharedCollection).toEqual(expectedCollection);
-      });
-
       it('Should call OrgaoEmissor query and add missing value', () => {
         const documento: IDocumento = { id: 456 };
         const orgaoEmissor: IOrgaoEmissor = { id: 46848 };
@@ -159,39 +131,16 @@ describe('Component Tests', () => {
         expect(comp.tipoNormasSharedCollection).toEqual(expectedCollection);
       });
 
-      it('Should call User query and add missing value', () => {
-        const documento: IDocumento = { id: 456 };
-        const users: IUser[] = [{ id: 50695 }];
-        documento.users = users;
-
-        const userCollection: IUser[] = [{ id: 37634 }];
-        jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
-        const additionalUsers = [...users];
-        const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
-        jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-        activatedRoute.data = of({ documento });
-        comp.ngOnInit();
-
-        expect(userService.query).toHaveBeenCalled();
-        expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(userCollection, ...additionalUsers);
-        expect(comp.usersSharedCollection).toEqual(expectedCollection);
-      });
-
       it('Should update editForm', () => {
         const documento: IDocumento = { id: 456 };
         const projeto: IProjeto = { id: 29505 };
         documento.projeto = projeto;
         const tipo: ITipo = { id: 99704 };
         documento.tipo = tipo;
-        const etiquetas: IEtiqueta = { id: 13102 };
-        documento.etiquetas = [etiquetas];
         const orgaoEmissor: IOrgaoEmissor = { id: 55985 };
         documento.orgaoEmissor = orgaoEmissor;
         const tipoNorma: ITipoNorma = { id: 92102 };
         documento.tipoNorma = tipoNorma;
-        const users: IUser = { id: 48071 };
-        documento.users = [users];
 
         activatedRoute.data = of({ documento });
         comp.ngOnInit();
@@ -199,10 +148,8 @@ describe('Component Tests', () => {
         expect(comp.editForm.value).toEqual(expect.objectContaining(documento));
         expect(comp.projetosSharedCollection).toContain(projeto);
         expect(comp.tiposSharedCollection).toContain(tipo);
-        expect(comp.etiquetasSharedCollection).toContain(etiquetas);
         expect(comp.orgaoEmissorsSharedCollection).toContain(orgaoEmissor);
         expect(comp.tipoNormasSharedCollection).toContain(tipoNorma);
-        expect(comp.usersSharedCollection).toContain(users);
       });
     });
 
@@ -287,14 +234,6 @@ describe('Component Tests', () => {
         });
       });
 
-      describe('trackEtiquetaById', () => {
-        it('Should return tracked Etiqueta primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackEtiquetaById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
-      });
-
       describe('trackOrgaoEmissorById', () => {
         it('Should return tracked OrgaoEmissor primary key', () => {
           const entity = { id: 123 };
@@ -308,68 +247,6 @@ describe('Component Tests', () => {
           const entity = { id: 123 };
           const trackResult = comp.trackTipoNormaById(0, entity);
           expect(trackResult).toEqual(entity.id);
-        });
-      });
-
-      describe('trackUserById', () => {
-        it('Should return tracked User primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackUserById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
-      });
-    });
-
-    describe('Getting selected relationships', () => {
-      describe('getSelectedEtiqueta', () => {
-        it('Should return option if no Etiqueta is selected', () => {
-          const option = { id: 123 };
-          const result = comp.getSelectedEtiqueta(option);
-          expect(result === option).toEqual(true);
-        });
-
-        it('Should return selected Etiqueta for according option', () => {
-          const option = { id: 123 };
-          const selected = { id: 123 };
-          const selected2 = { id: 456 };
-          const result = comp.getSelectedEtiqueta(option, [selected2, selected]);
-          expect(result === selected).toEqual(true);
-          expect(result === selected2).toEqual(false);
-          expect(result === option).toEqual(false);
-        });
-
-        it('Should return option if this Etiqueta is not selected', () => {
-          const option = { id: 123 };
-          const selected = { id: 456 };
-          const result = comp.getSelectedEtiqueta(option, [selected]);
-          expect(result === option).toEqual(true);
-          expect(result === selected).toEqual(false);
-        });
-      });
-
-      describe('getSelectedUser', () => {
-        it('Should return option if no User is selected', () => {
-          const option = { id: 123 };
-          const result = comp.getSelectedUser(option);
-          expect(result === option).toEqual(true);
-        });
-
-        it('Should return selected User for according option', () => {
-          const option = { id: 123 };
-          const selected = { id: 123 };
-          const selected2 = { id: 456 };
-          const result = comp.getSelectedUser(option, [selected2, selected]);
-          expect(result === selected).toEqual(true);
-          expect(result === selected2).toEqual(false);
-          expect(result === option).toEqual(false);
-        });
-
-        it('Should return option if this User is not selected', () => {
-          const option = { id: 123 };
-          const selected = { id: 456 };
-          const result = comp.getSelectedUser(option, [selected]);
-          expect(result === option).toEqual(true);
-          expect(result === selected).toEqual(false);
         });
       });
     });

@@ -2,24 +2,25 @@
   "farolDocsApp": {
     "orgaoEmissor": {
       "home": {
-        "title": "Órgãos Emissores",
+        "title": "Orgao Emissors",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Órgão Emissor",
-        "createOrEditLabel": "Criar ou editar Órgãos Emissores",
-        "search": "Pesquisar por Órgãos Emissores",
-        "notFound": "Nenhum Órgão Emissor encontrado"
+        "createLabel": "Criar novo Orgao Emissor",
+        "createOrEditLabel": "Criar ou editar Orgao Emissor",
+        "search": "Pesquisar por Orgao Emissor",
+        "notFound": "Nenhum Orgao Emissor encontrado"
       },
-      "created": "Um novo Órgãos Emissor foi criado com o identificador {{ param }}",
-      "updated": "Um Órgão Emissor foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Órgão Emissor foi excluído com o identificador {{ param }}",
+      "created": "Um novo Orgao Emissor foi criado com o identificador {{ param }}",
+      "updated": "Um Orgao Emissor foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Orgao Emissor foi excluído com o identificador {{ param }}",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Órgão Emissor {{ id }}?"
+        "question": "Tem certeza de que deseja excluir Orgao Emissor {{ id }}?"
       },
       "detail": {
-        "title": "Órgãos Emissores"
+        "title": "Orgao Emissor"
       },
       "id": "ID",
       "sigla": "Sigla",
       "nome": "Nome"
-    }  }
+    }
+  }
 }

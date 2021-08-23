@@ -145,21 +145,12 @@ public class DocumentoResource {
      * {@code GET  /documentos} : get all the documentos.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of documentos in body.
      */
     @GetMapping("/documentos")
-    public ResponseEntity<List<Documento>> getAllDocumentos(
-        Pageable pageable,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
-    ) {
+    public ResponseEntity<List<Documento>> getAllDocumentos(Pageable pageable) {
         log.debug("REST request to get a page of Documentos");
-        Page<Documento> page;
-        if (eagerload) {
-            page = documentoService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = documentoService.findAll(pageable);
-        }
+        Page<Documento> page = documentoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

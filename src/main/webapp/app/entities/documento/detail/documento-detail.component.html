@@ -58,13 +58,6 @@
             <a [routerLink]="['/tipo', documento.tipo?.id, 'view']">{{ documento.tipo?.nome }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="farolDocsApp.documento.etiqueta">Etiqueta</span></dt>
-        <dd>
-          <span *ngFor="let etiqueta of documento.etiquetas; let last = last">
-            <a [routerLink]="['/etiqueta', etiqueta?.id, 'view']">{{ etiqueta.nome }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
-        </dd>
         <dt><span jhiTranslate="farolDocsApp.documento.orgaoEmissor">Orgao Emissor</span></dt>
         <dd>
           <div *ngIf="documento.orgaoEmissor">
@@ -76,10 +69,6 @@
           <div *ngIf="documento.tipoNorma">
             <a [routerLink]="['/tipo-norma', documento.tipoNorma?.id, 'view']">{{ documento.tipoNorma?.tipo }}</a>
           </div>
-        </dd>
-        <dt><span jhiTranslate="farolDocsApp.documento.user">User</span></dt>
-        <dd>
-          <span *ngFor="let user of documento.users; let last = last"> {{ user.login }}{{ last ? '' : ', ' }} </span>
         </dd>
       </dl>
 

@@ -44,6 +44,6 @@
     "clientThemeVariant": "",
     "languages": ["pt-br", "en"],
     "lastLiquibaseTimestamp": 1628896645000,
-    "entities": ["Documento", "Projeto", "Tipo", "Etiqueta", "OrgaoEmissor", "TipoNorma"]
+    "entities": ["Documento", "Projeto", "Tipo", "Etiqueta", "OrgaoEmissor", "TipoNorma", "DocumentoEtiqueta", "DocumentoUser"]
   }
 }

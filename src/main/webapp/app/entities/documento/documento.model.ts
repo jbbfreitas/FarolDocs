@@ -1,10 +1,8 @@
 import * as dayjs from 'dayjs';
 import { IProjeto } from 'app/entities/projeto/projeto.model';
 import { ITipo } from 'app/entities/tipo/tipo.model';
-import { IEtiqueta } from 'app/entities/etiqueta/etiqueta.model';
 import { IOrgaoEmissor } from 'app/entities/orgao-emissor/orgao-emissor.model';
 import { ITipoNorma } from 'app/entities/tipo-norma/tipo-norma.model';
-import { IUser } from 'app/entities/user/user.model';
 import { SituacaoDocumento } from 'app/entities/enumerations/situacao-documento.model';
 
 export interface IDocumento {
@@ -19,10 +17,8 @@ export interface IDocumento {
   criacao?: dayjs.Dayjs | null;
   projeto?: IProjeto | null;
   tipo?: ITipo | null;
-  etiquetas?: IEtiqueta[] | null;
   orgaoEmissor?: IOrgaoEmissor | null;
   tipoNorma?: ITipoNorma | null;
-  users?: IUser[] | null;
 }
 
 export class Documento implements IDocumento {
@@ -38,10 +34,8 @@ export class Documento implements IDocumento {
     public criacao?: dayjs.Dayjs | null,
     public projeto?: IProjeto | null,
     public tipo?: ITipo | null,
-    public etiquetas?: IEtiqueta[] | null,
     public orgaoEmissor?: IOrgaoEmissor | null,
-    public tipoNorma?: ITipoNorma | null,
-    public users?: IUser[] | null
+    public tipoNorma?: ITipoNorma | null
   ) {}
 }
 

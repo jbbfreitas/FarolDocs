@@ -1,0 +1,135 @@
+<div>
+  <h2 id="page-heading" data-cy="DocumentoEtiquetaHeading">
+    <span jhiTranslate="farolDocsApp.documentoEtiqueta.home.title">Documento Etiquetas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="farolDocsApp.documentoEtiqueta.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-documento-etiqueta"
+        [routerLink]="['/documento-etiqueta/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down" jhiTranslate="farolDocsApp.documentoEtiqueta.home.createLabel"> Create a new Documento Etiqueta </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <form name="searchForm" class="form-inline">
+        <div class="input-group w-100 mt-3">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="currentSearch"
+            id="currentSearch"
+            name="currentSearch"
+            placeholder="{{ 'farolDocsApp.documentoEtiqueta.home.search' | translate }}"
+          />
+
+          <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+            <fa-icon icon="search"></fa-icon>
+          </button>
+
+          <button class="input-group-append btn btn-danger" (click)="search('')" *ngIf="currentSearch">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="documentoEtiquetas?.length === 0">
+    <span jhiTranslate="farolDocsApp.documentoEtiqueta.home.notFound">No documentoEtiquetas found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="documentoEtiquetas && documentoEtiquetas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="etiqueta.nome">
+            <span jhiTranslate="farolDocsApp.documentoEtiqueta.etiqueta">Etiqueta</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="documento.descricao">
+            <span jhiTranslate="farolDocsApp.documentoEtiqueta.documento">Documento</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let documentoEtiqueta of documentoEtiquetas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/documento-etiqueta', documentoEtiqueta.id, 'view']">{{ documentoEtiqueta.id }}</a>
+          </td>
+          <td>
+            <div *ngIf="documentoEtiqueta.etiqueta">
+              <a [routerLink]="['/etiqueta', documentoEtiqueta.etiqueta?.id, 'view']">{{ documentoEtiqueta.etiqueta?.nome }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="documentoEtiqueta.documento">
+              <a [routerLink]="['/documento', documentoEtiqueta.documento?.id, 'view']">{{ documentoEtiqueta.documento?.descricao }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/documento-etiqueta', documentoEtiqueta.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/documento-etiqueta', documentoEtiqueta.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(documentoEtiqueta)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="documentoEtiquetas && documentoEtiquetas.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

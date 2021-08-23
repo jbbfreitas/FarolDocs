@@ -12,18 +12,6 @@
           <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.projeto" for="field_projeto">Projeto</label>
-          <select class="form-control" id="field_projeto" data-cy="projeto" name="projeto" formControlName="projeto">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="projetoOption.id === editForm.get('projeto')!.value?.id ? editForm.get('projeto')!.value : projetoOption"
-              *ngFor="let projetoOption of projetosSharedCollection; trackBy: trackProjetoById"
-            >
-              {{ projetoOption.nome }}
-            </option>
-          </select>
-        </div>
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.assunto" for="field_assunto">Assunto</label>
@@ -34,6 +22,27 @@
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.descricao" for="field_descricao">Descricao</label>
           <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
         </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.ementa" for="field_ementa">Ementa</label>
+          <textarea class="form-control" name="ementa" id="field_ementa" data-cy="ementa" formControlName="ementa"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.url" for="field_url">Url</label>
+          <input type="text" class="form-control" name="url" id="field_url" data-cy="url" formControlName="url" />
+          <div *ngIf="editForm.get('url')!.invalid && (editForm.get('url')!.dirty || editForm.get('url')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('url')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Url' }"
+            >
+              This field should follow pattern for "Url".
+            </small>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.numero" for="field_numero">Numero</label>
           <input type="text" class="form-control" name="numero" id="field_numero" data-cy="numero" formControlName="numero" />
@@ -55,20 +64,32 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.url" for="field_url">Url</label>
-          <input type="text" class="form-control" name="url" id="field_url" data-cy="url" formControlName="url" />
-          <div *ngIf="editForm.get('url')!.invalid && (editForm.get('url')!.dirty || editForm.get('url')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('url')?.errors?.pattern"
-              jhiTranslate="entity.validation.pattern"
-              [translateValues]="{ pattern: 'Url' }"
-            >
-              This field should follow pattern for "Url".
-            </small>
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.criacao" for="field_criacao">Criacao</label>
+          <div class="d-flex">
+            <input
+              id="field_criacao"
+              data-cy="criacao"
+              type="datetime-local"
+              class="form-control"
+              name="criacao"
+              formControlName="criacao"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.projeto" for="field_projeto">Projeto</label>
+          <select class="form-control" id="field_projeto" data-cy="projeto" name="projeto" formControlName="projeto">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="projetoOption.id === editForm.get('projeto')!.value?.id ? editForm.get('projeto')!.value : projetoOption"
+              *ngFor="let projetoOption of projetosSharedCollection; trackBy: trackProjetoById"
+            >
+              {{ projetoOption.nome }}
+            </option>
+          </select>
+        </div>
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.tipo" for="field_tipo">Tipo</label>
@@ -82,8 +103,6 @@
             </option>
           </select>
         </div>
-
-
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.orgaoEmissor" for="field_orgaoEmissor"
@@ -115,51 +134,6 @@
           </select>
         </div>
       </div>
-
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.ementa" for="field_ementa">Ementa</label>
-          <textarea class="form-control" name="ementa" id="field_ementa" data-cy="ementa" formControlName="ementa"></textarea>
-        </div>
-
-
-
-        <div class="form-group">
-          <label jhiTranslate="farolDocsApp.documento.etiqueta" for="field_etiquetas">Etiqueta</label>
-          <select class="form-control" id="field_etiquetas" data-cy="etiqueta" multiple name="etiquetas" formControlName="etiquetas">
-            <option
-              [ngValue]="getSelectedEtiqueta(etiquetaOption, editForm.get('etiquetas')!.value)"
-              *ngFor="let etiquetaOption of etiquetasSharedCollection; trackBy: trackEtiquetaById"
-            >
-              {{ etiquetaOption.nome }}
-            </option>
-          </select>
-        </div>
-              <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.criacao" for="field_criacao">Criacao</label>
-          <div class="d-flex">
-            <input
-              id="field_criacao"
-              data-cy="criacao"
-              type="datetime-local"
-              class="form-control"
-              name="criacao"
-              formControlName="criacao"
-              placeholder="YYYY-MM-DD HH:mm"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label jhiTranslate="farolDocsApp.documento.user" for="field_users">User</label>
-          <select class="form-control" id="field_users" data-cy="user" multiple name="users" formControlName="users">
-            <option
-              [ngValue]="getSelectedUser(userOption, editForm.get('users')!.value)"
-              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
-            >
-              {{ userOption.login }}
-            </option>
-          </select>
-        </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">

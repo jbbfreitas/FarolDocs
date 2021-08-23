@@ -20,19 +20,17 @@
       },
       "id": "ID",
       "assunto": "Assunto",
-      "descricao": "Descrição",
+      "descricao": "Descricao",
       "ementa": "Ementa",
       "url": "Url",
-      "numero": "Número",
+      "numero": "Numero",
       "ano": "Ano",
-      "situacao": "Situação",
-      "criacao": "Criação",
+      "situacao": "Situacao",
+      "criacao": "Criacao",
       "projeto": "Projeto",
       "tipo": "Tipo",
-      "etiqueta": "Etiqueta",
-      "orgaoEmissor": "Órgão Emissor",
-      "tipoNorma": "Tipo de Norma",
-      "user": "Compartilhado com"
+      "orgaoEmissor": "Orgao Emissor",
+      "tipoNorma": "Tipo Norma"
     }
   }
 }

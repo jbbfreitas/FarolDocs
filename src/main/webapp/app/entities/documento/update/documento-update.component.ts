@@ -17,15 +17,10 @@ import { IProjeto } from 'app/entities/projeto/projeto.model';
 import { ProjetoService } from 'app/entities/projeto/service/projeto.service';
 import { ITipo } from 'app/entities/tipo/tipo.model';
 import { TipoService } from 'app/entities/tipo/service/tipo.service';
-import { IEtiqueta } from 'app/entities/etiqueta/etiqueta.model';
-import { EtiquetaService } from 'app/entities/etiqueta/service/etiqueta.service';
 import { IOrgaoEmissor } from 'app/entities/orgao-emissor/orgao-emissor.model';
 import { OrgaoEmissorService } from 'app/entities/orgao-emissor/service/orgao-emissor.service';
 import { ITipoNorma } from 'app/entities/tipo-norma/tipo-norma.model';
 import { TipoNormaService } from 'app/entities/tipo-norma/service/tipo-norma.service';
-import { SituacaoDocumento } from 'app/entities/enumerations/situacao-documento.model';
-import { IUser } from 'app/entities/user/user.model';
-import { UserService } from 'app/entities/user/user.service';
 
 @Component({
   selector: 'jhi-documento-update',
@@ -36,10 +31,8 @@ export class DocumentoUpdateComponent implements OnInit {
 
   projetosSharedCollection: IProjeto[] = [];
   tiposSharedCollection: ITipo[] = [];
-  etiquetasSharedCollection: IEtiqueta[] = [];
   orgaoEmissorsSharedCollection: IOrgaoEmissor[] = [];
   tipoNormasSharedCollection: ITipoNorma[] = [];
-  usersSharedCollection: IUser[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -53,10 +46,8 @@ export class DocumentoUpdateComponent implements OnInit {
     criacao: [],
     projeto: [],
     tipo: [],
-    etiquetas: [],
     orgaoEmissor: [],
     tipoNorma: [],
-    users: [],
   });
 
   constructor(
@@ -65,10 +56,8 @@ export class DocumentoUpdateComponent implements OnInit {
     protected documentoService: DocumentoService,
     protected projetoService: ProjetoService,
     protected tipoService: TipoService,
-    protected etiquetaService: EtiquetaService,
     protected orgaoEmissorService: OrgaoEmissorService,
     protected tipoNormaService: TipoNormaService,
-    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -123,42 +112,12 @@ export class DocumentoUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  trackEtiquetaById(index: number, item: IEtiqueta): number {
-    return item.id!;
-  }
-
   trackOrgaoEmissorById(index: number, item: IOrgaoEmissor): number {
     return item.id!;
   }
 
   trackTipoNormaById(index: number, item: ITipoNorma): number {
     return item.id!;
-  }
-
-  trackUserById(index: number, item: IUser): number {
-    return item.id!;
-  }
-
-  getSelectedEtiqueta(option: IEtiqueta, selectedVals?: IEtiqueta[]): IEtiqueta {
-    if (selectedVals) {
-      for (const selectedVal of selectedVals) {
-        if (option.id === selectedVal.id) {
-          return selectedVal;
-        }
-      }
-    }
-    return option;
-  }
-
-  getSelectedUser(option: IUser, selectedVals?: IUser[]): IUser {
-    if (selectedVals) {
-      for (const selectedVal of selectedVals) {
-        if (option.id === selectedVal.id) {
-          return selectedVal;
-        }
-      }
-    }
-    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IDocumento>>): void {
@@ -189,22 +148,16 @@ export class DocumentoUpdateComponent implements OnInit {
       url: documento.url,
       numero: documento.numero,
       ano: documento.ano,
-      situacao: documento.situacao !=null?  documento.situacao : SituacaoDocumento.VIGENTE, // Default VIGENTE
+      situacao: documento.situacao,
       criacao: documento.criacao ? documento.criacao.format(DATE_TIME_FORMAT) : null,
       projeto: documento.projeto,
       tipo: documento.tipo,
-      etiquetas: documento.etiquetas,
       orgaoEmissor: documento.orgaoEmissor,
       tipoNorma: documento.tipoNorma,
-      users: documento.users,
     });
 
     this.projetosSharedCollection = this.projetoService.addProjetoToCollectionIfMissing(this.projetosSharedCollection, documento.projeto);
     this.tiposSharedCollection = this.tipoService.addTipoToCollectionIfMissing(this.tiposSharedCollection, documento.tipo);
-    this.etiquetasSharedCollection = this.etiquetaService.addEtiquetaToCollectionIfMissing(
-      this.etiquetasSharedCollection,
-      ...(documento.etiquetas ?? [])
-    );
     this.orgaoEmissorsSharedCollection = this.orgaoEmissorService.addOrgaoEmissorToCollectionIfMissing(
       this.orgaoEmissorsSharedCollection,
       documento.orgaoEmissor
@@ -213,7 +166,6 @@ export class DocumentoUpdateComponent implements OnInit {
       this.tipoNormasSharedCollection,
       documento.tipoNorma
     );
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, ...(documento.users ?? []));
   }
 
   protected loadRelationshipsOptions(): void {
@@ -230,16 +182,6 @@ export class DocumentoUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ITipo[]>) => res.body ?? []))
       .pipe(map((tipos: ITipo[]) => this.tipoService.addTipoToCollectionIfMissing(tipos, this.editForm.get('tipo')!.value)))
       .subscribe((tipos: ITipo[]) => (this.tiposSharedCollection = tipos));
-
-    this.etiquetaService
-      .query()
-      .pipe(map((res: HttpResponse<IEtiqueta[]>) => res.body ?? []))
-      .pipe(
-        map((etiquetas: IEtiqueta[]) =>
-          this.etiquetaService.addEtiquetaToCollectionIfMissing(etiquetas, ...(this.editForm.get('etiquetas')!.value ?? []))
-        )
-      )
-      .subscribe((etiquetas: IEtiqueta[]) => (this.etiquetasSharedCollection = etiquetas));
 
     this.orgaoEmissorService
       .query()
@@ -260,12 +202,6 @@ export class DocumentoUpdateComponent implements OnInit {
         )
       )
       .subscribe((tipoNormas: ITipoNorma[]) => (this.tipoNormasSharedCollection = tipoNormas));
-
-    this.userService
-      .query()
-      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, ...(this.editForm.get('users')!.value ?? []))))
-      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
   }
 
   protected createFromForm(): IDocumento {
@@ -282,10 +218,8 @@ export class DocumentoUpdateComponent implements OnInit {
       criacao: this.editForm.get(['criacao'])!.value ? dayjs(this.editForm.get(['criacao'])!.value, DATE_TIME_FORMAT) : undefined,
       projeto: this.editForm.get(['projeto'])!.value,
       tipo: this.editForm.get(['tipo'])!.value,
-      etiquetas: this.editForm.get(['etiquetas'])!.value,
       orgaoEmissor: this.editForm.get(['orgaoEmissor'])!.value,
       tipoNorma: this.editForm.get(['tipoNorma'])!.value,
-      users: this.editForm.get(['users'])!.value,
     };
   }
 }

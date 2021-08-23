@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity DocumentoEtiqueta.
+    -->
+    <changeSet id="20210818190834-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="etiqueta_id"
+                                 baseTableName="documento_etiqueta"
+                                 constraintName="fk_documento_etiqueta__etiqueta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etiqueta"/>
+
+        <addForeignKeyConstraint baseColumnNames="documento_id"
+                                 baseTableName="documento_etiqueta"
+                                 constraintName="fk_documento_etiqueta__documento_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="documento"/>
+    </changeSet>
+</databaseChangeLog>

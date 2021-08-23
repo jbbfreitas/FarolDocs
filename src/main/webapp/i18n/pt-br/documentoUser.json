@@ -1,0 +1,26 @@
+{
+  "farolDocsApp": {
+    "documentoUser": {
+      "home": {
+        "title": "Documento Users",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Documento User",
+        "createOrEditLabel": "Criar ou editar Documento User",
+        "search": "Pesquisar por Documento User",
+        "notFound": "Nenhum Documento User encontrado"
+      },
+      "created": "Um novo Documento User foi criado com o identificador {{ param }}",
+      "updated": "Um Documento User foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Documento User foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Documento User {{ id }}?"
+      },
+      "detail": {
+        "title": "Documento User"
+      },
+      "id": "ID",
+      "user": "User",
+      "documento": "Documento"
+    }
+  }
+}

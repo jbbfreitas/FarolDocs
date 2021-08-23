@@ -20,18 +20,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="tipo"/>
 
-        <addForeignKeyConstraint baseColumnNames="documento_id"
-                                 baseTableName="rel_documento__etiqueta"
-                                 constraintName="fk_rel_documento__etiqueta__documento_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="documento"/>
-
-        <addForeignKeyConstraint baseColumnNames="etiqueta_id"
-                                 baseTableName="rel_documento__etiqueta"
-                                 constraintName="fk_rel_documento__etiqueta__etiqueta_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="etiqueta"/>
-
         <addForeignKeyConstraint baseColumnNames="orgao_emissor_id"
                                  baseTableName="documento"
                                  constraintName="fk_documento__orgao_emissor_id"
@@ -43,17 +31,5 @@
                                  constraintName="fk_documento__tipo_norma_id"
                                  referencedColumnNames="id"
                                  referencedTableName="tipo_norma"/>
-
-        <addForeignKeyConstraint baseColumnNames="documento_id"
-                                 baseTableName="rel_documento__user"
-                                 constraintName="fk_rel_documento__user__documento_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="documento"/>
-
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="rel_documento__user"
-                                 constraintName="fk_rel_documento__user__user_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
     </changeSet>
 </databaseChangeLog>

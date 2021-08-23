@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="documentoEtiqueta">
+      <h2 data-cy="documentoEtiquetaDetailsHeading">
+        <span jhiTranslate="farolDocsApp.documentoEtiqueta.detail.title">Documento Etiqueta</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ documentoEtiqueta.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documentoEtiqueta.etiqueta">Etiqueta</span></dt>
+        <dd>
+          <div *ngIf="documentoEtiqueta.etiqueta">
+            <a [routerLink]="['/etiqueta', documentoEtiqueta.etiqueta?.id, 'view']">{{ documentoEtiqueta.etiqueta?.nome }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="farolDocsApp.documentoEtiqueta.documento">Documento</span></dt>
+        <dd>
+          <div *ngIf="documentoEtiqueta.documento">
+            <a [routerLink]="['/documento', documentoEtiqueta.documento?.id, 'view']">{{ documentoEtiqueta.documento?.descricao }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/documento-etiqueta', documentoEtiqueta.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

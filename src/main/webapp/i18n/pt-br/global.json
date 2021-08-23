@@ -13,6 +13,8 @@
         "etiqueta": "Etiqueta",
         "orgaoEmissor": "Orgao Emissor",
         "tipoNorma": "Tipo Norma",
+        "documentoEtiqueta": "Documento Etiqueta",
+        "documentoUser": "Documento User",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

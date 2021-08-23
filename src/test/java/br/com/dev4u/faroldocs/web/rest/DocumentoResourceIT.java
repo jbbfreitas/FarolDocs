@@ -12,10 +12,8 @@ import br.com.dev4u.faroldocs.domain.Documento;
 import br.com.dev4u.faroldocs.domain.enumeration.SituacaoDocumento;
 import br.com.dev4u.faroldocs.repository.DocumentoRepository;
 import br.com.dev4u.faroldocs.repository.search.DocumentoSearchRepository;
-import br.com.dev4u.faroldocs.service.DocumentoService;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -78,12 +76,6 @@ class DocumentoResourceIT {
 
     @Autowired
     private DocumentoRepository documentoRepository;
-
-    @Mock
-    private DocumentoRepository documentoRepositoryMock;
-
-    @Mock
-    private DocumentoService documentoServiceMock;
 
     /**
      * This repository is mocked in the br.com.dev4u.faroldocs.repository.search test package.
@@ -211,24 +203,6 @@ class DocumentoResourceIT {
             .andExpect(jsonPath("$.[*].ano").value(hasItem(DEFAULT_ANO)))
             .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.toString())))
             .andExpect(jsonPath("$.[*].criacao").value(hasItem(DEFAULT_CRIACAO.toString())));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllDocumentosWithEagerRelationshipsIsEnabled() throws Exception {
-        when(documentoServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restDocumentoMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(documentoServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllDocumentosWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(documentoServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restDocumentoMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(documentoServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
