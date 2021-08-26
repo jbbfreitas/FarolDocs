@@ -64,6 +64,9 @@ export class DocumentoUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //TODO 
+    //Atualizar o campo Tag com as etiquetas desse documento
+    
     this.activatedRoute.data.subscribe(({ documento }) => {
       this.documento = documento //Atribui o documento à variável local para ser usada na página
       if (documento.id === undefined) {

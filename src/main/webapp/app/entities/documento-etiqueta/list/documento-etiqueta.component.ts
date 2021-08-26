@@ -114,7 +114,9 @@ export class DocumentoEtiquetaComponent implements OnInit {
       }
     });
   }
-
+  previousState(): void {
+    window.history.back();
+  }
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {
@@ -161,4 +163,6 @@ export class DocumentoEtiquetaComponent implements OnInit {
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
   }
+
+  
 }
