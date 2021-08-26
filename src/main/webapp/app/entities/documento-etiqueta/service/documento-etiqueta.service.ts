@@ -12,10 +12,10 @@ export type EntityResponseType = HttpResponse<IDocumentoEtiqueta>;
 export type EntityArrayResponseType = HttpResponse<IDocumentoEtiqueta[]>;
 
 @Injectable({ providedIn: 'root' })
-export class DocumentoEtiquetaService {
+export class DocumentoEtiquetaService { 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/documento-etiquetas');
   protected resourceSearchUrl = this.applicationConfigService.getEndpointFor('api/_search/documento-etiquetas');
-
+  
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(documentoEtiqueta: IDocumentoEtiqueta): Observable<EntityResponseType> {
@@ -42,10 +42,17 @@ export class DocumentoEtiquetaService {
     return this.http.get<IDocumentoEtiqueta>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  queryAllEtiquetasFromDocuments(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    const id: number = req.id ?? 0 ;
+    
+    return this.http.get<IDocumentoEtiqueta[]>(`${this.resourceUrl}/doc/${id}`, { params: options, observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IDocumentoEtiqueta[]>(this.resourceUrl, { params: options, observe: 'response' });
-  }
+  }  
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });

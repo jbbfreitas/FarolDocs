@@ -1,7 +1,8 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-documento-heading" data-cy="DocumentoCreateUpdateHeading" jhiTranslate="farolDocsApp.documento.home.createOrEditLabel">
+      <h2 id="jhi-documento-heading" data-cy="DocumentoCreateUpdateHeading"
+        jhiTranslate="farolDocsApp.documento.home.createOrEditLabel">
         Create or edit a Documento
       </h2>
 
@@ -10,42 +11,47 @@
 
         <div class="form-group" [hidden]="editForm.get('id')!.value == null">
           <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
+            [readonly]="true" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.assunto" for="field_assunto">Assunto</label>
-          <input type="text" class="form-control" name="assunto" id="field_assunto" data-cy="assunto" formControlName="assunto" />
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.assunto"
+            for="field_assunto">Assunto</label>
+          <input type="text" class="form-control" name="assunto" id="field_assunto" data-cy="assunto"
+            formControlName="assunto" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.descricao" for="field_descricao">Descricao</label>
-          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.descricao"
+            for="field_descricao">Descricao</label>
+          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao"
+            formControlName="descricao" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.ementa" for="field_ementa">Ementa</label>
-          <textarea class="form-control" name="ementa" id="field_ementa" data-cy="ementa" formControlName="ementa"></textarea>
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.ementa"
+            for="field_ementa">Ementa</label>
+          <textarea class="form-control" name="ementa" id="field_ementa" data-cy="ementa"
+            formControlName="ementa"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="farolDocsApp.documento.url" for="field_url">Url</label>
           <input type="text" class="form-control" name="url" id="field_url" data-cy="url" formControlName="url" />
           <div *ngIf="editForm.get('url')!.invalid && (editForm.get('url')!.dirty || editForm.get('url')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('url')?.errors?.pattern"
-              jhiTranslate="entity.validation.pattern"
-              [translateValues]="{ pattern: 'Url' }"
-            >
+            <small class="form-text text-danger" *ngIf="editForm.get('url')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Url' }">
               This field should follow pattern for "Url".
             </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.numero" for="field_numero">Numero</label>
-          <input type="text" class="form-control" name="numero" id="field_numero" data-cy="numero" formControlName="numero" />
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.numero"
+            for="field_numero">Numero</label>
+          <input type="text" class="form-control" name="numero" id="field_numero" data-cy="numero"
+            formControlName="numero" />
         </div>
 
         <div class="form-group">
@@ -54,8 +60,10 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.situacao" for="field_situacao">Situacao</label>
-          <select class="form-control" name="situacao" formControlName="situacao" id="field_situacao" data-cy="situacao">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.situacao"
+            for="field_situacao">Situacao</label>
+          <select class="form-control" name="situacao" formControlName="situacao" id="field_situacao"
+            data-cy="situacao">
             <option [ngValue]="null">{{ 'farolDocsApp.SituacaoDocumento.null' | translate }}</option>
             <option value="VIGENTE">{{ 'farolDocsApp.SituacaoDocumento.VIGENTE' | translate }}</option>
             <option value="SUBSTITUIDO">{{ 'farolDocsApp.SituacaoDocumento.SUBSTITUIDO' | translate }}</option>
@@ -64,28 +72,22 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.criacao" for="field_criacao">Criacao</label>
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.criacao"
+            for="field_criacao">Criacao</label>
           <div class="d-flex">
-            <input
-              id="field_criacao"
-              data-cy="criacao"
-              type="datetime-local"
-              class="form-control"
-              name="criacao"
-              formControlName="criacao"
-              placeholder="YYYY-MM-DD HH:mm"
-            />
+            <input id="field_criacao" data-cy="criacao" type="datetime-local" class="form-control" name="criacao"
+              formControlName="criacao" placeholder="YYYY-MM-DD HH:mm" />
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.projeto" for="field_projeto">Projeto</label>
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.projeto"
+            for="field_projeto">Projeto</label>
           <select class="form-control" id="field_projeto" data-cy="projeto" name="projeto" formControlName="projeto">
             <option [ngValue]="null"></option>
             <option
               [ngValue]="projetoOption.id === editForm.get('projeto')!.value?.id ? editForm.get('projeto')!.value : projetoOption"
-              *ngFor="let projetoOption of projetosSharedCollection; trackBy: trackProjetoById"
-            >
+              *ngFor="let projetoOption of projetosSharedCollection; trackBy: trackProjetoById">
               {{ projetoOption.nome }}
             </option>
           </select>
@@ -97,38 +99,35 @@
             <option [ngValue]="null"></option>
             <option
               [ngValue]="tipoOption.id === editForm.get('tipo')!.value?.id ? editForm.get('tipo')!.value : tipoOption"
-              *ngFor="let tipoOption of tiposSharedCollection; trackBy: trackTipoById"
-            >
+              *ngFor="let tipoOption of tiposSharedCollection; trackBy: trackTipoById">
               {{ tipoOption.nome }}
             </option>
           </select>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.orgaoEmissor" for="field_orgaoEmissor"
-            >Orgao Emissor</label
-          >
-          <select class="form-control" id="field_orgaoEmissor" data-cy="orgaoEmissor" name="orgaoEmissor" formControlName="orgaoEmissor">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.orgaoEmissor"
+            for="field_orgaoEmissor">Orgao Emissor</label>
+          <select class="form-control" id="field_orgaoEmissor" data-cy="orgaoEmissor" name="orgaoEmissor"
+            formControlName="orgaoEmissor">
             <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
+            <option [ngValue]="
                 orgaoEmissorOption.id === editForm.get('orgaoEmissor')!.value?.id ? editForm.get('orgaoEmissor')!.value : orgaoEmissorOption
-              "
-              *ngFor="let orgaoEmissorOption of orgaoEmissorsSharedCollection; trackBy: trackOrgaoEmissorById"
-            >
+              " *ngFor="let orgaoEmissorOption of orgaoEmissorsSharedCollection; trackBy: trackOrgaoEmissorById">
               {{ orgaoEmissorOption.sigla }}
             </option>
           </select>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.tipoNorma" for="field_tipoNorma">Tipo Norma</label>
-          <select class="form-control" id="field_tipoNorma" data-cy="tipoNorma" name="tipoNorma" formControlName="tipoNorma">
+          <label class="form-control-label" jhiTranslate="farolDocsApp.documento.tipoNorma" for="field_tipoNorma">Tipo
+            Norma</label>
+          <select class="form-control" id="field_tipoNorma" data-cy="tipoNorma" name="tipoNorma"
+            formControlName="tipoNorma">
             <option [ngValue]="null"></option>
             <option
               [ngValue]="tipoNormaOption.id === editForm.get('tipoNorma')!.value?.id ? editForm.get('tipoNorma')!.value : tipoNormaOption"
-              *ngFor="let tipoNormaOption of tipoNormasSharedCollection; trackBy: trackTipoNormaById"
-            >
+              *ngFor="let tipoNormaOption of tipoNormasSharedCollection; trackBy: trackTipoNormaById">
               {{ tipoNormaOption.tipo }}
             </option>
           </select>
@@ -136,20 +135,31 @@
       </div>
 
       <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary"
+          (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
           <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>
+    <hr>
+    <div>
+      <button
+      type="button"
+      [routerLink]="['/documento/',documento.id,'etiqueta']"
+      queryParamsHandling="merge"
+      class="btn btn-primary btn-sm"
+      data-cy="entityEditButton"
+    >
+      <fa-icon icon="pencil-alt"></fa-icon>
+      <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+    </button>
+
+    </div>
+    <hr>
   </div>
 </div>

@@ -91,4 +91,14 @@ public class DocumentoEtiquetaServiceImpl implements DocumentoEtiquetaService {
         log.debug("Request to search for a page of DocumentoEtiquetas for query {}", query);
         return documentoEtiquetaSearchRepository.search(queryStringQuery(query), pageable);
     }
+
+    
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<DocumentoEtiqueta> findAllEtiquetasDocumento(Long id,Pageable pageable) {
+        
+         return documentoEtiquetaRepository.findAllEtiquetasDocumento(id, pageable);
+    }
+
 }

@@ -6,6 +6,7 @@ import { DocumentoComponent } from '../list/documento.component';
 import { DocumentoDetailComponent } from '../detail/documento-detail.component';
 import { DocumentoUpdateComponent } from '../update/documento-update.component';
 import { DocumentoRoutingResolveService } from './documento-routing-resolve.service';
+import { DocumentoEtiquetaComponent } from 'app/entities/documento-etiqueta/list/documento-etiqueta.component';
 
 const documentoRoute: Routes = [
   {
@@ -35,6 +36,17 @@ const documentoRoute: Routes = [
   {
     path: ':id/edit',
     component: DocumentoUpdateComponent,
+    resolve: {
+      documento: DocumentoRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/etiqueta',
+    component: DocumentoEtiquetaComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     resolve: {
       documento: DocumentoRoutingResolveService,
     },

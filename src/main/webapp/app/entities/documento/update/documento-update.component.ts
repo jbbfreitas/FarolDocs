@@ -49,6 +49,7 @@ export class DocumentoUpdateComponent implements OnInit {
     orgaoEmissor: [],
     tipoNorma: [],
   });
+  documento: any;
 
   constructor(
     protected dataUtils: DataUtils,
@@ -64,6 +65,7 @@ export class DocumentoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ documento }) => {
+      this.documento = documento //Atribui o documento à variável local para ser usada na página
       if (documento.id === undefined) {
         const today = dayjs().startOf('day');
         documento.criacao = today;

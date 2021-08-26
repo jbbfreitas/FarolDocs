@@ -57,4 +57,6 @@ public interface DocumentoEtiquetaService {
      * @return the list of entities.
      */
     Page<DocumentoEtiqueta> search(String query, Pageable pageable);
+
+    Page<DocumentoEtiqueta> findAllEtiquetasDocumento(Long id, Pageable pageable);
 }

@@ -201,4 +201,23 @@ public class DocumentoEtiquetaResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+/**
+     * {@code GET  /documento-etiquetas/doc/{id}} : get all  Etiquetas of one Documento.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of documentoEtiquetas in body.
+     */
+    @GetMapping("/documento-etiquetas/doc/{id}")
+    public ResponseEntity<List<DocumentoEtiqueta>> getAllEtiquetasDoc(Pageable pageable, @PathVariable Long id ) {
+        
+        log.debug("request to get a page of etiquetasDoc");
+        
+        Page<DocumentoEtiqueta> page = documentoEtiquetaService.findAllEtiquetasDocumento(id,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+
 }
