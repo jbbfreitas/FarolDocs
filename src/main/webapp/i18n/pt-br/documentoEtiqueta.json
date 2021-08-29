@@ -2,9 +2,9 @@
   "farolDocsApp": {
     "documentoEtiqueta": {
       "home": {
-        "title": "Documento Etiquetas",
+        "title": " Relação de Etiquetas para este documento",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Documento Etiqueta",
+        "createLabel": "Adicionar Etiqueta ao Documento",
         "createOrEditLabel": "Criar ou editar Documento Etiqueta",
         "search": "Pesquisar por Documento Etiqueta",
         "notFound": "Nenhum Documento Etiqueta encontrado"

@@ -105,7 +105,8 @@
       "edit": "",
       "open": "Abrir",
       "save": "Gravar",
-      "view": ""
+      "view": "",
+      "etiquetas": "etiquetas"
     },
     "detail": {
       "field": "Campo",

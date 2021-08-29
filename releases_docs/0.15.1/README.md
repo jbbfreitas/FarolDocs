@@ -1,3 +1,44 @@
+## Documentação da Realease 0.15.1
+
+Antes de começar, certifique-se de que o seu repositório esteja atualizado até a release `0.15.0` e que sua aplicação esteja funcionando normalmente pois em caso de `crash` na aplicação você poderá retornar a esse estado.
+
+### O que iremos fazer nesta release? 
+Nesta release vamos apenas melhorar a aparência de nossa aplicação com 2 mudanças:
+
+#### 1-Melhorar a aparência da página de documentos.
+#### 2-Alterar os arquivos de internacionalização
+
+## Implementando as mudanças
+
+::: :walking: Passo a passo :::
+
+#### 1-Melhorar a aparência da página de documentos.
+
+##### 1.1 - Adicionar um novo ícone não existente na aplicação original
+Vamos adicionar um novo ícone (uma etiqueta) ao conjunto de ícones pré-existentes na aplicação para, em seguida, usá-lo.
+
+ - Abra o arquivo `src/main/webapp/app/config/font-awesome-icons.ts`.
+
+ Você irá alterá-lo em dois lugares, logo acima do comentário `// jhipster-needle-add-icon-import` (há dois comentários como este).
+
+ Com as alterações o arquivo ficará assim:
+
+ ```json
+   faWrench, //Incluir a vírgula
+   faTags    //Incluir o novo ícone
+  // jhipster-needle-add-icon-import
+ ```
+
+
+##### 1.2 - Fazer uma melhor formatação na página html de documento
+
+Com as alterações o seu arquivo deverá ficar assim:
+
+<p align="center">
+   <strong>Listagem 1.2 - Arquivo documento-update.component.html </strong> 
+</p>
+
+```html
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
@@ -140,13 +181,13 @@
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
-        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton">
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
           <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
         <button type="button" [routerLink]="['/documento/',documento.id,'etiqueta']" queryParamsHandling="merge"
-          class="btn btn-warning" data-cy="entityEditButton"
-          [disabled]="editForm.invalid || isSaving || documento.id===undefined">
-          <fa-icon icon="tags"></fa-icon>
+          class="btn btn-warning" data-cy="entityEditButton">
+           <fa-icon icon="tags"></fa-icon>
           &nbsp;<span jhiTranslate="farolDocsApp.documento.gerenciarEtiquetas">Back</span>
         </button>
       </div>
@@ -155,3 +196,123 @@
 
   </div>
 </div>
+
+```
+
+#### 2-Alterar os arquivos de internacionalização
+
+##### 2.1 - Alterar o arquivo global.json 
+
+Com as alterações nos dois idiomas os arquivos ficarão assim:
+
+<p align="center">
+   <strong>Listagem 2.1.1 - Arquivo src/main/webapp/i18n/pt-br/global.json </strong> 
+</p>
+
+
+ ```json
+ "entity": {
+    "action": {
+      "addblob": "Adicionar arquivo",
+      "addimage": "Adicionar imagem",
+      "back": "Voltar",
+      "cancel": "Cancelar",
+      "delete": "",
+      "edit": "",
+      "open": "Abrir",
+      "save": "Gravar",
+      "view": "", //Adionada uma vírgula aqui
+      "etiquetas": "etiquetas" //Adicionado este conjunto chave/valor
+    },
+    "detail": {
+ ```
+
+<p align="center">
+   <strong>Listagem 2.1.2 - Arquivo src/main/webapp/i18n/en/global.json </strong> 
+</p>
+
+
+ ```json
+  "entity": {
+    "action": {
+      "addblob": "Add blob",
+      "addimage": "Add image",
+      "back": "Back",
+      "cancel": "Cancel",
+      "delete": "",
+      "edit": "",
+      "open": "Open",
+      "save": "Save",
+      "view": "", //Adicionada esta vírgula
+      "etiquetas": "tags" //Adicionado este conjunto chave/valor
+    },
+    "detail": {
+ ```
+
+
+##### 2.2 - Alterar o arquivo documentoEtiqueta.json
+
+Com as alterações nos dois idiomas os arquivos ficarão assim:
+
+<p align="center">
+   <strong>Listagem 2.2.1 - Arquivo src/main/webapp/i18n/pt-br/documentoEtiqueta.json </strong> 
+</p>
+
+
+ ```json
+    "documentoEtiqueta": {
+      "home": {
+        "title": " Relação de Etiquetas para este documento", //Alterar aqui
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Adicionar Etiqueta ao Documento", //Alterar aqui
+        "createOrEditLabel": "Criar ou editar Documento Etiqueta",
+        "search": "Pesquisar por Documento Etiqueta",
+        "notFound": "Nenhum Documento Etiqueta encontrado"
+      },
+
+```
+
+<p align="center">
+   <strong>Listagem 2.2.1 - Arquivo src/main/webapp/i18n/en/documentoEtiqueta.json </strong> 
+</p>
+
+
+ ```json
+     "documentoEtiqueta": {
+      "home": {
+        "title": "Tags for the document", //Alterar aqui
+        "refreshListLabel": "Refresh the list",
+        "createLabel": "Add Tag to Document", //Alterar aqui
+        "createOrEditLabel": "Create or edit a Documento Etiqueta",
+        "search": "Search for Documento Etiqueta",
+        "notFound": "No Documento Etiquetas found"
+      },
+
+ ```
+
+ ##### 2.3 - Alterar o arquivo documento.json
+
+Com as alterações nos dois idiomas os arquivos ficarão assim:
+
+<p align="center">
+   <strong>Listagem 2.3.1 - Arquivo src/main/webapp/i18n/pt-br/documento.json</strong> 
+</p>
+
+
+```json
+      "tipoNorma": "Tipo Norma",            //Colocar a vírgula
+      "gerenciarEtiquetas": "Etiquetas..."  //Adicionado
+    }
+```
+
+ <p align="center">
+   <strong>Listagem 2.3.1 - Arquivo src/main/webapp/i18n/en/documento.json</strong> 
+</p>
+
+
+ ```json
+       "tipoNorma": "Tipo Norma",  //Colocar vírgula
+      "gerenciarEtiquetas": "Tags..." //Adionado
+    }
+
+ ```

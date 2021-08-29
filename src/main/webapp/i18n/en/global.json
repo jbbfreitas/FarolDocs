@@ -105,7 +105,8 @@
       "edit": "",
       "open": "Open",
       "save": "Save",
-      "view": ""
+      "view": "",
+      "etiquetas": "tags"
     },
     "detail": {
       "field": "Field",

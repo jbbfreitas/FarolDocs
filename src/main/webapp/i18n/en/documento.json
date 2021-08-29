@@ -30,7 +30,8 @@
       "projeto": "Projeto",
       "tipo": "Tipo",
       "orgaoEmissor": "Orgao Emissor",
-      "tipoNorma": "Tipo Norma"
+      "tipoNorma": "Tipo Norma",
+      "gerenciarEtiquetas": "Tags..."
     }
   }
 }
