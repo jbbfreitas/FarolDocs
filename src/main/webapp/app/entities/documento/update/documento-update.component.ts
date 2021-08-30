@@ -21,6 +21,8 @@ import { IOrgaoEmissor } from 'app/entities/orgao-emissor/orgao-emissor.model';
 import { OrgaoEmissorService } from 'app/entities/orgao-emissor/service/orgao-emissor.service';
 import { ITipoNorma } from 'app/entities/tipo-norma/tipo-norma.model';
 import { TipoNormaService } from 'app/entities/tipo-norma/service/tipo-norma.service';
+import { IEtiqueta } from 'app/entities/etiqueta/etiqueta.model';
+import { EtiquetaService } from 'app/entities/etiqueta/service/etiqueta.service';
 
 @Component({
   selector: 'jhi-documento-update',
@@ -50,6 +52,7 @@ export class DocumentoUpdateComponent implements OnInit {
     tipoNorma: [],
   });
   documento: any;
+  etiquetas: IEtiqueta[] = [];//Array para armazenar as etiquetas
 
   constructor(
     protected dataUtils: DataUtils,
@@ -60,20 +63,25 @@ export class DocumentoUpdateComponent implements OnInit {
     protected orgaoEmissorService: OrgaoEmissorService,
     protected tipoNormaService: TipoNormaService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
-  ) {}
+    protected fb: FormBuilder,
+    protected etiquetaService: EtiquetaService,
+
+
+  ) { }
 
   ngOnInit(): void {
+    this.etiquetas = this.etiquetaService.etiquetas //Etiquetas que foram selecionadas
     //TODO 
     //Atualizar o campo Tag com as etiquetas desse documento
-    
+
     this.activatedRoute.data.subscribe(({ documento }) => {
       this.documento = documento //Atribui o documento à variável local para ser usada na página
       if (documento.id === undefined) {
         const today = dayjs().startOf('day');
         documento.criacao = today;
       }
-
+      //Provisorio
+      this.atualizarEtiquetas(documento);
       this.updateForm(documento);
 
       this.loadRelationshipsOptions();
@@ -97,6 +105,15 @@ export class DocumentoUpdateComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+
+  atualizarEtiquetas(documento: IDocumento): void {
+    let etiquetasTXT = '';
+    const tamanho = this.etiquetas.length;
+    for (const etiqueta of this.etiquetas) {
+      etiquetasTXT = etiquetasTXT + String(etiqueta.nome)+(etiqueta!==this.etiquetas[tamanho-1]?', ':'')
+    }
+    documento.ementa = etiquetasTXT;
   }
 
   save(): void {

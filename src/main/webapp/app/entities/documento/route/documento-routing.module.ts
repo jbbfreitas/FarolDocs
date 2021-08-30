@@ -7,6 +7,9 @@ import { DocumentoDetailComponent } from '../detail/documento-detail.component';
 import { DocumentoUpdateComponent } from '../update/documento-update.component';
 import { DocumentoRoutingResolveService } from './documento-routing-resolve.service';
 import { DocumentoEtiquetaComponent } from 'app/entities/documento-etiqueta/list/documento-etiqueta.component';
+import { EtiquetaComponent } from 'app/entities/etiqueta/list/etiqueta.component';
+import { EtiquetaUpdateComponent } from 'app/entities/etiqueta/update/etiqueta-update.component';
+import { EtiquetaRoutingResolveService } from 'app/entities/etiqueta/route/etiqueta-routing-resolve.service';
 
 const documentoRoute: Routes = [
   {
@@ -41,6 +44,7 @@ const documentoRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
+  /* Tirar
   {
     path: ':id/etiqueta',
     component: DocumentoEtiquetaComponent,
@@ -52,6 +56,19 @@ const documentoRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
+  */
+  {
+    path: ':id/etiquetas',
+    component: EtiquetaComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
+    resolve: {
+      documento: DocumentoRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+
 ];
 
 @NgModule({

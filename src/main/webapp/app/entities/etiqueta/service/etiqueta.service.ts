@@ -13,10 +13,17 @@ export type EntityArrayResponseType = HttpResponse<IEtiqueta[]>;
 
 @Injectable({ providedIn: 'root' })
 export class EtiquetaService {
+
+  etiquetas: IEtiqueta[] = [];//Array para armazenar as etiquetas
+  
+
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/etiquetas');
   protected resourceSearchUrl = this.applicationConfigService.getEndpointFor('api/_search/etiquetas');
+  
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(protected http: HttpClient, 
+    protected applicationConfigService: ApplicationConfigService,
+     ) {}
 
   create(etiqueta: IEtiqueta): Observable<EntityResponseType> {
     return this.http.post<IEtiqueta>(this.resourceUrl, etiqueta, { observe: 'response' });
@@ -65,5 +72,8 @@ export class EtiquetaService {
       return [...etiquetasToAdd, ...etiquetaCollection];
     }
     return etiquetaCollection;
+  }
+  pushEtiqueta(etiqueta: IEtiqueta):void {
+    this.etiquetas.push(etiqueta);
   }
 }

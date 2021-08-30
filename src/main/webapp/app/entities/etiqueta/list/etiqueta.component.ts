@@ -101,6 +101,14 @@ export class EtiquetaComponent implements OnInit {
     });
   }
 
+  select(etiqueta: IEtiqueta):void {
+    this.etiquetaService.pushEtiqueta(etiqueta) 
+   }
+
+
+  previousState(): void {
+    window.history.back();
+  }
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {
